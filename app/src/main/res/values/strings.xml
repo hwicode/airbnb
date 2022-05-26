@@ -12,4 +12,6 @@
     <string name="tv_home_recommend_title">어디에서나, 여행은\n살아보는거야!</string>
     <string name="search_bar_hint">어디로 여행하세요?</string>
     <string name="search_near_travel_destination">근처의 인기 여행지</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
