@@ -68,8 +68,11 @@
 
     //10px
 
-    <style name="Overline" parent="TextAppearance.MaterialComponents.Overline">
+    <style name="Overline" parent="TextAppearance.MaterialComponents.Overline"/>
 
+    <style name="Overline.Black">
+        <item name="android:textColor">@color/black</item>
     </style>
+
 
 </resources>
