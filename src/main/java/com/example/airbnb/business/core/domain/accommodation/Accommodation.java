@@ -1,8 +1,8 @@
-package com.example.airbnb.business.domain.accommodation;
+package com.example.airbnb.business.core.domain.accommodation;
 
 
-import com.example.airbnb.business.domain.member.Member;
-import com.example.airbnb.business.domain.reservation.Reservation;
+import com.example.airbnb.business.core.domain.member.Member;
+import com.example.airbnb.business.core.domain.reservation.Reservation;
 import lombok.Getter;
 
 import javax.persistence.*;

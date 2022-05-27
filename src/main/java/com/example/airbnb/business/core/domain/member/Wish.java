@@ -1,6 +1,6 @@
-package com.example.airbnb.business.domain.member;
+package com.example.airbnb.business.core.domain.member;
 
-import com.example.airbnb.business.domain.accommodation.Accommodation;
+import com.example.airbnb.business.core.domain.accommodation.Accommodation;
 
 import javax.persistence.*;
 import java.util.Objects;

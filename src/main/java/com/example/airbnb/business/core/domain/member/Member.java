@@ -1,4 +1,4 @@
-package com.example.airbnb.business.domain.member;
+package com.example.airbnb.business.core.domain.member;
 
 import javax.persistence.*;
 import java.util.Objects;

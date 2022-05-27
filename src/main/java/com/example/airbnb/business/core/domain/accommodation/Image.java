@@ -1,4 +1,4 @@
-package com.example.airbnb.business.domain.accommodation;
+package com.example.airbnb.business.core.domain.accommodation;
 
 
 import lombok.Getter;

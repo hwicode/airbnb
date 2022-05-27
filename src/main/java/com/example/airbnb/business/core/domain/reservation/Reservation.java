@@ -1,8 +1,7 @@
-package com.example.airbnb.business.domain.reservation;
+package com.example.airbnb.business.core.domain.reservation;
 
-import com.example.airbnb.business.domain.accommodation.Accommodation;
-import com.example.airbnb.business.domain.accommodation.Time;
-import com.example.airbnb.business.domain.member.Member;
+import com.example.airbnb.business.core.domain.accommodation.Accommodation;
+import com.example.airbnb.business.core.domain.member.Member;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

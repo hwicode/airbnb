@@ -1,6 +1,6 @@
-package com.example.airbnb.business.domain.accommodation;
+package com.example.airbnb.business.core.domain.accommodation;
 
-import com.example.airbnb.business.domain.member.Member;
+import com.example.airbnb.business.core.domain.member.Member;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
