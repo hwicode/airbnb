@@ -3,10 +3,7 @@ package com.example.airbnb.ui.calendar
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.example.airbnb.R
 import com.example.airbnb.databinding.ItemCalendarDayBinding
 import com.example.airbnb.domain.model.CalendarDay
 
@@ -14,17 +11,15 @@ class DayAdapter : RecyclerView.Adapter<DayAdapter.ViewHolder>() {
 
     private val dayList = mutableListOf<CalendarDay>()
 
-    class ViewHolder(private val binding: ItemCalendarDayBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(day:CalendarDay) {
+    class ViewHolder(private val binding: ItemCalendarDayBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(day: CalendarDay) {
             binding.day = day.day
-            if(day.isSelectable){
-                if(day.isStartDay){
+            if (day.isSelectable) {
+                if (day.isStartDay) {
                     binding.tvCalendarDay.setBackgroundColor(Color.GREEN)
                 }
                 binding.tvCalendarDay.setTextColor(Color.BLACK)
-            }
-            else{
+            } else {
                 binding.tvCalendarDay.setTextColor(Color.GRAY)
             }
         }
@@ -43,9 +38,8 @@ class DayAdapter : RecyclerView.Adapter<DayAdapter.ViewHolder>() {
         return dayList.size
     }
 
-    fun submitList(list:List<CalendarDay>){
+    fun submitList(list: List<CalendarDay>) {
         this.dayList.addAll(list)
     }
-
 
 }

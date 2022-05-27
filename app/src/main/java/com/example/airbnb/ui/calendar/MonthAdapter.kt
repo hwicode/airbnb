@@ -18,8 +18,8 @@ class MonthAdapter : RecyclerView.Adapter<MonthAdapter.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(dateTime: LocalDateTime) {
             binding.tvCalendarMonth.text = dateTime.toDateTime().toString("YYYY년 MM월")
-            val dayAdapter= DayAdapter()
-            binding.rvCalendarMonth.adapter= dayAdapter
+            val dayAdapter = DayAdapter()
+            binding.rvCalendarMonth.adapter = dayAdapter
             dayAdapter.submitList(CalendarUtil.getDayList(dateTime))
         }
     }

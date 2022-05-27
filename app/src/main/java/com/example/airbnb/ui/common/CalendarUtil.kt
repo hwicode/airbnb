@@ -17,7 +17,11 @@ object CalendarUtil {
         }
     }
 
-    private fun getDayListStartWithSunday(month:Int, dayOfWeek: Int, lastDay: Int): ArrayList<CalendarDay> {
+    private fun getDayListStartWithSunday(
+        month: Int,
+        dayOfWeek: Int,
+        lastDay: Int
+    ): ArrayList<CalendarDay> {
         val dayList = arrayListOf<CalendarDay>()
         val isInStartMonth = (org.joda.time.LocalDateTime.now().monthOfYear == month)
         val nowDay = org.joda.time.LocalDateTime.now().dayOfMonth
@@ -27,7 +31,14 @@ object CalendarUtil {
             } else {
                 val day = ((i - dayOfWeek).toString())
                 if (isInStartMonth) {
-                    dayList.add(CalendarDay(month, day, day.toInt()==nowDay, day.toInt() >= nowDay))
+                    dayList.add(
+                        CalendarDay(
+                            month,
+                            day,
+                            day.toInt() == nowDay,
+                            day.toInt() >= nowDay
+                        )
+                    )
                 } else {
                     dayList.add(CalendarDay(month, day))
                 }
@@ -36,7 +47,8 @@ object CalendarUtil {
         return dayList
     }
 
-    private fun getDayListNotStartWithSunday(month: Int, dayOfWeek: Int, lastDay: Int): ArrayList<CalendarDay> {
+    private fun getDayListNotStartWithSunday(month: Int, dayOfWeek: Int, lastDay: Int
+    ): ArrayList<CalendarDay> {
         val dayList = arrayListOf<CalendarDay>()
         val isInStartMonth = (org.joda.time.LocalDateTime.now().monthOfYear == month)
         val nowDay = org.joda.time.LocalDateTime.now().dayOfMonth
@@ -47,7 +59,14 @@ object CalendarUtil {
                 val day = ((i - dayOfWeek).toString())
 
                 if (isInStartMonth) {
-                    dayList.add(CalendarDay(month, day, day.toInt()==nowDay,day.toInt() > nowDay))
+                    dayList.add(
+                        CalendarDay(
+                            month,
+                            day,
+                            day.toInt() == nowDay,
+                            day.toInt() > nowDay
+                        )
+                    )
                 } else {
                     dayList.add(CalendarDay(month, day))
                 }
