@@ -1,6 +1,7 @@
 package com.example.airbnb.business.domain.member;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Member {
@@ -45,6 +46,19 @@ public class Member {
 
     private Role createHostRole() {
         return Role.NORMAL;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(memberId, member.memberId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(memberId);
     }
 }
 

@@ -11,4 +11,6 @@ public class Time {
 
     private LocalDateTime checkinTime;
     private LocalDateTime checkoutTime;
+
+
 }
