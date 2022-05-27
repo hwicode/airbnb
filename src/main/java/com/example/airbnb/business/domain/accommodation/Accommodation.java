@@ -2,6 +2,7 @@ package com.example.airbnb.business.domain.accommodation;
 
 
 import com.example.airbnb.business.domain.member.Member;
+import com.example.airbnb.business.domain.reservation.Reservation;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public class Accommodation {
     private Room room;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @Enumerated(EnumType.STRING)

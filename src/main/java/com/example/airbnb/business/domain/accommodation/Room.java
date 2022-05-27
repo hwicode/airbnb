@@ -3,6 +3,7 @@ package com.example.airbnb.business.domain.accommodation;
 import lombok.Getter;
 
 import javax.persistence.Embeddable;
+import java.util.Objects;
 
 @Getter
 @Embeddable
@@ -18,7 +19,19 @@ public class Room {
         this.bedRooms = bedRooms;
     }
 
-    public Room() {
+    protected Room() {}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return bedRooms == room.bedRooms && beds == room.beds && bathRooms == room.bathRooms;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bedRooms, beds, bathRooms);
     }
 }
 

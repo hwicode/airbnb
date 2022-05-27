@@ -1,9 +1,12 @@
-package com.example.airbnb.business.domain.accommodation;
+package com.example.airbnb.business.domain.reservation;
 
+import com.example.airbnb.business.domain.accommodation.Accommodation;
+import com.example.airbnb.business.domain.accommodation.Time;
 import com.example.airbnb.business.domain.member.Member;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 public class Reservation {
@@ -36,4 +39,16 @@ public class Reservation {
     @Embedded
     private Time time;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return reservationId.equals(that.reservationId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(reservationId);
+    }
 }
