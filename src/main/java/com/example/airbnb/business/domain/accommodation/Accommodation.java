@@ -1,6 +1,7 @@
 package com.example.airbnb.business.domain.accommodation;
 
 
+import com.example.airbnb.business.domain.member.Member;
 import lombok.Getter;
 
 import javax.persistence.*;
