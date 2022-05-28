@@ -3,5 +3,9 @@ package com.example.airbnb.business.core.repository.member;
 import com.example.airbnb.business.core.domain.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+import java.util.Optional;
+
+public interface MemberRepository extends JpaRepository<Member, Integer> {
+    Optional<Member> findByMemberId(Integer id);
+
 }

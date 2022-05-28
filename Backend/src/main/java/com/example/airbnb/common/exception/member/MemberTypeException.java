@@ -25,7 +25,7 @@ public enum MemberTypeException implements BaseExceptionType {
     }
 
     @Override
-    public String getMessage() {
+    public String getErrorMessage() {
         return message;
     }
 
