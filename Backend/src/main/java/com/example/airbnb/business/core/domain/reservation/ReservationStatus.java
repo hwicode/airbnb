@@ -5,6 +5,5 @@ import lombok.Getter;
 @Getter
 public enum ReservationStatus {
     CANCEL,
-    BOOKED,
-    BOOKABLE;
+    BOOKED;
 }
