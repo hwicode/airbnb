@@ -27,6 +27,9 @@ public class Reservation {
 
     private int infants;
 
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus reservationStatus;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accommodation_id")
     private Accommodation accommodation;
