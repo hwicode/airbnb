@@ -9,8 +9,8 @@ import java.util.Objects;
 @Embeddable
 public class Location {
 
-    private double longtitude;
-    private double latitude;
+    private Double longtitude;
+    private Double latitude;
 
     public Location(double longtitude, double latitude) {
         this.longtitude = longtitude;
