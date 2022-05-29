@@ -82,7 +82,7 @@ create table image
 create table member
 (
     member_id     integer not null auto_increment,
-    bio           varchar(255),
+    gender           varchar(255),
     github_id     varchar(255),
     name          varchar(255),
     profile_image varchar(255),

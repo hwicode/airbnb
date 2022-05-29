@@ -12,7 +12,7 @@ public class Member {
     @Id
     @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer memberId;
+    private Long memberId;
 
     private String profileImage;
 
@@ -24,7 +24,7 @@ public class Member {
     private Role role;
 
     @Enumerated(EnumType.STRING)
-    private Bio bio;
+    private Gender gender;
 
     public Member(String profileImage, String name, String githubId) {
         this.profileImage = profileImage;
@@ -33,11 +33,11 @@ public class Member {
         this.role = createNormalRole();
     }
 
-    public Member(String profileImage, String name, String githubId, Bio bio) {
+    public Member(String profileImage, String name, String githubId, Gender gender) {
         this.profileImage = profileImage;
         this.name = name;
         this.githubId = githubId;
-        this.bio = bio;
+        this.gender = gender;
         this.role = createHostRole();
     }
 
@@ -48,7 +48,7 @@ public class Member {
     }
 
     private Role createHostRole() {
-        return Role.NORMAL;
+        return Role.HOST;
     }
 
     @Override
