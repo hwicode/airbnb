@@ -13,7 +13,7 @@ public class Image {
     @Id
     @Column(name = "image_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer imageId;
+    private Long imageId;
 
     private String imageUrl;
 
@@ -37,7 +37,7 @@ public class Image {
     protected Image() {
     }
 
-    void registAccommodation(Accommodation accommodation) {
+    public void registAccommodation(Accommodation accommodation) {
         this.accommodation = accommodation;
         accommodation.getImages().add(this);
     }

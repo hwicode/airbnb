@@ -18,7 +18,7 @@ public class Accommodation {
     @Id
     @Column(name = "accommodation_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer accommodationId;
+    private Long accommodationId;
 
     private String name;
 

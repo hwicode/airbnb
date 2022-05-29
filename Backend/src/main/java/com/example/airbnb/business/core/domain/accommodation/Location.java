@@ -9,11 +9,11 @@ import java.util.Objects;
 @Embeddable
 public class Location {
 
-    private double longtitude;
-    private double latitude;
+    private Double longitude;
+    private Double latitude;
 
-    public Location(double longtitude, double latitude) {
-        this.longtitude = longtitude;
+    public Location(double longitude, double latitude) {
+        this.longitude = longitude;
         this.latitude = latitude;
     }
 
@@ -24,12 +24,12 @@ public class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return Double.compare(location.longtitude, longtitude) == 0 && Double.compare(location.latitude, latitude) == 0;
+        return Double.compare(location.longitude, longitude) == 0 && Double.compare(location.latitude, latitude) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(longtitude, latitude);
+        return Objects.hash(longitude, latitude);
     }
 }
 

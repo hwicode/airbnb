@@ -11,7 +11,7 @@ public class Wish {
     @Id
     @Column(name = "wish_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer wishId;
+    private Long wishId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
