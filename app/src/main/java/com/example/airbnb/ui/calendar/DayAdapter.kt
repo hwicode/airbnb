@@ -4,10 +4,10 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.airbnb.R
 import com.example.airbnb.databinding.ItemCalendarDayBinding
 import com.example.airbnb.domain.model.CalendarDay
 import org.joda.time.LocalDate
-import org.joda.time.LocalDateTime
 
 class DayAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit) :
     RecyclerView.Adapter<DayAdapter.ViewHolder>() {
@@ -28,8 +28,8 @@ class DayAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit) :
                 calendarDateToLocalDate = LocalDate(day.year, day.month, day.day.toInt())
 
                 if (day.isSelectable) {
-                    if (day.isStartDay) {
-                        //시작날짜 UI 처리
+                    if (day.isStartDay&&checkIn==null) {
+                        binding.tvCalendarDay.setBackgroundResource(R.drawable.layout_circle_stroke)
                     }
                     binding.selectableColor = Color.BLACK
                 } else {
@@ -41,10 +41,11 @@ class DayAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit) :
                 binding.checkOut = checkOut
 
                 binding.tvCalendarDay.setOnClickListener {
-                   if (day.isSelectable) {
+                    if (day.isSelectable) {
                         itemClick.invoke(calendarDateToLocalDate)
                     }
                 }
+                binding.executePendingBindings()
             }
         }
     }

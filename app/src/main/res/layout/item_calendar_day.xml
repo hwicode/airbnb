@@ -26,6 +26,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_calendar_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         bindDateString="@{today}"
@@ -36,10 +37,10 @@
             android:id="@+id/tv_calendar_day"
             style="@style/Subtitle2"
             android:text="@{day}"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
             android:gravity="center"
+            android:paddingHorizontal="12dp"
             android:paddingVertical="14dp"
             android:textColor="@{selectableColor}"
             app:layout_constraintEnd_toEndOf="parent"

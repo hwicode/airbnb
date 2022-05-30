@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.airbnb.databinding.ItemCalendarMonthBinding
+import com.example.airbnb.domain.model.CalendarDay
 import com.example.airbnb.ui.common.CalendarUtil
 import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
@@ -11,7 +12,8 @@ import org.joda.time.LocalDateTime
 class MonthAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit) :
     RecyclerView.Adapter<MonthAdapter.ViewHolder>() {
 
-    private val _monthList = Array(12) { index -> LocalDateTime.now().plusMonths(index) }
+    private val _monthList = mutableListOf<LocalDateTime>()
+    private var calendarMap = mapOf<LocalDateTime, List<CalendarDay>>()
     private var checkIn: LocalDate? = null
     private var checkOut: LocalDate? = null
 
@@ -24,9 +26,9 @@ class MonthAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit) :
                 itemClick.invoke(it)
             }
             binding.rvCalendarMonth.adapter = dayAdapter
-
-            val calendarDayList = CalendarUtil.getDayList(dateTime)
-            dayAdapter.submitList(calendarDayList)
+            calendarMap[dateTime]?.let {
+                dayAdapter.submitList(it)
+            }
             dayAdapter.setCheckInAndCheckOut(checkIn, checkOut)
         }
     }
@@ -47,6 +49,11 @@ class MonthAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit) :
     fun setCheckInAndCheckOut(checkIn: LocalDate?, checkOut: LocalDate?) {
         this.checkIn = checkIn
         this.checkOut = checkOut
+    }
+
+    fun submitCalendarMaps(calendarMap:Map<LocalDateTime, List<CalendarDay>>){
+        this.calendarMap= calendarMap
+        this._monthList.addAll(calendarMap.keys)
     }
 
 }

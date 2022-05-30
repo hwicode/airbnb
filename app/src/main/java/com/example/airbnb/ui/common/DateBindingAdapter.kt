@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.example.airbnb.R
+import com.example.airbnb.common.Constants
 import org.joda.time.LocalDate
 
 @BindingAdapter("checkInAsString")
@@ -23,24 +24,19 @@ fun displayCheckOutDate(view: TextView, dateTime: LocalDate?) {
 }
 
 @BindingAdapter("bindDateString", "checkIn", "checkOut")
-fun displayCheckOutDate(
-    view: ConstraintLayout,
-    currentDateTime: LocalDate?,
-    checkIn: LocalDate?,
-    checkOut: LocalDate?
-) {
+fun displayCheckOutDate(view: ConstraintLayout, currentDateTime: LocalDate?, checkIn: LocalDate?, checkOut: LocalDate?) {
     currentDateTime?.let {
         if (checkIn != null && checkOut != null) {
             if ((it < checkOut) && (it > checkIn)) {
-                view.setBackgroundColor(Color.GRAY)
+                view.setBackgroundColor(Constants.CALENDAR_IN_RANGE_COLOR)
             } else if (it == checkIn || it == checkOut) {
-                view.setBackgroundColor(Color.BLUE)
+                view.setBackgroundResource(R.drawable.layout_circle_grey_background)
             } else {
                 view.setBackgroundColor(Color.WHITE)
             }
         } else if (checkIn != null && checkOut == null) {
             if (it.isEqual(checkIn)) {
-                view.setBackgroundColor(Color.BLUE)
+                view.setBackgroundResource(R.drawable.layout_circle_grey_background)
             } else {
                 view.setBackgroundColor(Color.WHITE)
             }
