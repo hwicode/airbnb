@@ -15,7 +15,6 @@ class CalendarViewModel : ViewModel() {
     private val _checkOutStatedFlow = MutableStateFlow<LocalDate?>(null)
     val checkOutStatedFlow: StateFlow<LocalDate?> = _checkOutStatedFlow
 
-    //클릭한 날짜 정보 viewModel까지 가져오는 테스트
     fun saveDate(dateTime: LocalDate) {
         saveFirstSelectedDay(dateTime)
     }
@@ -28,31 +27,20 @@ class CalendarViewModel : ViewModel() {
                         it.isEqual(dateTime) -> {
                             this.emit(dateTime)
                             _checkOutStatedFlow.emit(dateTime)
-                            println("체크인 ${this.value}")
-                            println("체크아웃 ${_checkOutStatedFlow.value}")
-                            return@launch
                         }
                         it.isAfter(dateTime) -> {
                             this.emit(dateTime)
                             _checkOutStatedFlow.emit(null)
                             println("체크인 ${this.value}")
                             println("체크아웃 ${_checkOutStatedFlow.value}")
-                            return@launch
                         }
                         else -> {
-                             _checkOutStatedFlow.emit(dateTime)
-                            println("체크인 ${this.value}")
-                            println("체크아웃 ${_checkOutStatedFlow.value}")
-                            return@launch
+                            _checkOutStatedFlow.emit(dateTime)
                         }
                     }
                 } ?: this.emit(dateTime)
-                println("체크인 ${this.value}")
-                println("체크아웃 ${_checkOutStatedFlow.value}")
-                return@launch
             }
         }
     }
-
 
 }

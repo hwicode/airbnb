@@ -39,23 +39,22 @@ class CalendarFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch { setCheckIn() }
-                launch { setCheckOut() }
+                launch { setCheckOut(monthAdapter) }
             }
         }
     }
 
     private suspend fun setCheckIn() {
         viewModel.checkInStatedFlow.collect {
-            it?.let {
-                binding.checkIn = it
-            }
+            binding.checkIn = it
         }
     }
 
-    private suspend fun setCheckOut() {
+    private suspend fun setCheckOut(monthAdapter: MonthAdapter) {
         viewModel.checkOutStatedFlow.collect {
+            binding.checkOut = it
             it?.let {
-                binding.checkOut = it
+                monthAdapter.setCheckInAndCheckOut(viewModel.checkInStatedFlow.value, it)
             }
         }
     }

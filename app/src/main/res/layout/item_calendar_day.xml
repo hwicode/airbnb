@@ -3,9 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="day"
             type="String" />
+
+        <variable
+            name="today"
+            type="org.joda.time.LocalDate" />
+
+        <variable
+            name="checkIn"
+            type="org.joda.time.LocalDate" />
+
+        <variable
+            name="checkOut"
+            type="org.joda.time.LocalDate" />
 
         <variable
             name="selectableColor"
@@ -19,13 +32,16 @@
         <TextView
             android:id="@+id/tv_calendar_day"
             style="@style/Subtitle2"
+            bindDateString="@{today}"
+            checkIn="@{checkIn}"
+            checkOut="@{checkOut}"
+            android:text="@{day}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
             android:gravity="center"
             android:paddingVertical="14dp"
-            android:text="@{day}"
-            android:textColor= "@{selectableColor}"
+            android:textColor="@{selectableColor}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
