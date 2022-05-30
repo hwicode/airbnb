@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.airbnb.R
 import com.example.airbnb.databinding.FragmentCalendarBinding
+import org.joda.time.LocalDate
+import org.joda.time.LocalDateTime
 
 class CalendarFragment : Fragment() {
 
@@ -25,8 +27,14 @@ class CalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val monthAdapter = MonthAdapter()
+        val monthAdapter = MonthAdapter{
+            selectedDate -> selectDate(selectedDate)
+        }
         binding.rvCalendar.adapter = monthAdapter
     }
 
+    private fun selectDate(selectedDate:LocalDate){
+        viewModel.saveDate(selectedDate)
+
+    }
 }
