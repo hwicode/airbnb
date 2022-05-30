@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_search_result"
         android:layout_width="274dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
