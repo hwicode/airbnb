@@ -41,21 +41,26 @@ public class AccommodationResponse {
     }
 
     public void addImages(List<Image> images) {
-        this.images = images.stream()
-                .map(Image::getImageUrl)
-                .collect(Collectors.toList());
+        if (images.size() > 0)
+            this.images = images.stream()
+                    .map(Image::getImageUrl)
+                    .collect(Collectors.toList());
     }
 
     public void addCategories(List<AmenitySubCategory> subCategories) {
-        this.amenityCategories = new AmenityCategories(subCategories);
+        if (subCategories.size() > 0)
+            this.amenityCategories = new AmenityCategories(subCategories);
     }
 
     public void addComments(List<Comment> comments) {
-        this.comments = new Comments(comments);
-        this.commentSize = comments.size();
+        if (comments.size() > 0) {
+            this.comments = new Comments(comments);
+            this.commentSize = comments.size();
+        }
     }
 
     private void addAccommodationOptionLines(List<AccommodationOptionLine> accommodationOptionLines) {
-        this.accommodationOptionLines = new AccommodationOptionLines(accommodationOptionLines);
+        if (accommodationOptionLines.size() > 0)
+            this.accommodationOptionLines = new AccommodationOptionLines(accommodationOptionLines);
     }
 }

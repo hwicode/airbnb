@@ -4,7 +4,6 @@ import com.example.airbnb.business.core.domain.accommodation.AccommodationOption
 import com.example.airbnb.business.core.domain.accommodation.AmenitySubCategory;
 import com.example.airbnb.business.core.domain.accommodation.Comment;
 import com.example.airbnb.business.core.domain.accommodation.Image;
-import com.example.airbnb.business.core.repository.accommodation.AccommodationRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.AccommodationReadRepository;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
 import com.example.airbnb.common.BusinessException;
