@@ -7,8 +7,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +18,6 @@ import static com.example.airbnb.business.core.domain.member.QMember.member;
 @RequiredArgsConstructor
 public class AccommodationReadRepository {
 
-    @PersistenceContext
-    private final EntityManager entityManager;
     private final JPAQueryFactory queryFactory;
 
     public Optional<AccommodationResponse> findAccommodationById(Long id) {
