@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class AccommodationDeatilResponse {
+public class AccommodationResponse {
 
     private Long accommodationId;
     private String name;

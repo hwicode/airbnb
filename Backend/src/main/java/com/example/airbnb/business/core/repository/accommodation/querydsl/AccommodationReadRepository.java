@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.airbnb.business.core.domain.accommodation.QAccommodation.accommodation;
@@ -28,4 +29,8 @@ public class AccommodationReadRepository {
     @PersistenceContext
     private final EntityManager entityManager;
     private final JPAQueryFactory queryFactory;
+
+    public Optional<Object> findAccommodationBy(Long id) {
+        return null;
+    }
 }
