@@ -16,8 +16,8 @@ class MonthAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit)  : 
         RecyclerView.ViewHolder(binding.root) {
         fun bind(dateTime: LocalDateTime, itemClick: (selectedDate: LocalDate) -> Unit) {
             binding.tvCalendarMonth.text = dateTime.toDateTime().toString("YYYY년 MM월")
-            val dayAdapter = DayAdapter{
-                 it-> itemClick.invoke(it)
+            val dayAdapter = DayAdapter {
+                itemClick.invoke(it)
             }
             binding.rvCalendarMonth.adapter = dayAdapter
             dayAdapter.submitList(CalendarUtil.getDayList(dateTime))

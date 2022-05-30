@@ -7,10 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.airbnb.R
 import com.example.airbnb.databinding.FragmentCalendarBinding
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.joda.time.LocalDate
-import org.joda.time.LocalDateTime
 
 class CalendarFragment : Fragment() {
 
@@ -27,13 +31,36 @@ class CalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val monthAdapter = MonthAdapter{
-            selectedDate -> selectDate(selectedDate)
+        val monthAdapter = MonthAdapter { selectedDate ->
+            selectDate(selectedDate)
         }
         binding.rvCalendar.adapter = monthAdapter
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch { setCheckIn() }
+                launch { setCheckOut() }
+            }
+        }
     }
 
-    private fun selectDate(selectedDate:LocalDate){
+    private suspend fun setCheckIn() {
+        viewModel.checkInStatedFlow.collect {
+            it?.let {
+                binding.checkIn = it
+            }
+        }
+    }
+
+    private suspend fun setCheckOut() {
+        viewModel.checkOutStatedFlow.collect {
+            it?.let {
+                binding.checkOut = it
+            }
+        }
+    }
+
+    private fun selectDate(selectedDate: LocalDate) {
         viewModel.saveDate(selectedDate)
 
     }
