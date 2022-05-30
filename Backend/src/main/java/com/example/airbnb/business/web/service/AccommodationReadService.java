@@ -28,7 +28,12 @@ public class AccommodationReadService {
     public AccommodationResponse findByAccommodationId(Long id) {
         AccommodationResponse accommodationResponse = accommodationReadRepository.findAccommodationById(id)
                 .orElseThrow(() -> new BusinessException(AccommodationTypeException.ACCOMMODATION_NOT_FOUND));
+        List<Image> images = imageReadRepository.findImageByAccommodation(id);
+        List<AmenitySubCategory> amenitySubCategories = amenityReadRepository.findAmenityCategoryByAccommodation(id);
+        List<Comment> comments = commentReadRepository.findCommentByAccommodation(id);
+        List<AccommodationOptionLine> accommodationOptionLines = accommodationReadRepository.findAccommodationOptionLineByAccommodation(id);
 
+        accommodationResponse.add(images, amenitySubCategories, comments, accommodationOptionLines);
         return accommodationResponse;
     }
 }
