@@ -1,6 +1,7 @@
 package com.example.airbnb.common.geometry.objects;
 
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
