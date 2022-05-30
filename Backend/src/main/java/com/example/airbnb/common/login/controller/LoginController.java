@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("login")
 public class LoginController {
 
-    private LoginService loginService;
+    private final LoginService loginService;
 
     @GetMapping("github/{code}")
     public LoginResponse login(@PathVariable("code") String code) {
