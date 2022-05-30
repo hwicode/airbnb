@@ -19,16 +19,20 @@ public class MapDataParser {
     public Map<String, String> parse(JSONObject geometryData) {
         Map<String, String> geometryDataMap = new HashMap<>();
 
-        double latitude = getAttribute(geometryData, LATITUDE);
-        double longitude = getAttribute(geometryData, LONGITUDE);
+        Double latitude = getAttribute(geometryData, LATITUDE);
+        Double longitude = getAttribute(geometryData, LONGITUDE);
 
         geometryDataMap.put(LATITUDE, Double.toString(latitude));
         geometryDataMap.put(LONGITUDE, Double.toString(longitude));
         return geometryDataMap;
     }
 
-    private double getAttribute(JSONObject jsonObject, String latitude) throws JSONException {
-        return jsonObject.getJSONObject(GEOMETRY).getJSONObject(LOCATION).getDouble(latitude);
+    private Double getAttribute(JSONObject jsonObject, String latitude) {
+        try {
+            return jsonObject.getJSONObject(GEOMETRY).getJSONObject(LOCATION).getDouble(latitude);
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("잘못된 형식의 데이터입니다.");
+        }
     }
 }
 

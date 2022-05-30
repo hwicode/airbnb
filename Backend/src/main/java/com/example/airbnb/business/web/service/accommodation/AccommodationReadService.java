@@ -9,6 +9,7 @@ import com.example.airbnb.business.core.repository.accommodation.querydsl.Amenit
 import com.example.airbnb.business.core.repository.accommodation.querydsl.CommentReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageReadRepository;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
+import com.example.airbnb.common.exception.BusinessException;
 import com.example.airbnb.common.exception.accommodation.AccommodationTypeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

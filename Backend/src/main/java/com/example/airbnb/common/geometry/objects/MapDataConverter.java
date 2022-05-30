@@ -1,5 +1,7 @@
 package com.example.airbnb.common.geometry.objects;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 @Component

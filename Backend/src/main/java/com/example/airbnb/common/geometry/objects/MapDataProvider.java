@@ -3,7 +3,9 @@ package com.example.airbnb.common.geometry.objects;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Collections;
 import java.util.Map;
 
 @Component
@@ -20,6 +22,9 @@ public class MapDataProvider {
 
     public Map<String, String> getGeometryData(String address, MapDataRegistration registration) {
         String data = getData(address, registration);
+        if (!contains(data)) {
+            return Collections.emptyMap();
+        }
         return convert(data);
     }
 
@@ -34,6 +39,10 @@ public class MapDataProvider {
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
+    }
+
+    private boolean contains(String data) {
+        return data.length() < 1;
     }
 
     private Map<String, String> convert(String data) {
