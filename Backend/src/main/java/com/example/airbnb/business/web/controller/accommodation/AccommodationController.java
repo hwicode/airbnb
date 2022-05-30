@@ -18,6 +18,6 @@ public class AccommodationController {
 
     @GetMapping("{id}")
     public AccommodationResponse searchAccommodationDetail(@PathVariable("id") Long id) {
-        return new AccommodationDeatilResponse(accommodationReadService.findByAccommodationId(id));
+        return accommodationReadService.findByAccommodationId(id);
     }
 }

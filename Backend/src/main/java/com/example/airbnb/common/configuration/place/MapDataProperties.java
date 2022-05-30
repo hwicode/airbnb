@@ -1,6 +1,5 @@
 package com.example.airbnb.common.configuration.place;
 
-import com.example.airbnb.common.place.map.MapDataRegistration;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -43,8 +42,8 @@ public class MapDataProperties {
     public MapDataProperties() {
     }
 
-    @Bean
-    public MapDataRegistration mapRegistration() {
-        return new MapDataRegistration(this);
-    }
+//    @Bean
+//    public MapDataRegistration mapRegistration() {
+//        return new MapDataRegistration(this);
+//    }
 }

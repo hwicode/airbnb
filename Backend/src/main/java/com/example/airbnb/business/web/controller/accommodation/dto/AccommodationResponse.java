@@ -23,6 +23,7 @@ public class AccommodationResponse {
     private List<String> images;
     private Comments comments;
     private AmenityCategories amenityCategories;
+    private AccommodationOptionLines accommodationOptionLines;
     private int commentSize;
     private int maxNumberOfPeople;
     private int bedRooms;
@@ -32,27 +33,29 @@ public class AccommodationResponse {
     public AccommodationResponse() {
     }
 
-    public void addImages(List<Image> images) {
-        this.images = changeImages(images);
+    public void add(List<Image> images, List<AmenitySubCategory> amenitySubCategories, List<Comment> comments, List<AccommodationOptionLine> accommodationOptionLines) {
+        addImages(images);
+        addCategories(amenitySubCategories);
+        addComments(comments);
+        addAccommodationOptionLines(accommodationOptionLines);
     }
 
-    private List<String> changeImages(List<Image> images) {
-        return images.stream()
+    public void addImages(List<Image> images) {
+        this.images = images.stream()
                 .map(Image::getImageUrl)
                 .collect(Collectors.toList());
-    }
-
-    public void addComments(List<Comment> comments) {
-        this.comments = createComments(comments);
-        this.commentSize = comments.size();
-    }
-
-    private Comments createComments(List<Comment> comments) {
-        return new Comments(comments);
     }
 
     public void addCategories(List<AmenitySubCategory> subCategories) {
         this.amenityCategories = new AmenityCategories(subCategories);
     }
 
+    public void addComments(List<Comment> comments) {
+        this.comments = new Comments(comments);
+        this.commentSize = comments.size();
+    }
+
+    private void addAccommodationOptionLines(List<AccommodationOptionLine> accommodationOptionLines) {
+        this.accommodationOptionLines = new AccommodationOptionLines(accommodationOptionLines);
+    }
 }
