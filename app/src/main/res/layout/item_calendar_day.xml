@@ -6,6 +6,10 @@
         <variable
             name="day"
             type="String" />
+
+        <variable
+            name="selectableColor"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +25,7 @@
             android:gravity="center"
             android:paddingVertical="14dp"
             android:text="@{day}"
+            android:textColor= "@{selectableColor}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
