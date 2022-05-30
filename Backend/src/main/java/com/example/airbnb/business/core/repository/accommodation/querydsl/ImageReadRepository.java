@@ -1,4 +1,4 @@
-package com.example.airbnb.business.web.service;
+package com.example.airbnb.business.core.repository.accommodation.querydsl;
 
 import com.example.airbnb.business.core.domain.accommodation.Image;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -16,7 +16,7 @@ public class ImageReadRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public List<Image> findImageByAccommodation(Long id) {
+    public List<Image> findImagesByAccommodation(Long id) {
         return queryFactory.selectFrom(image)
                 .join(image.accommodation, accommodation)
                 .on(accommodation.accommodationId.eq(id))

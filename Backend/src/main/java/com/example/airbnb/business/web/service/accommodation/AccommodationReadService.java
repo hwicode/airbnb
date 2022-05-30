@@ -1,12 +1,14 @@
-package com.example.airbnb.business.web.service;
+package com.example.airbnb.business.web.service.accommodation;
 
 import com.example.airbnb.business.core.domain.accommodation.AccommodationOptionLine;
 import com.example.airbnb.business.core.domain.accommodation.AmenitySubCategory;
 import com.example.airbnb.business.core.domain.accommodation.Comment;
 import com.example.airbnb.business.core.domain.accommodation.Image;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.AccommodationReadRepository;
+import com.example.airbnb.business.core.repository.accommodation.querydsl.AmenityReadRepository;
+import com.example.airbnb.business.core.repository.accommodation.querydsl.CommentReadRepository;
+import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageReadRepository;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
-import com.example.airbnb.common.BusinessException;
 import com.example.airbnb.common.exception.accommodation.AccommodationTypeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,10 +30,10 @@ public class AccommodationReadService {
         AccommodationResponse accommodationResponse = accommodationReadRepository.findAccommodationById(id)
                 .orElseThrow(() -> new BusinessException(AccommodationTypeException.ACCOMMODATION_NOT_FOUND));
 
-        List<Image> images = imageReadRepository.findImageByAccommodation(id);
-        List<AmenitySubCategory> amenitySubCategories = amenityReadRepository.findAmenityCategoryByAccommodation(id);
-        List<Comment> comments = commentReadRepository.findCommentByAccommodation(id);
-        List<AccommodationOptionLine> accommodationOptionLines = accommodationReadRepository.findAccommodationOptionLineByAccommodation(id);
+        List<Image> images = imageReadRepository.findImagesByAccommodation(id);
+        List<AmenitySubCategory> amenitySubCategories = amenityReadRepository.findAmenityCategoriesByAccommodation(id);
+        List<Comment> comments = commentReadRepository.findCommentsByAccommodation(id);
+        List<AccommodationOptionLine> accommodationOptionLines = accommodationReadRepository.findAccommodationOptionLinesByAccommodation(id);
 
         accommodationResponse.add(images, amenitySubCategories, comments, accommodationOptionLines);
         return accommodationResponse;

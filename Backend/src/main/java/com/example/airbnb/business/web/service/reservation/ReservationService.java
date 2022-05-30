@@ -1,4 +1,4 @@
-package com.example.airbnb.business.web.service;
+package com.example.airbnb.business.web.service.reservation;
 
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.example.airbnb.business.web.service;
+package com.example.airbnb.business.core.repository.accommodation.querydsl;
 
 import com.example.airbnb.business.core.domain.accommodation.AmenitySubCategory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -17,7 +17,7 @@ public class AmenityReadRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public List<AmenitySubCategory> findAmenityCategoryByAccommodation(Long id) {
+    public List<AmenitySubCategory> findAmenityCategoriesByAccommodation(Long id) {
         return queryFactory.selectFrom(amenitySubCategory)
                 .join(amenitySubCategory.amenityCategory, amenityCategory)
                 .fetchJoin()

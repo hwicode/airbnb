@@ -36,7 +36,7 @@ public class AccommodationReadRepository {
         return Optional.ofNullable(accommodationDetail);
     }
 
-    public List<AccommodationOptionLine> findAccommodationOptionLineByAccommodation(Long id){
+    public List<AccommodationOptionLine> findAccommodationOptionLinesByAccommodation(Long id){
         return queryFactory.selectFrom(accommodationOptionLine)
                 .join(accommodationOptionLine.accommodation, accommodation)
                 .on(accommodation.accommodationId.eq(id))
