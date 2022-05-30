@@ -41,9 +41,10 @@ class DayAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit) :
                 binding.checkOut = checkOut
 
                 binding.tvCalendarDay.setOnClickListener {
-                    itemClick.invoke(calendarDateToLocalDate)
+                   if (day.isSelectable) {
+                        itemClick.invoke(calendarDateToLocalDate)
+                    }
                 }
-                binding.executePendingBindings()
             }
         }
     }
@@ -65,7 +66,7 @@ class DayAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit) :
         this.dayList.addAll(list)
     }
 
-    fun setCheckInAndCheckOut(list: List<CalendarDay>, checkIn: LocalDate?, checkOut: LocalDate?) {
+    fun setCheckInAndCheckOut(checkIn: LocalDate?, checkOut: LocalDate?) {
         this.checkIn = checkIn
         this.checkOut = checkOut
     }

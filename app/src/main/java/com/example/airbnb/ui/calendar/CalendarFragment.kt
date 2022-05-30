@@ -20,6 +20,7 @@ class CalendarFragment : Fragment() {
 
     private val viewModel: CalendarViewModel by viewModels()
     private lateinit var binding: FragmentCalendarBinding
+    private lateinit var monthAdapter: MonthAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,15 +32,15 @@ class CalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val monthAdapter = MonthAdapter { selectedDate ->
+        monthAdapter = MonthAdapter { selectedDate ->
             selectDate(selectedDate)
         }
         binding.rvCalendar.adapter = monthAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch { setCheckOut() }
                 launch { setCheckIn() }
-                launch { setCheckOut(monthAdapter) }
             }
         }
     }
@@ -47,15 +48,17 @@ class CalendarFragment : Fragment() {
     private suspend fun setCheckIn() {
         viewModel.checkInStatedFlow.collect {
             binding.checkIn = it
+            monthAdapter.setCheckInAndCheckOut(it, viewModel.checkOutStatedFlow.value)
+            monthAdapter.notifyDataSetChanged()
+
         }
     }
 
-    private suspend fun setCheckOut(monthAdapter: MonthAdapter) {
+    private suspend fun setCheckOut() {
         viewModel.checkOutStatedFlow.collect {
             binding.checkOut = it
-            it?.let {
-                monthAdapter.setCheckInAndCheckOut(viewModel.checkInStatedFlow.value, it)
-            }
+            monthAdapter.setCheckInAndCheckOut(viewModel.checkInStatedFlow.value, it)
+            monthAdapter.notifyDataSetChanged()
         }
     }
 

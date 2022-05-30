@@ -6,6 +6,4 @@ data class CalendarDay(
     val day: String = "",
     var isStartDay: Boolean = false,
     var isSelectable: Boolean = true,
-    var isSelected: Boolean = false,
-    var isInRange: Boolean = false
 )

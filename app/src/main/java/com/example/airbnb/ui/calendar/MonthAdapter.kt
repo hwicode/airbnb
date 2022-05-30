@@ -8,7 +8,8 @@ import com.example.airbnb.ui.common.CalendarUtil
 import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
 
-class MonthAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit)  : RecyclerView.Adapter<MonthAdapter.ViewHolder>() {
+class MonthAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit) :
+    RecyclerView.Adapter<MonthAdapter.ViewHolder>() {
 
     private val _monthList = Array(12) { index -> LocalDateTime.now().plusMonths(index) }
     private var checkIn: LocalDate? = null
@@ -26,12 +27,7 @@ class MonthAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit)  : 
 
             val calendarDayList = CalendarUtil.getDayList(dateTime)
             dayAdapter.submitList(calendarDayList)
-
-            if (checkOut != null) {
-                dayAdapter.setCheckInAndCheckOut(calendarDayList, checkIn, checkOut)
-                dayAdapter.notifyDataSetChanged()
-                binding.executePendingBindings()
-            }
+            dayAdapter.setCheckInAndCheckOut(checkIn, checkOut)
         }
     }
 
@@ -49,8 +45,8 @@ class MonthAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit)  : 
     }
 
     fun setCheckInAndCheckOut(checkIn: LocalDate?, checkOut: LocalDate?) {
-            this.checkIn = checkIn
-            this.checkOut = checkOut
+        this.checkIn = checkIn
+        this.checkOut = checkOut
     }
 
 }

@@ -31,8 +31,6 @@ class CalendarViewModel : ViewModel() {
                         it.isAfter(dateTime) -> {
                             this.emit(dateTime)
                             _checkOutStatedFlow.emit(null)
-                            println("체크인 ${this.value}")
-                            println("체크아웃 ${_checkOutStatedFlow.value}")
                         }
                         else -> {
                             _checkOutStatedFlow.emit(dateTime)

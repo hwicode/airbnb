@@ -27,14 +27,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        bindDateString="@{today}"
+        checkIn="@{checkIn}"
+        checkOut="@{checkOut}">
 
         <TextView
             android:id="@+id/tv_calendar_day"
             style="@style/Subtitle2"
-            bindDateString="@{today}"
-            checkIn="@{checkIn}"
-            checkOut="@{checkOut}"
             android:text="@{day}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
