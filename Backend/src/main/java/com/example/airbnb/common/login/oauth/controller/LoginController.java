@@ -1,7 +1,7 @@
-package com.example.airbnb.common.login.controller;
+package com.example.airbnb.common.login.oauth.controller;
 
-import com.example.airbnb.common.login.controller.dto.LoginResponse;
-import com.example.airbnb.common.login.service.LoginService;
+import com.example.airbnb.common.login.oauth.controller.dto.LoginResponse;
+import com.example.airbnb.common.login.oauth.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

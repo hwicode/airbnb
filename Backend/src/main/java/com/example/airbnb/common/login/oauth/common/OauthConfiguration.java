@@ -1,9 +1,5 @@
-package com.example.airbnb.common.configuration.oauth;
+package com.example.airbnb.common.login.oauth.common;
 
-import com.example.airbnb.common.login.token.ClientRegistration;
-import com.example.airbnb.common.login.token.InMemoryClientRegisterrRepository;
-import com.example.airbnb.common.login.token.OauthClientProperties;
-import com.example.airbnb.common.login.token.OauthClientPropertiesRegistrationAdapter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,9 +20,5 @@ public class OauthConfiguration {
     public InMemoryClientRegisterrRepository inMemoryProviderRepository() {
         Map<String, ClientRegistration> providers = OauthClientPropertiesRegistrationAdapter.getOauthProviders(oauthClientProperties);
         return new InMemoryClientRegisterrRepository(providers);
-    }
-
-    public OauthClientProperties getOauthClientProperties() {
-        return oauthClientProperties;
     }
 }

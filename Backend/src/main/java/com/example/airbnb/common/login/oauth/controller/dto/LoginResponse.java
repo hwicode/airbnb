@@ -1,4 +1,4 @@
-package com.example.airbnb.common.login.controller.dto;
+package com.example.airbnb.common.login.oauth.controller.dto;
 
 import lombok.Getter;
 

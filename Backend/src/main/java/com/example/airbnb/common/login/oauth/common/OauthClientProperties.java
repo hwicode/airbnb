@@ -1,4 +1,4 @@
-package com.example.airbnb.common.login.token;
+package com.example.airbnb.common.login.oauth.common;
 
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
