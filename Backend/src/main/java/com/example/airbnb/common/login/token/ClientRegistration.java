@@ -1,5 +1,8 @@
 package com.example.airbnb.common.login.token;
 
+import lombok.Getter;
+
+@Getter
 public class ClientRegistration {
     private final String scope;
     private final String tokenUrl;
@@ -19,73 +22,5 @@ public class ClientRegistration {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUrl = redirectUrl;
-    }
-
-
-    public String getScope() {
-        return scope;
-    }
-
-    public String getTokenUrl() {
-        return tokenUrl;
-    }
-
-    public String getUserInfoUrl() {
-        return userInfoUrl;
-    }
-
-    public String getClientId() {
-        return clientId;
-    }
-
-    public String getClientSecret() {
-        return clientSecret;
-    }
-
-    public String getRedirectUrl() {
-        return redirectUrl;
-    }
-
-    private static class Builder {
-        private String scope;
-        private String tokenUrl;
-        private String userInfoUrl;
-        private String clientId;
-        private String clientSecret;
-        private String redirectUrl;
-
-        private Builder scope(String scope) {
-            this.scope = scope;
-            return this;
-        }
-
-        private Builder tokenUrl(String tokenUrl) {
-            this.tokenUrl = tokenUrl;
-            return this;
-        }
-
-        private Builder userInfoUrl(String userInfoUrl) {
-            this.userInfoUrl = userInfoUrl;
-            return this;
-        }
-
-        private Builder clientId(String clientId) {
-            this.clientId = clientId;
-            return this;
-        }
-
-        private Builder clientSecret(String clientSecret) {
-            this.clientSecret = clientSecret;
-            return this;
-        }
-
-        private Builder redirectUrl(String redirectUrl) {
-            this.redirectUrl = redirectUrl;
-            return this;
-        }
-
-        private ClientRegistration build() {
-            return new ClientRegistration(scope, tokenUrl, userInfoUrl, clientId, clientSecret, redirectUrl);
-        }
     }
 }
