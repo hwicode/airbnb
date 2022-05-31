@@ -53,6 +53,10 @@ public class Member {
         return Role.HOST;
     }
 
+    public boolean isNewUser(){
+        return this.memberId == null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,18 +68,6 @@ public class Member {
     @Override
     public int hashCode() {
         return Objects.hash(memberId);
-    }
-
-    @Override
-    public String toString() {
-        return "Member{" +
-                "memberId=" + memberId +
-                ", profileImage='" + profileImage + '\'' +
-                ", name='" + name + '\'' +
-                ", githubId='" + githubId + '\'' +
-                ", role=" + role +
-                ", gender=" + gender +
-                '}';
     }
 }
 

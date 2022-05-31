@@ -1,6 +1,5 @@
 package com.example.airbnb.common.login.token.github;
 
-import com.example.airbnb.business.core.domain.member.Member;
 import com.example.airbnb.common.login.oauth.common.ClientRegistration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
