@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_informationInputFragment2"
-            app:destination="@id/informationInputFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -29,7 +26,11 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.airbnb.ui.home.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_informationInputFragment"
+            app:destination="@id/informationInputFragment" />
+    </fragment>
     <fragment
         android:id="@+id/informationInputFragment"
         android:name="com.example.airbnb.ui.information.InformationInputFragment"

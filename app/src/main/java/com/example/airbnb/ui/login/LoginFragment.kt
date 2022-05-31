@@ -33,10 +33,6 @@ class LoginFragment : Fragment() {
             navigator.navigate(R.id.action_loginFragment_to_homeFragment)
         }
 
-        binding.btnLoginGithub.setOnClickListener {
-            //화면 이동 구현
-            navigator.navigate(R.id.action_loginFragment_to_informationInputFragment2)
-        }
 
     }
 

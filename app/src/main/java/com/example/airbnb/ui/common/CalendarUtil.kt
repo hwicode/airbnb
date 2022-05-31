@@ -60,31 +60,3 @@ object CalendarUtil {
         return dayList
     }
 }
-
-//
-//private fun getDayList(date: LocalDate):ArrayList<String> {
-//    val dayLit = arrayListOf<String>()
-//    val yearMonth = YearMonth.from(date)
-//    val lastDay = yearMonth.lengthOfMonth()
-//    val firstDay = date.withDayOfMonth(1)
-//    val dayOfWeek = firstDay.dayOfWeek.value
-//
-//    if (dayOfWeek != 7) {
-//        for (i in 1..42) {
-//            if (i <= dayOfWeek || i > lastDay + dayOfWeek) {
-//                dayLit.add("")
-//            } else {
-//                dayLit.add((i - dayOfWeek).toString())
-//            }
-//        }
-//    } else {
-//        for (i in 8..49) {
-//            if (i <= dayOfWeek || i > lastDay + dayOfWeek) {
-//                dayLit.add("")
-//            } else {
-//                dayLit.add((i - dayOfWeek).toString())
-//            }
-//        }
-//    }
-//    return dayLit
-//}
