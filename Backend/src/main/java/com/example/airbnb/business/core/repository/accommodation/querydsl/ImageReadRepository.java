@@ -22,5 +22,4 @@ public class ImageReadRepository {
                 .on(accommodation.accommodationId.eq(id))
                 .fetch();
     }
-
 }

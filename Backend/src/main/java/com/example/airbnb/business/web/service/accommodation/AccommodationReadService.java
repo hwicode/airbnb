@@ -8,13 +8,16 @@ import com.example.airbnb.business.core.repository.accommodation.querydsl.Accomm
 import com.example.airbnb.business.core.repository.accommodation.querydsl.AmenityReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.CommentReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageReadRepository;
+import com.example.airbnb.business.web.controller.accommodation.SearchPriceResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
 import com.example.airbnb.common.exception.BusinessException;
 import com.example.airbnb.common.exception.accommodation.AccommodationTypeException;
+import com.example.airbnb.common.geometry.objects.Position;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -38,5 +41,13 @@ public class AccommodationReadService {
 
         accommodationResponse.add(images, amenitySubCategories, comments, accommodationOptionLines);
         return accommodationResponse;
+    }
+
+    public List<SearchPriceResponse> findAccommodationPriceRangeBy(BigDecimal minPrice, BigDecimal maxPrice) {
+        return accommodationReadRepository.findAccommodationPriceRangeBy(minPrice, maxPrice);
+    }
+
+    public Position cal(double lng, double log) {
+        return accommodationReadRepository.cal(lng, log);
     }
 }
