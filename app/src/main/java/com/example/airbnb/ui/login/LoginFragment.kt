@@ -1,11 +1,11 @@
 package com.example.airbnb.ui.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.airbnb.R
@@ -27,10 +27,17 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navigator= Navigation.findNavController(view)
+
         binding.btnLoginSkip.setOnClickListener {
             //화면 이동 구현
             navigator.navigate(R.id.action_loginFragment_to_homeFragment)
         }
+
+        binding.btnLoginGithub.setOnClickListener {
+            //화면 이동 구현
+            navigator.navigate(R.id.action_loginFragment_to_informationInputFragment2)
+        }
+
     }
 
 }

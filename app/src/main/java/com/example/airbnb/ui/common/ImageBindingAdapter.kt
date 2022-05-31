@@ -7,7 +7,7 @@ import com.example.airbnb.common.GlideApp
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, imageUri: String?) {
-    if(!imageUri.isNullOrEmpty()){
+    if (!imageUri.isNullOrEmpty()) {
         GlideApp.with(view)
             .load(imageUri)
             .into(view)
