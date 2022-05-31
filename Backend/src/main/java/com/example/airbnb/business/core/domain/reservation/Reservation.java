@@ -13,7 +13,7 @@ public class Reservation {
     @Id
     @Column(name = "reservation_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer reservationId;
+    private Long reservationId;
 
     private BigDecimal totalPrice;
 
