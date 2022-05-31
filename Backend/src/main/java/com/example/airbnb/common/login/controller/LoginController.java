@@ -3,10 +3,7 @@ package com.example.airbnb.common.login.controller;
 import com.example.airbnb.common.login.controller.dto.LoginResponse;
 import com.example.airbnb.common.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,8 +12,8 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    @GetMapping("github/{code}")
-    public LoginResponse login(@PathVariable("code") String code) {
+    @GetMapping("github")
+    public LoginResponse login(@RequestParam String code) {
         return loginService.login(code);
     }
 }

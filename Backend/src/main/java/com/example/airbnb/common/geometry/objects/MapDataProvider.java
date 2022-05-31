@@ -22,10 +22,10 @@ public class MapDataProvider {
 
     public Map<String, String> getGeometryData(String address, MapDataRegistration registration) {
         String data = getData(address, registration);
-        if (!contains(data)) {
-            return Collections.emptyMap();
+        if (contains(data)) {
+            return convert(data);
         }
-        return convert(data);
+        return Collections.emptyMap();
     }
 
     private String getData(String address, MapDataRegistration registration) {
@@ -42,7 +42,7 @@ public class MapDataProvider {
     }
 
     private boolean contains(String data) {
-        return data.length() < 1;
+        return data.length() > 0;
     }
 
     private Map<String, String> convert(String data) {

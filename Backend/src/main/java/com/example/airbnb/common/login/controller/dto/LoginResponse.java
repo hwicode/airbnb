@@ -12,4 +12,8 @@ public class LoginResponse {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }
+
+    public LoginResponse() {
+
+    }
 }
