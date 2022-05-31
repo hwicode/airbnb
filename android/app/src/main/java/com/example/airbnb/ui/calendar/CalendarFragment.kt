@@ -43,7 +43,7 @@ class CalendarFragment : Fragment() {
         navigator = Navigation.findNavController(view)
         skipBtn = view.rootView.findViewById<Button>(R.id.btn_information_skip)
         nextBtn = view.rootView.findViewById(R.id.iBtn_information_next)
-        println(skipBtn)
+
         monthAdapter = MonthAdapter { selectedDate ->
             selectDate(selectedDate)
         }
@@ -103,7 +103,6 @@ class CalendarFragment : Fragment() {
     private fun addSkipOrEraseButton() {
         skipBtn.setOnClickListener {
             if (skipBtn.text ==  getString(R.string.skip_btn_title)) {
-                //가격 선택화면 이동
                 navigator.navigate(R.id.action_calendarFragment_to_priceRangeFragment)
             } else {
                 viewModel.eraseSelectedDate()
