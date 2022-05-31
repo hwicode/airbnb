@@ -5,7 +5,7 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.Map;
 
-public interface WebTokenProvider<E> {
+public interface WebTokenProvider extends TokenProvider {
 
     WebToken createToken(String code, ClientRegistration registration);
 

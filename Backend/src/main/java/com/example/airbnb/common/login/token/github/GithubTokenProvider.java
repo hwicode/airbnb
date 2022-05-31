@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class GithubTokenProvider implements WebTokenProvider<Member> {
+public class GithubTokenProvider implements WebTokenProvider {
 
     private static final String CLIENT_ID = "client_id";
     private static final String CLIENT_SECRET = "client_secret";
