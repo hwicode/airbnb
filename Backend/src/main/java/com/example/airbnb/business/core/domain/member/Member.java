@@ -1,5 +1,6 @@
 package com.example.airbnb.business.core.domain.member;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @Builder
     public Member(String profileImage, String name, String githubId) {
         this.profileImage = profileImage;
         this.name = name;
@@ -62,6 +64,18 @@ public class Member {
     @Override
     public int hashCode() {
         return Objects.hash(memberId);
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "memberId=" + memberId +
+                ", profileImage='" + profileImage + '\'' +
+                ", name='" + name + '\'' +
+                ", githubId='" + githubId + '\'' +
+                ", role=" + role +
+                ", gender=" + gender +
+                '}';
     }
 }
 
