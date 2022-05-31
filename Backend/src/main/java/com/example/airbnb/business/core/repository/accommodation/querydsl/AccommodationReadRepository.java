@@ -1,12 +1,18 @@
 package com.example.airbnb.business.core.repository.accommodation.querydsl;
 
 import com.example.airbnb.business.core.domain.accommodation.AccommodationOptionLine;
+import com.example.airbnb.business.web.controller.accommodation.SearchPriceResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
+import com.example.airbnb.common.geometry.objects.Position;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.spatial.GeometryExpressions;
 import lombok.RequiredArgsConstructor;
+import org.geolatte.geom.Geometry;
+import org.geolatte.geom.codec.Wkt;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,10 +42,18 @@ public class AccommodationReadRepository {
         return Optional.ofNullable(accommodationDetail);
     }
 
-    public List<AccommodationOptionLine> findAccommodationOptionLinesByAccommodation(Long id){
+    public List<AccommodationOptionLine> findAccommodationOptionLinesByAccommodation(Long id) {
         return queryFactory.selectFrom(accommodationOptionLine)
                 .join(accommodationOptionLine.accommodation, accommodation)
                 .on(accommodation.accommodationId.eq(id))
                 .fetch();
+    }
+
+    public List<SearchPriceResponse> findAccommodationPriceRangeBy(BigDecimal minPrice, BigDecimal maxPrice) {
+        return null;
+    }
+
+    public Position cal(double lng, double log) {
+        return null;
     }
 }
