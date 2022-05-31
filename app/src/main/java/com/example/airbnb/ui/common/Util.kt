@@ -17,5 +17,5 @@ fun TextInputLayout.switchFromClearTextToCustomMode(context: Context) {
 fun TextInputLayout.switchFromCustomModeToClearText(context: Context) {
     this.endIconMode = END_ICON_CLEAR_TEXT
     this.setEndIconDrawable(R.drawable.ic_clear)
-    this.setEndIconTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.grey1)))
+    this.setEndIconTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.grey1)))
 }

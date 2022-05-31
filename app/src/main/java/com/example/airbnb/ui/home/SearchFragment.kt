@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.example.airbnb.R
 import com.example.airbnb.databinding.FragmentSearchBinding
 import com.example.airbnb.domain.model.NearDestination
 import com.example.airbnb.domain.model.SearchResultDestination
@@ -17,7 +20,7 @@ import com.example.airbnb.ui.common.switchFromCustomModeToClearText
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
-
+    private lateinit var navigator: NavController
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,7 +33,10 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = NearTravelDestinationAdapter()
-        val searchAdapter = SearchResultAdapter()
+        val searchAdapter = SearchResultAdapter{
+            moveToInformationInputPage()
+        }
+        navigator = Navigation.findNavController(view)
         binding.rvSearchNearTravelDestination.adapter = adapter
         binding.rvSearchResultDestination.adapter = searchAdapter
         adapter.submitNearDestinations(makeDummyNearDestinations())
@@ -83,4 +89,7 @@ class SearchFragment : Fragment() {
         binding.etlSearch.switchFromCustomModeToClearText(requireContext())
     }
 
+    private fun moveToInformationInputPage() {
+        navigator.navigate(R.id.action_searchFragment_to_informationInputFragment)
+    }
 }

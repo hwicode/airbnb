@@ -21,8 +21,7 @@ class InformationInputFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_information_input, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_information_input, container, false)
         return binding.root
     }
 

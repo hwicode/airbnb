@@ -22,34 +22,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
+            android:id="@+id/iBtn_information_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:background="@drawable/ic_check"
+            android:backgroundTint="@color/tab_selector_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iBtn_information_back" />
 
-        <TextView
-            android:id="@+id/tv_information_title"
-            style="@style/Overline.Black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="76dp"
-            android:layout_marginTop="34dp"
-            android:text="여행일정"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iBtn_information_back" />
-
-        <TextView
-            android:id="@+id/tv_information_range"
-            style="@style/HeadLine6.Black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:paddingBottom="22dp"
-            android:text="5월 26일 - 6월 10일"
-            app:layout_constraintStart_toStartOf="@id/tv_information_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_information_title" />
 
 
         <androidx.fragment.app.FragmentContainerView
@@ -60,7 +41,7 @@
             android:background="@color/white"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/btn_information_skip"
-            app:layout_constraintTop_toBottomOf="@id/tv_information_range"
+            app:layout_constraintTop_toBottomOf="@id/iBtn_information_back"
             app:navGraph="@navigation/navigation_information" />
 
         <androidx.appcompat.widget.AppCompatButton

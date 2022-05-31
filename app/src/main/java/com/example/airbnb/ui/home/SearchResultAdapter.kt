@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.airbnb.databinding.ItemSearchResultDestinationBinding
 import com.example.airbnb.domain.model.SearchResultDestination
+import org.joda.time.LocalDate
 
-class SearchResultAdapter : ListAdapter<SearchResultDestination, SearchResultAdapter.ViewHolder>(SearchResultDiffUtil) {
+class SearchResultAdapter(private val itemClick: () -> Unit)  : ListAdapter<SearchResultDestination, SearchResultAdapter.ViewHolder>(SearchResultDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -16,14 +17,19 @@ class SearchResultAdapter : ListAdapter<SearchResultDestination, SearchResultAda
     }
 
     override fun onBindViewHolder(holder: SearchResultAdapter.ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position),itemClick)
     }
 
     class ViewHolder(private val binding: ItemSearchResultDestinationBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(destination: SearchResultDestination) {
+        fun bind(destination: SearchResultDestination, itemClick: () -> Unit) {
             binding.destination = destination
+            binding.clSearchResult.setOnClickListener {
+                // 검색된 결과중 하나 클릭시 정보입력 페이지로 이동
+                itemClick.invoke()
+            }
+
         }
     }
 
