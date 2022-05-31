@@ -52,7 +52,7 @@ class MonthAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit) :
     }
 
     fun submitCalendarMaps(calendarMap:Map<LocalDateTime, List<CalendarDay>>){
-        this.calendarMap= calendarMap
+        this.calendarMap = calendarMap
         this._monthList.addAll(calendarMap.keys)
     }
 

@@ -12,8 +12,8 @@ import org.joda.time.LocalDateTime
 
 class CalendarViewModel : ViewModel() {
 
-    private val _calendarDataMap :MutableMap<LocalDateTime, List<CalendarDay>> = mutableMapOf()
-    val calendarDatMap:Map<LocalDateTime, List<CalendarDay>> = _calendarDataMap
+    private val _calendarDataMap: MutableMap<LocalDateTime, List<CalendarDay>> = mutableMapOf()
+    val calendarDatMap: Map<LocalDateTime, List<CalendarDay>> = _calendarDataMap
 
     private val _checkInStatedFlow = MutableStateFlow<LocalDate?>(null)
     val checkInStatedFlow: StateFlow<LocalDate?> = _checkInStatedFlow
