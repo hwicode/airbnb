@@ -1,12 +1,14 @@
 package com.example.airbnb.business.core.domain.accommodation;
 
 import com.example.airbnb.business.core.domain.member.Member;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@Getter
 public class Comment {
 
     @Id

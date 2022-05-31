@@ -40,9 +40,13 @@ dependencies {
     implementation (group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2')
     implementation (group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2')
     implementation (group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2')
-
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     annotationProcessor ('org.projectlombok:lombok')
     annotationProcessor ("org.springframework.boot:spring-boot-configuration-processor")
+
+    implementation("org.springframework.boot:spring-boot-starter-webflux:2.6.0")
+    implementation("com.googlecode.libphonenumber:geocoder:2.181")
+    implementation("org.json:json:20200518")
 
     runtimeOnly ('com.h2database:h2')
     runtimeOnly ('mysql:mysql-connector-java:8.0.28')
