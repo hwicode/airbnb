@@ -103,7 +103,6 @@ class CalendarFragment : Fragment() {
     private fun addSkipOrEraseButton() {
         skipBtn.setOnClickListener {
             if (skipBtn.text ==  getString(R.string.skip_btn_title)) {
-                //가격 선택화면 이동
                 navigator.navigate(R.id.action_calendarFragment_to_priceRangeFragment)
             } else {
                 viewModel.eraseSelectedDate()

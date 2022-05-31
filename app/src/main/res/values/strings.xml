@@ -17,5 +17,7 @@
     <string name="skip_btn_title">건너뛰기</string>
     <string name="tv_calendar_title">여행일정</string>
     <string name="tv_price_range_title">가격범위</string>
+    <string name="price_range_lowest">최저 요금</string>
+    <string name="price_range_highest">최고 요금</string>
 
 </resources>

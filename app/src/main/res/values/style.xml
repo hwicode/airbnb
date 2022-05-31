@@ -72,6 +72,10 @@
 
     </style>
 
+    <style name="Caption.Grey" >
+        <item name="android:textColor">@color/grey2</item>
+    </style>
+
 
     //10px
 
