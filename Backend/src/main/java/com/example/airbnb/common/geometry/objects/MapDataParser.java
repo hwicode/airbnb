@@ -16,8 +16,8 @@ public class MapDataParser {
     private static final String GEOMETRY = "geometry";
     private static final String LOCATION = "location";
 
-    public Map<String, String> parse(JSONObject geometryData) {
-        Map<String, String> geometryDataMap = new HashMap<>();
+    public Map<String, Object> parse(JSONObject geometryData) {
+        Map<String, Object> geometryDataMap = new HashMap<>();
 
         Double latitude = getAttribute(geometryData, LATITUDE);
         Double longitude = getAttribute(geometryData, LONGITUDE);

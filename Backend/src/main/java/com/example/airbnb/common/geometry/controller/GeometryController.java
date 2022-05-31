@@ -19,7 +19,7 @@ public class GeometryController {
     private final MapDataProvider mapDataProvider;
 
     @GetMapping("/{address}")
-    public Map<String, String> getGeometryData(@PathVariable("address") String address) {
+    public Map<String, Object> getGeometryData(@PathVariable("address") String address) {
         return mapDataProvider.getGeometryData(address, mapDataRegistration);
     }
 

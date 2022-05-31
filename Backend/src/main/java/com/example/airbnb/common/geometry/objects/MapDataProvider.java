@@ -20,7 +20,7 @@ public class MapDataProvider {
     private final MapDataParser parser;
     private final MapDataConverter converter;
 
-    public Map<String, String> getGeometryData(String address, MapDataRegistration registration) {
+    public Map<String, Object> getGeometryData(String address, MapDataRegistration registration) {
         String data = getData(address, registration);
         if (contains(data)) {
             return convert(data);
@@ -45,12 +45,12 @@ public class MapDataProvider {
         return data.length() > 0;
     }
 
-    private Map<String, String> convert(String data) {
+    private Map<String, Object> convert(String data) {
         JSONObject geometryData = converter.convert(data);
         return parse(geometryData);
     }
 
-    private Map<String, String> parse(JSONObject geometryData) {
+    private Map<String, Object> parse(JSONObject geometryData) {
         return parser.parse(geometryData);
     }
 }
