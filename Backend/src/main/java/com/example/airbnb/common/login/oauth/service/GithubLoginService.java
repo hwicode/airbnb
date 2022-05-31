@@ -25,9 +25,8 @@ public class GithubLoginService implements LoginService {
     private final InMemoryClientRegisterrRepository inMemoryClientRegisterRepository;
     private final WebTokenProvider webTokenProvider;
 
-
-    @Transactional
     @Override
+    @Transactional
     public LoginResponse login(String code) {
         ClientRegistration clientRegistration = inMemoryClientRegisterRepository.findByRegistration(GITHUB);
         WebToken webToken = webTokenProvider.createToken(code, clientRegistration);
