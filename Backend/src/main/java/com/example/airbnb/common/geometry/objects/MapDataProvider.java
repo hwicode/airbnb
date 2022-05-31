@@ -20,12 +20,12 @@ public class MapDataProvider {
     private final MapDataParser parser;
     private final MapDataConverter converter;
 
-    public Map<String, Object> getGeometryData(String address, MapDataRegistration registration) {
+    public Position getGeometryData(String address, MapDataRegistration registration) {
         String data = getData(address, registration);
         if (contains(data)) {
             return convert(data);
         }
-        return Collections.emptyMap();
+        throw new IllegalArgumentException("잘못된 위치 입니다.");
     }
 
     private String getData(String address, MapDataRegistration registration) {
@@ -42,15 +42,15 @@ public class MapDataProvider {
     }
 
     private boolean contains(String data) {
-        return data.length() > 0;
+        return data!= null && data.length() > 0;
     }
 
-    private Map<String, Object> convert(String data) {
+    private Position convert(String data) {
         JSONObject geometryData = converter.convert(data);
         return parse(geometryData);
     }
 
-    private Map<String, Object> parse(JSONObject geometryData) {
+    private Position parse(JSONObject geometryData) {
         return parser.parse(geometryData);
     }
 }
