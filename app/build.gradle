@@ -65,4 +65,7 @@ dependencies {
 
     // repeatOnLifecycle API
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+
+    //PriceChart
+    implementation 'com.github.stfalcon-studio:StfalconPriceRangeBar-android:v1.5'
 }

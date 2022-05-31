@@ -17,5 +17,7 @@
     <string name="skip_btn_title">건너뛰기</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_calendar_title">여행일정</string>
+    <string name="tv_price_range_title">가격범위</string>
 
 </resources>

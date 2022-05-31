@@ -64,6 +64,7 @@ class CalendarFragment : Fragment() {
             monthAdapter.setCheckInAndCheckOut(it, viewModel.checkOutStatedFlow.value)
             monthAdapter.notifyDataSetChanged()
             checkDateSelection()
+            moveWithAllDataInput()
         }
     }
 
@@ -73,6 +74,7 @@ class CalendarFragment : Fragment() {
             monthAdapter.setCheckInAndCheckOut(viewModel.checkInStatedFlow.value, it)
             monthAdapter.notifyDataSetChanged()
             checkDateSelection()
+            moveWithAllDataInput()
         }
     }
 
@@ -90,10 +92,19 @@ class CalendarFragment : Fragment() {
         }
     }
 
+    private fun moveWithAllDataInput(){
+        if(nextBtn.isSelected){
+            nextBtn.setOnClickListener {
+                navigator.navigate(R.id.action_calendarFragment_to_priceRangeFragment)
+            }
+        }
+    }
+
     private fun addSkipOrEraseButton() {
         skipBtn.setOnClickListener {
             if (skipBtn.text ==  getString(R.string.skip_btn_title)) {
                 //가격 선택화면 이동
+                navigator.navigate(R.id.action_calendarFragment_to_priceRangeFragment)
             } else {
                 viewModel.eraseSelectedDate()
                 monthAdapter.notifyDataSetChanged()
