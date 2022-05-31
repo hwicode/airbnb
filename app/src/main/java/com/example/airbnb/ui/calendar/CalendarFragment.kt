@@ -43,7 +43,7 @@ class CalendarFragment : Fragment() {
         navigator = Navigation.findNavController(view)
         skipBtn = view.rootView.findViewById<Button>(R.id.btn_information_skip)
         nextBtn = view.rootView.findViewById(R.id.iBtn_information_next)
-        println(skipBtn)
+
         monthAdapter = MonthAdapter { selectedDate ->
             selectDate(selectedDate)
         }
