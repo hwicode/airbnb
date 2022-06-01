@@ -3,6 +3,7 @@ package com.example.airbnb.business.core.repository.accommodation.querydsl;
 import com.example.airbnb.business.core.domain.accommodation.AccommodationOptionLine;
 import com.example.airbnb.business.web.controller.accommodation.SearchPriceResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationInCityResponse;
+import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationRelatedCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
 import com.example.airbnb.business.web.controller.member.dto.MemberWishResponse;
 import com.example.airbnb.common.geometry.objects.Position;
@@ -67,12 +68,14 @@ public class AccommodationReadRepository {
                 .fetch();
     }
 
-    public List<AccommodationInCityResponse> findByAccommodationsByCityId(Long cityId) {
+    public List<AccommodationRelatedCityResponse> findByAccommodationsByCityId(Long cityId) {
         return queryFactory.select(
-                        Projections.fields(AccommodationInCityResponse.class,
+                        Projections.fields(AccommodationRelatedCityResponse.class,
                                 accommodation.accommodationId, accommodation.name.as("roomName"),
                                 accommodation.address.homeAddress.as("address"), accommodation.accommodationType,
-                                accommodation.averageRating, accommodation.price.as("oneDayPerPrice")))
+                                accommodation.averageRating, accommodation.price.as("oneDayPerPrice"),
+                                accommodation.commentCount.as("commentCount"),
+                                accommodation.mainImageUrl.as("image")))
                 .from(accommodation)
                 .join(accommodation.city, city)
                 .on(city.cityId.eq(cityId))

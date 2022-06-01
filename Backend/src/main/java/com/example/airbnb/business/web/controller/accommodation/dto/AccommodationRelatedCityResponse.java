@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.math.BigDecimal;
 
 @Getter
-public class AccommodationInCityResponse {
+public class AccommodationRelatedCityResponse {
 
     private Long accommodationId;
     private String roomName;
@@ -14,12 +14,7 @@ public class AccommodationInCityResponse {
     private AccommodationType accommodationType;
     private double averageRating;
     private BigDecimal oneDayPerPrice;
-
     private String image;
-    private int commentCount;
-
-    public AccommodationInCityResponse() {
-
-    }
+    private int commentNumber;
 
 }
