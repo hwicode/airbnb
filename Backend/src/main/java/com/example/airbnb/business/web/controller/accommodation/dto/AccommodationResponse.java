@@ -6,7 +6,10 @@ import lombok.Getter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Getter
 public class AccommodationResponse {
@@ -23,7 +26,7 @@ public class AccommodationResponse {
     private Double averageRating;
     private List<String> images;
     private List<CommentResponse> comments;
-    private AmenityCategories amenityCategories;
+    private List<AmenityCategoryResponse> amenityCategories;
     private List<AccommodationOptionLineResponse> accommodationOptionLines;
     private int commentSize;
     private int maxNumberOfPeople;
@@ -50,7 +53,20 @@ public class AccommodationResponse {
 
     public void addCategories(List<AmenitySubCategory> subCategories) {
         if (subCategories.size() > 0)
-            this.amenityCategories = new AmenityCategories(subCategories);
+            this.amenityCategories = createAmenityCategories(subCategories);
+    }
+
+    private List<AmenityCategoryResponse> createAmenityCategories(List<AmenitySubCategory> subCategories) {
+        Map<AmenityCategory, List<AmenitySubCategory>> categories = subCategories.stream()
+                .collect(groupingBy(AmenitySubCategory::getAmenityCategory));
+
+        List<AmenityCategoryResponse> amenityCategoryResponses = new ArrayList<>();
+
+        for (AmenityCategory key : categories.keySet()) {
+            AmenityCategoryResponse response = new AmenityCategoryResponse(key, categories.get(key));
+            amenityCategoryResponses.add(response);
+        }
+        return amenityCategoryResponses;
     }
 
     public void addComments(List<Comment> comments) {
