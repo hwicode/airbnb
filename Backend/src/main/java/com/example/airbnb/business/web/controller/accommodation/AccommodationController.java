@@ -1,6 +1,5 @@
 package com.example.airbnb.business.web.controller.accommodation;
 
-import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationListInCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.SearchPriceRequest;
 import com.example.airbnb.business.web.service.accommodation.AccommodationReadService;
@@ -21,11 +20,6 @@ public class AccommodationController {
     @GetMapping("{id}")
     public AccommodationResponse searchAccommodationDetail(@PathVariable("id") Long id) {
         return accommodationReadService.findByAccommodationId(id);
-    }
-
-    @GetMapping("/cities/{cityName}")
-    public AccommodationListInCityResponse searchAccommodations(@PathVariable String cityName) {
-        return accommodationReadService.findByAccommodationsByCityName(cityName);
     }
 
     @GetMapping
