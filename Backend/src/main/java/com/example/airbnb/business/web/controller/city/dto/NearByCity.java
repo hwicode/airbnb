@@ -1,4 +1,4 @@
-package com.example.airbnb.business.web.controller.city;
+package com.example.airbnb.business.web.controller.city.dto;
 
 import com.example.airbnb.business.core.domain.accommodation.City;
 import lombok.Getter;
