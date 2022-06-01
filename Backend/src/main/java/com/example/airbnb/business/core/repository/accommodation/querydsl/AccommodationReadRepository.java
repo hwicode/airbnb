@@ -2,6 +2,7 @@ package com.example.airbnb.business.core.repository.accommodation.querydsl;
 
 import com.example.airbnb.business.core.domain.accommodation.AccommodationOptionLine;
 import com.example.airbnb.business.web.controller.accommodation.SearchPriceResponse;
+import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationInCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
 import com.example.airbnb.business.web.controller.member.dto.MemberWishResponse;
 import com.example.airbnb.common.geometry.objects.Position;
@@ -66,6 +67,17 @@ public class AccommodationReadRepository {
                                 accommodation.price.as("oneDayPrice")))
                 .from(accommodation)
                 .where(accommodation.member.memberId.eq(id))
+                .fetch();
+    }
+
+    public List<AccommodationInCityResponse> findByAccommodationsByCityId(Long cityId) {
+       return queryFactory.select(
+                Projections.fields(AccommodationInCityResponse.class,
+                        accommodation.accommodationId, accommodation.name.as("roomName"),
+                        accommodation.address.homeAddress.as("address"), accommodation.accommodationType,
+                        accommodation.averageRating, accommodation.price.as("oneDayPrice")))
+                .from(accommodation)
+                .where(accommodation.city.cityId.eq(cityId))
                 .fetch();
     }
 
