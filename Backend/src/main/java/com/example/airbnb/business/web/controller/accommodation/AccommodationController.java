@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -15,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccommodationController {
 
+    private final AccommodationService accommodationService;
     private final AccommodationReadService accommodationReadService;
 
     @GetMapping("{id}")
@@ -30,6 +32,13 @@ public class AccommodationController {
     @GetMapping("/cities")
     public List<AccommodationRelatedCityResponse> findByAccommodationsByCityName(@RequestParam("cityName") String cityName) {
         return accommodationReadService.findByAccommodationsByCityName(cityName);
+    }
+
+    @PostMapping
+    public List<AccommodationRegistResponse> registAccommodation(@RequestBody AccommodationRegistRequest request) {
+        return accommodationService.registAccommodation(request).stream()
+                .map(AccommodationRegistResponse::new)
+                .collect(Collectors.toList());
     }
 
     public Position calculateDistance(double lng, double log) {
