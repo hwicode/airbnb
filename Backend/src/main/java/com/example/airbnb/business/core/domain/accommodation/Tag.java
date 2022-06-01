@@ -27,5 +27,4 @@ public class Tag {
 
     protected Tag() {
     }
-
 }

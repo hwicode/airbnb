@@ -7,8 +7,8 @@ import com.example.airbnb.business.core.repository.accommodation.querydsl.Amenit
 import com.example.airbnb.business.core.repository.accommodation.querydsl.CommentReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageReadRepository;
 import com.example.airbnb.business.web.controller.accommodation.SearchPriceResponse;
-import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationInCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationCitiesResponse;
+import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationInCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
 import com.example.airbnb.common.exception.BusinessException;
 import com.example.airbnb.common.exception.accommodation.AccommodationTypeException;
@@ -18,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -57,8 +56,7 @@ public class AccommodationReadService {
 
     @Transactional(readOnly = true)
     public List<SearchPriceResponse> findAccommodationPriceRangeBy(String tag) {
-
-        return accommodationReadRepository.findAccommodationPriceRangeBy();
+        return tagReadRepository.findAccommodationTagBy(tag);
     }
 
     public Position cal(double lng, double log) {
