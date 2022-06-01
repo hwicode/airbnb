@@ -5,14 +5,16 @@ import com.example.airbnb.business.web.controller.accommodation.dto.Accommodatio
 import com.example.airbnb.business.web.service.accommodation.AccommodationReadService;
 import com.example.airbnb.common.geometry.objects.Position;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
+@Slf4j
 @RestController
-@RequestMapping("/accommodations")
+@RequestMapping("/api/accommodations")
 @RequiredArgsConstructor
 public class AccommodationController {
 
