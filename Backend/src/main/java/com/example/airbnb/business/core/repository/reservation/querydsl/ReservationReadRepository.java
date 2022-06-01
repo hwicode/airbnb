@@ -39,12 +39,12 @@ public class ReservationReadRepository {
     public List<ReservationResponse> findReservationsByMemberId(Long id) {
         return queryFactory.select(
                         Projections.fields(ReservationResponse.class,
-                                reservation.reservationId, accommodation.accommodationId,
-                                accommodation.name.as("roomName"), accommodation.address.homeAddress.as("address"),
+                                reservation.reservationId, accommodation.accommodationId, accommodation.name.as("roomName"),
+                                accommodation.address.homeAddress.as("address"), accommodation.mainImageUrl.as("image"),
                                 reservation.time.checkinTime.as("checkIn"), reservation.time.checkoutTime.as("checkOut")))
                 .from(reservation)
                 .leftJoin(reservation.accommodation, accommodation)
-                .where(reservation.member.memberId.eq(id))
+                .on(reservation.member.memberId.eq(id))
                 .fetch();
     }
 }

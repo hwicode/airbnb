@@ -1,6 +1,5 @@
 package com.example.airbnb.business.web.controller.member;
 
-import com.example.airbnb.business.web.controller.member.dto.MemberWishListResponse;
 import com.example.airbnb.business.web.controller.member.dto.WishResponse;
 import com.example.airbnb.business.web.service.member.MemberReadService;
 import lombok.RequiredArgsConstructor;

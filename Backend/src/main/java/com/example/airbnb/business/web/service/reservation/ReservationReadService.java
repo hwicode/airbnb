@@ -6,7 +6,6 @@ import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageR
 import com.example.airbnb.business.core.repository.member.MemberRepository;
 import com.example.airbnb.business.core.repository.reservation.querydsl.ReservationReadRepository;
 import com.example.airbnb.business.web.controller.reservation.dto.DetailedReservationResponse;
-import com.example.airbnb.business.web.controller.reservation.dto.ReservationListResponse;
 import com.example.airbnb.business.web.controller.reservation.dto.ReservationResponse;
 import com.example.airbnb.common.exception.BusinessException;
 import com.example.airbnb.common.exception.member.MemberTypeException;
@@ -37,11 +36,10 @@ public class ReservationReadService {
     }
 
     @Transactional(readOnly = true)
-    public ReservationListResponse findReservations(String githubId) {
+    public List<ReservationResponse> findReservations(String githubId) {
         Member member = memberRepository.findByGithubId(githubId)
                 .orElseThrow(() -> new BusinessException(MemberTypeException.MEMBER_NOT_FOUND));
 
-        List<ReservationResponse> reservationResponses = reservationReadRepository.findReservationsByMemberId(member.getMemberId());
-        return new ReservationListResponse(reservationResponses);
+        return reservationReadRepository.findReservationsByMemberId(member.getMemberId());
     }
 }
