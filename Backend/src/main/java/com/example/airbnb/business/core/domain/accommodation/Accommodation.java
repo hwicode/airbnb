@@ -4,6 +4,7 @@ package com.example.airbnb.business.core.domain.accommodation;
 import com.example.airbnb.business.core.domain.member.Member;
 import com.example.airbnb.business.core.domain.reservation.Reservation;
 import com.example.airbnb.business.core.domain.reservation.Time;
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.BatchSize;
 
@@ -59,6 +60,7 @@ public class Accommodation {
     @JoinColumn(name = "city_id")
     private City city;
 
+    @Builder
     public Accommodation(String name, String description, String mainImageUrl, BigDecimal price,
                          double averageRating, Room room, Member member, AccommodationType accommodationType,
                          Address address, Location location,
