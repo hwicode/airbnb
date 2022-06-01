@@ -24,7 +24,7 @@ public class AccommodationResponse {
     private List<String> images;
     private List<CommentResponse> comments;
     private AmenityCategories amenityCategories;
-    private AccommodationOptionLines accommodationOptionLines;
+    private List<AccommodationOptionLineResponse> accommodationOptionLines;
     private int commentSize;
     private int maxNumberOfPeople;
     private int bedRooms;
@@ -75,6 +75,12 @@ public class AccommodationResponse {
 
     private void addAccommodationOptionLines(List<AccommodationOptionLine> accommodationOptionLines) {
         if (accommodationOptionLines.size() > 0)
-            this.accommodationOptionLines = new AccommodationOptionLines(accommodationOptionLines);
+            this.accommodationOptionLines = createAccommodationOptionLine(accommodationOptionLines);
+    }
+
+    private List<AccommodationOptionLineResponse> createAccommodationOptionLine(List<AccommodationOptionLine> accommodationOptionLines) {
+        return accommodationOptionLines.stream()
+                .map(AccommodationOptionLineResponse::new)
+                .collect(Collectors.toList());
     }
 }
