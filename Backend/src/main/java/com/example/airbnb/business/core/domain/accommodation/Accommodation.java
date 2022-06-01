@@ -47,9 +47,6 @@ public class Accommodation {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "accommodation", cascade = CascadeType.PERSIST)
-    private List<Reservation> reservations = new ArrayList<>();
-
     @Embedded
     private Location location;
 
@@ -64,7 +61,7 @@ public class Accommodation {
 
     public Accommodation(String name, String description, String mainImageUrl, BigDecimal price,
                          double averageRating, Room room, Member member, AccommodationType accommodationType,
-                         Address address, List<Reservation> reservations, Location location,
+                         Address address, Location location,
                          int maxNumberOfPeople, City city) {
         this.name = name;
         this.description = description;
@@ -76,7 +73,6 @@ public class Accommodation {
         this.member = member;
         this.accommodationType = accommodationType;
         this.address = address;
-        this.reservations = reservations;
         this.location = location;
         this.maxNumberOfPeople = maxNumberOfPeople;
         this.city = city;

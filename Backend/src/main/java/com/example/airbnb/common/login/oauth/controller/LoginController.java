@@ -31,8 +31,8 @@ public class LoginController {
         ClientRegistration clientRegistration = inMemoryClientRegisterRepository.findByRegistration(GITHUB);
         WebToken webToken = webTokenProvider.createToken(code, clientRegistration);
         GithubUser githubUser = GithubUser.from(webTokenProvider.getAttributes(webToken.getAccessToken(), clientRegistration));
-
+        loginService.login(githubUser);
         String jwtToken = jwtTokenProvider.createJwtToken(githubUser.getGithubId());
-        return loginService.login(code);
+        return null;
     }
 }

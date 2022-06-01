@@ -4,5 +4,5 @@ import com.example.airbnb.common.login.oauth.controller.dto.OauthLoginResponse;
 
 public interface LoginService {
 
-    OauthLoginResponse login(String code);
+    OauthLoginResponse login(GithubUser code);
 }
