@@ -49,7 +49,7 @@ dependencies {
     annotationProcessor ('org.projectlombok:lombok')
     annotationProcessor ("org.springframework.boot:spring-boot-configuration-processor")
 
-
+    implementation (group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.6.1')
     implementation("org.springframework.boot:spring-boot-starter-webflux:2.6.0")
     implementation("com.googlecode.libphonenumber:geocoder:2.181")
     implementation("org.json:json:20200518")
