@@ -1,9 +1,12 @@
 package com.example.airbnb.business.core.domain.accommodation;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Getter
 public class City {
 
     @Id
