@@ -148,3 +148,4 @@ create table wish
     constraint FK70nrc4a6uvljrtemsn80eq1gd foreign key (member_id) references member (member_id)
 );
 
+
