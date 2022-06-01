@@ -5,6 +5,7 @@ import com.example.airbnb.business.web.controller.accommodation.dto.SearchPriceR
 import com.example.airbnb.business.web.service.accommodation.AccommodationReadService;
 import com.example.airbnb.common.geometry.objects.Position;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +23,9 @@ public class AccommodationController {
         return accommodationReadService.findByAccommodationId(id);
     }
 
-    @GetMapping
-    public List<SearchPriceResponse> getPriceRange(@RequestBody SearchPriceRequest request){
-        return accommodationReadService.findAccommodationPriceRangeBy(request.getMinPrice(), request.getMaxPrice());
+    @GetMapping("{tag}")
+    public List<SearchPriceResponse> getPriceRange(@PathVariable("tag") String tag){
+        return accommodationReadService.findAccommodationPriceRangeBy(tag);
     }
 
     public Position calculateDistance(double lng, double log){

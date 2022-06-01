@@ -51,7 +51,7 @@ public class AccommodationReadRepository {
                 .fetch();
     }
 
-    public List<SearchPriceResponse> findAccommodationPriceRangeBy(BigDecimal minPrice, BigDecimal maxPrice) {
+    public List<SearchPriceResponse> findAccommodationPriceRangeBy() {
         return null;
     }
 

@@ -30,6 +30,7 @@ public class AccommodationReadService {
     private final AmenityReadRepository amenityReadRepository;
     private final CommentReadRepository commentReadRepository;
     private final CityRepository cityRepository;
+    private final TagReadRepository tagReadRepository;
 
     @Transactional(readOnly = true)
     public AccommodationResponse findByAccommodationId(Long id) {
@@ -54,11 +55,14 @@ public class AccommodationReadService {
         return new AccommodationCitiesResponse(accommodations);
     }
 
-    public List<SearchPriceResponse> findAccommodationPriceRangeBy(BigDecimal minPrice, BigDecimal maxPrice) {
-        return accommodationReadRepository.findAccommodationPriceRangeBy(minPrice, maxPrice);
+    @Transactional(readOnly = true)
+    public List<SearchPriceResponse> findAccommodationPriceRangeBy(String tag) {
+
+        return accommodationReadRepository.findAccommodationPriceRangeBy();
     }
 
     public Position cal(double lng, double log) {
         return accommodationReadRepository.cal(lng, log);
     }
+
 }
