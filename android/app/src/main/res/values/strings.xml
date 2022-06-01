@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">airbnb</string>
+    <string name="label_github_login_title">GitHub 로그인</string>
+    <string name="label_login_skip_title">로그인 하지 않고 진행하기</string>
+    <string name="menu_search">검색</string>
+    <string name="menu_wish">위시리스트</string>
+    <string name="menu_reservation">내 예약</string>
+    <string name="home_search_title">어디로 여행하세요</string>
+    <string name="home_hero_title">슬기로운 \n자연생활</string>
+    <string name="home_hero_description">에어비앤비가 엄선한\n위시리스트를 만나보세요</string>
+    <string name="home_hero_btn_title">여행 아이디어 얻기</string>
+    <string name="tv_home_recommend_title">어디에서나, 여행은\n살아보는거야!</string>
+    <string name="search_bar_hint">어디로 여행하세요?</string>
+    <string name="search_near_travel_destination">근처의 인기 여행지</string>
+    <string name="checkout_date">-%s</string>
+    <string name="erase_btn_title">지우기</string>
+    <string name="skip_btn_title">건너뛰기</string>
+    <string name="tv_calendar_title">여행일정</string>
+    <string name="tv_price_range_title">가격범위</string>
+    <string name="price_range_lowest">최저 요금</string>
+    <string name="price_range_highest">최고 요금</string>
+
+</resources>
