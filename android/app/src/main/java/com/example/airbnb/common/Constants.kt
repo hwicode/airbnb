@@ -4,8 +4,9 @@ object Constants {
     const val SUNDAY_DAY_OF_WEEK = 7
     const val CALENDAR_IN_RANGE_COLOR= 0xFFF3F5F7.toInt()
 
-    var JSESSIONID = ""
-    const val WEBVIEW_LOGIN_URL = "http://3.34.207.233:8080/login"
+    var CODE = ""
+    var JWT=""
+    const val WEBVIEW_LOGIN_URL = "http://13.124.228.13:8080/"
 
     const val PRICE_MAX_VALUE = 20
     const val PRICE_MIN_VALUE = 0
