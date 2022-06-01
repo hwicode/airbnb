@@ -30,7 +30,7 @@ public class ReservationReadRepository {
                                 reservation.totalPeople, reservation.totalDay, reservation.totalPrice))
                 .from(reservation)
                 .leftJoin(reservation.member, member)
-                .where(reservation.accommodation.accommodationId.eq(id))
+                .where(reservation.reservationId.eq(id))
                 .fetchOne();
 
         return Optional.ofNullable(detailedReservationResponse);
