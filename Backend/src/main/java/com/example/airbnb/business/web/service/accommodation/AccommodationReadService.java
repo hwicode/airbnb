@@ -8,7 +8,7 @@ import com.example.airbnb.business.core.repository.accommodation.querydsl.Commen
 import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageReadRepository;
 import com.example.airbnb.business.web.controller.accommodation.SearchPriceResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationInCityResponse;
-import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationListInCityResponse;
+import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationCitiesResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
 import com.example.airbnb.common.exception.BusinessException;
 import com.example.airbnb.common.exception.accommodation.AccommodationTypeException;
@@ -46,12 +46,12 @@ public class AccommodationReadService {
     }
 
     @Transactional(readOnly = true)
-    public AccommodationListInCityResponse findByAccommodationsByCityName(String cityName) {
+    public AccommodationCitiesResponse findByAccommodationsByCityName(String cityName) {
         City city = cityRepository.findCityByName(cityName)
                 .orElseThrow(() -> new BusinessException(CityTypeException.CITY_NOT_FOUND));
 
         List<AccommodationInCityResponse> accommodations = accommodationReadRepository.findByAccommodationsByCityId(city.getCityId());
-        return new AccommodationListInCityResponse(accommodations);
+        return new AccommodationCitiesResponse(accommodations);
     }
 
     public List<SearchPriceResponse> findAccommodationPriceRangeBy(BigDecimal minPrice, BigDecimal maxPrice) {

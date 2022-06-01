@@ -20,6 +20,9 @@ public class City {
 
     private String image;
 
+    private Double latitude;
+    private Double longitude;
+
     public City(String nation, String name, String image) {
         this.nation = nation;
         this.name = name;

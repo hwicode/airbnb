@@ -5,11 +5,11 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class AccommodationListInCityResponse {
+public class AccommodationCitiesResponse {
 
     private List<AccommodationInCityResponse> accommodations;
 
-    public AccommodationListInCityResponse(List<AccommodationInCityResponse> accommodations) {
+    public AccommodationCitiesResponse(List<AccommodationInCityResponse> accommodations) {
         this.accommodations = accommodations;
     }
 }
