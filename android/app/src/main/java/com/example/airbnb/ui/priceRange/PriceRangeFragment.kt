@@ -4,7 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.example.airbnb.R
 import com.example.airbnb.common.Constants.OMAN_WON
 import com.example.airbnb.common.Constants.PRICE_MAX_VALUE
 import com.example.airbnb.common.Constants.PRICE_MIN_VALUE
@@ -20,6 +25,9 @@ class PriceRangeFragment : Fragment() {
 
     lateinit var binding: FragmentPriceRangeBinding
     private val formatter = DecimalFormat("#,###")
+    private lateinit var skipBtn: Button
+    private lateinit var nextBtn: ImageButton
+    private lateinit var navigator: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,14 +39,23 @@ class PriceRangeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        skipBtn = view.rootView.findViewById(R.id.btn_information_skip)
+        nextBtn = view.rootView.findViewById(R.id.iBtn_information_next)
+        navigator= Navigation.findNavController(view)
+        initBtn()
         initPriceRange()
         initChart()
         listenPinPointChange()
+        addSkipOrEraseButton()
+    }
+
+    private fun initBtn() {
+        nextBtn.isSelected = false
+        skipBtn.text = getString(R.string.skip_btn_title)
     }
 
     private fun initPriceRange() {
         binding.tvInformationRangeStart.text = "₩${PRICE_MIN_VALUE} - "
-
         binding.tvInformationRangeEnd.text = "₩${formatter.format(PRICE_MAX_VALUE * OMAN_WON)}+"
     }
 
@@ -51,6 +68,9 @@ class PriceRangeFragment : Fragment() {
             }
             binding.tvInformationRangeEnd.text = "₩$rangeTextMax"
             binding.etHighestPrice.setText("$rangeTextMax")
+            nextBtn.isSelected = true
+            skipBtn.text = getString(R.string.erase_btn_title)
+            moveWithAllDataInput()
         }
 
         binding.rbPriceRangeWithChart.onLeftPinChanged = { _, leftPinValue ->
@@ -60,6 +80,9 @@ class PriceRangeFragment : Fragment() {
             }
             binding.tvInformationRangeStart.text = "₩$rangeTextMin - "
             binding.etLowestPrice.setText("$rangeTextMin")
+            nextBtn.isSelected = true
+            skipBtn.text = getString(R.string.erase_btn_title)
+            moveWithAllDataInput()
         }
     }
 
@@ -73,7 +96,12 @@ class PriceRangeFragment : Fragment() {
                 seekBarEntries.add(BarEntry(i.toFloat(), it.toFloat()))
                 seekBarEntries.add(BarEntry(i + SEEKBAR_VALUE_GAP, it.toFloat()))
                 seekBarEntries.add(BarEntry(i + SEEKBAR_VALUE_GAP, SEEKBAR_VACANT_VALUE))
-                seekBarEntries.add(BarEntry(i + SEEKBAR_VALUE_GAP + SEEKBAR_VACANT_GAP, SEEKBAR_VACANT_VALUE))
+                seekBarEntries.add(
+                    BarEntry(
+                        i + SEEKBAR_VALUE_GAP + SEEKBAR_VACANT_GAP,
+                        SEEKBAR_VACANT_VALUE
+                    )
+                )
             }
         }
         binding.rbPriceRangeWithChart.setEntries(seekBarEntries)
@@ -89,5 +117,24 @@ class PriceRangeFragment : Fragment() {
             priceMap[key] = priceMap[key]?.plus(1) ?: 1
         }
         return priceMap
+    }
+
+
+    private fun moveWithAllDataInput() {
+        if (nextBtn.isSelected) {
+            nextBtn.setOnClickListener {
+                navigator.navigate(R.id.action_priceRangeFragment_to_guestRangeFragment)
+            }
+        }
+    }
+
+    private fun addSkipOrEraseButton() {
+        skipBtn.setOnClickListener {
+            if (skipBtn.text == getString(R.string.skip_btn_title)) {
+                navigator.navigate(R.id.action_priceRangeFragment_to_guestRangeFragment)
+            } else {
+                initChart()
+            }
+        }
     }
 }

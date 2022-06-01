@@ -17,5 +17,13 @@
     <fragment
         android:id="@+id/priceRangeFragment"
         android:name="com.example.airbnb.ui.priceRange.PriceRangeFragment"
-        android:label="PriceRangeFragment" />
+        android:label="PriceRangeFragment" >
+        <action
+            android:id="@+id/action_priceRangeFragment_to_guestRangeFragment"
+            app:destination="@id/guestRangeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guestRangeFragment"
+        android:name="com.example.airbnb.ui.guestRange.GuestRangeFragment"
+        android:label="GuestRangeFragment" />
 </navigation>
