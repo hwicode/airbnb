@@ -25,5 +25,9 @@
     <fragment
         android:id="@+id/guestRangeFragment"
         android:name="com.example.airbnb.ui.guestRange.GuestRangeFragment"
-        android:label="GuestRangeFragment" />
+        android:label="GuestRangeFragment" >
+        <action
+            android:id="@+id/action_guestRangeFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+    </fragment>
 </navigation>
