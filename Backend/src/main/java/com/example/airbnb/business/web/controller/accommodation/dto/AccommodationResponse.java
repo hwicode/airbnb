@@ -4,6 +4,7 @@ import com.example.airbnb.business.core.domain.accommodation.*;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,7 @@ public class AccommodationResponse {
     private AccommodationType accommodationType;
     private Double averageRating;
     private List<String> images;
-    private Comments comments;
+    private List<CommentResponse> comments;
     private AmenityCategories amenityCategories;
     private AccommodationOptionLines accommodationOptionLines;
     private int commentSize;
@@ -54,9 +55,22 @@ public class AccommodationResponse {
 
     public void addComments(List<Comment> comments) {
         if (comments.size() > 0) {
-            this.comments = new Comments(comments);
+            this.comments = createComments(comments);
             this.commentSize = comments.size();
         }
+    }
+
+    private List<CommentResponse> createComments(List<Comment> comments) {
+        List<CommentResponse> commentResponses = new ArrayList<>();
+
+        for (Comment comment : comments) {
+            CommentResponse response = new CommentResponse(
+                    comment.getCommentId(), comment.getMember().getMemberId(),
+                    comment.getMember().getName(), comment.getContent(),
+                    comment.getMember().getProfileImage(), comment.getCreateAt());
+            commentResponses.add(response);
+        }
+        return commentResponses;
     }
 
     private void addAccommodationOptionLines(List<AccommodationOptionLine> accommodationOptionLines) {
