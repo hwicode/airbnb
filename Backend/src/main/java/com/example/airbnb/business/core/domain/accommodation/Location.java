@@ -2,11 +2,9 @@ package com.example.airbnb.business.core.domain.accommodation;
 
 import lombok.Getter;
 import org.locationtech.jts.geom.Point;
-import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
@@ -14,8 +12,6 @@ import java.util.Objects;
 @Embeddable
 public class Location {
 
-    @Column(name = "range", columnDefinition = "Polygon")
-    private Polygon range;
     private Point point;
 
     public Location(Double latitude, Double longitude) {
