@@ -2,10 +2,8 @@ package com.example.airbnb.business.core.repository.accommodation.querydsl;
 
 import com.example.airbnb.business.core.domain.accommodation.AccommodationOptionLine;
 import com.example.airbnb.business.web.controller.accommodation.SearchPriceResponse;
-import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationInCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationRelatedCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
-import com.example.airbnb.business.web.controller.member.dto.MemberWishResponse;
 import com.example.airbnb.common.geometry.objects.Position;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -55,17 +53,6 @@ public class AccommodationReadRepository {
 
     public Position cal(double lng, double log) {
         return null;
-    }
-
-    public List<MemberWishResponse> findWishesByMemberId(Long id) {
-        return queryFactory.select(
-                        Projections.fields(MemberWishResponse.class,
-                                accommodation.member.memberId, accommodation.accommodationId,
-                                accommodation.averageRating, accommodation.name.as("roomName"),
-                                accommodation.price.as("oneDayPrice")))
-                .from(accommodation)
-                .where(accommodation.member.memberId.eq(id))
-                .fetch();
     }
 
     public List<AccommodationRelatedCityResponse> findByAccommodationsByCityId(Long cityId) {

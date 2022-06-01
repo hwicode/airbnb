@@ -32,7 +32,6 @@ public class AccommodationController {
         return accommodationReadService.findByAccommodationsByCityName(cityName);
     }
 
-
     public Position calculateDistance(double lng, double log) {
         return accommodationReadService.cal(lng, log);
     }

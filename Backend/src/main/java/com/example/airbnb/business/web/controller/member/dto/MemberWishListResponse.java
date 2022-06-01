@@ -7,9 +7,9 @@ import java.util.List;
 @Getter
 public class MemberWishListResponse {
 
-    private List<MemberWishResponse> wishes;
+    private List<WishResponse> wishes;
 
-    public MemberWishListResponse(List<MemberWishResponse> wishes) {
+    public MemberWishListResponse(List<WishResponse> wishes) {
         this.wishes = wishes;
     }
 }
