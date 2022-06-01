@@ -3,6 +3,8 @@ package com.example.airbnb.business.core.domain.accommodation;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity

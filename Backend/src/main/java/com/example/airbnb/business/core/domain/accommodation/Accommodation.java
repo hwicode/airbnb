@@ -5,6 +5,7 @@ import com.example.airbnb.business.core.domain.member.Member;
 import com.example.airbnb.business.core.domain.reservation.Reservation;
 import com.example.airbnb.business.core.domain.reservation.Time;
 import lombok.Getter;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -27,7 +28,11 @@ public class Accommodation {
 
     private BigDecimal price;
 
-    private double averageRating;
+    private String mainImageUrl;
+
+    private Double averageRating;
+
+    private Integer commentCount;
 
     @Embedded
     private Room room;
@@ -57,12 +62,14 @@ public class Accommodation {
     @JoinColumn(name = "city_id")
     private City city;
 
-    public Accommodation(String name, String description, BigDecimal price,
+    public Accommodation(String name, String description, String mainImageUrl, BigDecimal price,
                          double averageRating, Room room, Member member, AccommodationType accommodationType,
                          Address address, List<Reservation> reservations, Location location,
                          int maxNumberOfPeople, City city) {
         this.name = name;
         this.description = description;
+        this.mainImageUrl = mainImageUrl;
+        this.commentCount = 0;
         this.price = price;
         this.averageRating = averageRating;
         this.room = room;

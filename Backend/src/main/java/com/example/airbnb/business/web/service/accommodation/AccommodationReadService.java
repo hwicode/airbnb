@@ -51,7 +51,8 @@ public class AccommodationReadService {
                 .orElseThrow(() -> new BusinessException(CityTypeException.CITY_NOT_FOUND));
 
         List<AccommodationInCityResponse> accommodations = accommodationReadRepository.findByAccommodationsByCityId(city.getCityId());
-        return new AccommodationCitiesResponse(accommodations);
+
+        return null;
     }
 
     @Transactional(readOnly = true)

@@ -1,5 +1,6 @@
 package com.example.airbnb.business.web.controller.accommodation;
 
+import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationCitiesResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
 import com.example.airbnb.business.web.service.accommodation.AccommodationReadService;
 import com.example.airbnb.common.geometry.objects.Position;
@@ -25,6 +26,13 @@ public class AccommodationController {
     public List<SearchPriceResponse> getPriceRange(@RequestParam("tagName") String tagName) {
         return accommodationReadService.findAccommodationPriceRangeBy(tagName);
     }
+
+    @GetMapping("/cities")
+    public List<AccommodationCitiesResponse> findByAccommodationsByCityName(@RequestParam("cityName") String cityName) {
+        accommodationReadService.findByAccommodationsByCityName(cityName);
+        return null;
+    }
+
 
     public Position calculateDistance(double lng, double log) {
         return accommodationReadService.cal(lng, log);

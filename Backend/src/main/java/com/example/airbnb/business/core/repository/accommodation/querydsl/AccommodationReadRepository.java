@@ -8,18 +8,15 @@ import com.example.airbnb.business.web.controller.member.dto.MemberWishResponse;
 import com.example.airbnb.common.geometry.objects.Position;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.querydsl.spatial.GeometryExpressions;
 import lombok.RequiredArgsConstructor;
-import org.geolatte.geom.Geometry;
-import org.geolatte.geom.codec.Wkt;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 import static com.example.airbnb.business.core.domain.accommodation.QAccommodation.accommodation;
 import static com.example.airbnb.business.core.domain.accommodation.QAccommodationOptionLine.accommodationOptionLine;
+import static com.example.airbnb.business.core.domain.accommodation.QCity.city;
 import static com.example.airbnb.business.core.domain.member.QMember.member;
 
 @Repository
@@ -71,13 +68,14 @@ public class AccommodationReadRepository {
     }
 
     public List<AccommodationInCityResponse> findByAccommodationsByCityId(Long cityId) {
-       return queryFactory.select(
-                Projections.fields(AccommodationInCityResponse.class,
-                        accommodation.accommodationId, accommodation.name.as("roomName"),
-                        accommodation.address.homeAddress.as("address"), accommodation.accommodationType,
-                        accommodation.averageRating, accommodation.price.as("oneDayPrice")))
+        return queryFactory.select(
+                        Projections.fields(AccommodationInCityResponse.class,
+                                accommodation.accommodationId, accommodation.name.as("roomName"),
+                                accommodation.address.homeAddress.as("address"), accommodation.accommodationType,
+                                accommodation.averageRating, accommodation.price.as("oneDayPerPrice")))
                 .from(accommodation)
-                .where(accommodation.city.cityId.eq(cityId))
+                .join(accommodation.city, city)
+                .on(city.cityId.eq(cityId))
                 .fetch();
     }
 
