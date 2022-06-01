@@ -22,20 +22,11 @@ public class GithubLoginService implements LoginService {
 
     private final Logger logger = LoggerFactory.getLogger(GithubLoginService.class);
     private final MemberRepository memberRepository;
-    private final InMemoryClientRegisterrRepository inMemoryClientRegisterRepository;
-    private final WebTokenProvider webTokenProvider;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     @Transactional
     public OauthLoginResponse login(String code) {
-        ClientRegistration clientRegistration = inMemoryClientRegisterRepository.findByRegistration(GITHUB);
-        WebToken webToken = webTokenProvider.createToken(code, clientRegistration);
-        GithubUser githubUser = GithubUser.from(webTokenProvider.getAttributes(webToken.getAccessToken(), clientRegistration));
 
-        String jwtToken = jwtTokenProvider.createJwtToken(githubUser.getGithubId());
-        save(githubUser, jwtToken);
-        logger.info("사용자 저장, 토큰 발급 - 토큰 {}", jwtToken);
         return new OauthLoginResponse();
     }
 
