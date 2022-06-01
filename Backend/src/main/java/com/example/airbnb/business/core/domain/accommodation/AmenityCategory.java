@@ -5,6 +5,7 @@ import lombok.Getter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -32,7 +33,18 @@ public class AmenityCategory {
         this.subCategories = subCategories;
     }
 
-    protected AmenityCategory() {
+    protected AmenityCategory() {}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AmenityCategory that = (AmenityCategory) o;
+        return categoryId.equals(that.categoryId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(categoryId);
     }
 }
