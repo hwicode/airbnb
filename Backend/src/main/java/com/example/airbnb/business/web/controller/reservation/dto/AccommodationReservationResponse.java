@@ -1,4 +1,4 @@
-package com.example.airbnb.business.web.controller.reservation;
+package com.example.airbnb.business.web.controller.reservation.dto;
 
 import com.example.airbnb.business.core.domain.reservation.Reservation;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationOptionLineResponse;
@@ -30,7 +30,7 @@ public class AccommodationReservationResponse {
     public AccommodationReservationResponse(Reservation reservation) {
         this.reservationId = reservation.getReservationId();
         this.accommodationId = accommodationId;
-        this.roomName = reservation.getn;
+//        this.roomName = reservation.getn;
         this.address = address;
         this.imageUrl = imageUrl;
         this.pricePerDay = pricePerDay;

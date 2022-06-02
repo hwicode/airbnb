@@ -46,6 +46,11 @@ public class AccommodationController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping()
+    public List<AccommodationSearchResponse> searchAccommodations(@RequestBody AccommodationSearchCondition searchCondition) {
+        return accommodationReadService.searchAccommodations(searchCondition);
+    }
+
     public Position calculateDistance(double lng, double log) {
         return accommodationReadService.cal(lng, log);
     }

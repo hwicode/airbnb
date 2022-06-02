@@ -1,5 +1,7 @@
 package com.example.airbnb.business.web.controller.reservation;
 
+import com.example.airbnb.business.web.controller.reservation.dto.AccommodationReservationRequest;
+import com.example.airbnb.business.web.controller.reservation.dto.AccommodationReservationResponse;
 import com.example.airbnb.business.web.controller.reservation.dto.DetailedReservationResponse;
 import com.example.airbnb.business.web.controller.reservation.dto.ReservationResponse;
 import com.example.airbnb.business.web.service.reservation.ReservationReadService;

@@ -1,4 +1,4 @@
-package com.example.airbnb.business.web.controller.reservation;
+package com.example.airbnb.business.web.controller.reservation.dto;
 
 import com.example.airbnb.business.core.domain.reservation.Reservation;
 import com.example.airbnb.business.core.domain.reservation.Time;
@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @Getter
 public class AccommodationReservationRequest {
 
-    private Long accommodationId;
     private Integer adults;
     private Integer children;
     private Integer infants;

@@ -6,6 +6,8 @@ import com.example.airbnb.business.core.repository.accommodation.querydsl.Accomm
 import com.example.airbnb.business.core.repository.accommodation.querydsl.AmenityReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.CommentReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageReadRepository;
+import com.example.airbnb.business.web.controller.accommodation.AccommodationSearchCondition;
+import com.example.airbnb.business.web.controller.accommodation.AccommodationSearchResponse;
 import com.example.airbnb.business.web.controller.accommodation.SearchPriceResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationRelatedCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
@@ -60,4 +62,8 @@ public class AccommodationReadService {
         return accommodationReadRepository.cal(lng, log);
     }
 
+    @Transactional(readOnly = true)
+    public List<AccommodationSearchResponse> searchAccommodations(AccommodationSearchCondition searchCondition) {
+        return null;
+    }
 }
