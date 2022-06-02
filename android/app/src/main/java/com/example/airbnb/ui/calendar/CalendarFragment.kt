@@ -4,31 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.example.airbnb.R
 import com.example.airbnb.databinding.FragmentCalendarBinding
+import com.example.airbnb.ui.information.InformationViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.joda.time.LocalDate
 
 class CalendarFragment : Fragment() {
 
-    private val viewModel: CalendarViewModel by viewModels()
+    private val viewModel: InformationViewModel by activityViewModels()
     private lateinit var binding: FragmentCalendarBinding
     private lateinit var monthAdapter: MonthAdapter
-    private lateinit var skipBtn: Button
-    private lateinit var nextBtn: ImageButton
-    private lateinit var navigator: NavController
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +33,6 @@ class CalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigator = Navigation.findNavController(view)
-        skipBtn = view.rootView.findViewById<Button>(R.id.btn_information_skip)
-        nextBtn = view.rootView.findViewById(R.id.iBtn_information_next)
-
         monthAdapter = MonthAdapter { selectedDate ->
             selectDate(selectedDate)
         }
@@ -55,7 +44,6 @@ class CalendarFragment : Fragment() {
                 launch { setCheckIn() }
             }
         }
-        addSkipOrEraseButton()
     }
 
     private suspend fun setCheckIn() {
@@ -63,8 +51,9 @@ class CalendarFragment : Fragment() {
             binding.checkIn = it
             monthAdapter.setCheckInAndCheckOut(it, viewModel.checkOutStatedFlow.value)
             monthAdapter.notifyDataSetChanged()
-            checkDateSelection()
-            moveWithAllDataInput()
+            if (it != null) {
+                viewModel.switchSkipFlag()
+            }
         }
     }
 
@@ -73,41 +62,13 @@ class CalendarFragment : Fragment() {
             binding.checkOut = it
             monthAdapter.setCheckInAndCheckOut(viewModel.checkInStatedFlow.value, it)
             monthAdapter.notifyDataSetChanged()
-            checkDateSelection()
-            moveWithAllDataInput()
+            if (it != null) {
+                viewModel.switchCheckedFlag()
+            }
         }
     }
 
     private fun selectDate(selectedDate: LocalDate) {
         viewModel.saveDate(selectedDate)
-    }
-
-    private fun checkDateSelection() {
-        nextBtn.isSelected = binding.checkIn != null && binding.checkOut != null
-        if (binding.checkIn != null || binding.checkOut != null) {
-            skipBtn.text = getString(R.string.erase_btn_title)
-        }
-        else{
-            skipBtn.text=  getString(R.string.skip_btn_title)
-        }
-    }
-
-    private fun moveWithAllDataInput(){
-        if(nextBtn.isSelected){
-            nextBtn.setOnClickListener {
-                navigator.navigate(R.id.action_calendarFragment_to_priceRangeFragment)
-            }
-        }
-    }
-
-    private fun addSkipOrEraseButton() {
-        skipBtn.setOnClickListener {
-            if (skipBtn.text ==  getString(R.string.skip_btn_title)) {
-                navigator.navigate(R.id.action_calendarFragment_to_priceRangeFragment)
-            } else {
-                viewModel.eraseSelectedDate()
-                monthAdapter.notifyDataSetChanged()
-            }
-        }
     }
 }
