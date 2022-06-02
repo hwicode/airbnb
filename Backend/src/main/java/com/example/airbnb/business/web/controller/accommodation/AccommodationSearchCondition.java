@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 public class AccommodationSearchCondition {
 
+    private String tagName;
     private String address;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime checkIn;
