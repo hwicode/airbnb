@@ -9,11 +9,12 @@ import android.webkit.*
 import androidx.fragment.app.Fragment
 import com.example.airbnb.common.Constants
 import com.example.airbnb.databinding.FragmentLoginWebViewBinding
+import org.koin.android.ext.android.inject
 
 class LoginWebViewFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginWebViewBinding
-
+    private val viewModel:LoginViewModel by inject()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +53,8 @@ class LoginWebViewFragment : Fragment() {
                 includeCodeUrl?.let {
                     Constants.CODE= (includeCodeUrl.subSequence(1, includeCodeUrl.length)).toString()
                 }
+
+                viewModel.getAccessToken()
 
 
             }
