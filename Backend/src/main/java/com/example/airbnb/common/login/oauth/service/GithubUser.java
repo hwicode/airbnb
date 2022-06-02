@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Map;
+
 @Getter
 public class GithubUser implements OauthClient {
 
@@ -21,10 +22,18 @@ public class GithubUser implements OauthClient {
     }
 
     public static GithubUser from(Map<String, Object> attributes) {
+        validate(attributes);
         return GithubUser.builder()
                 .githubId((String) attributes.get(GITHUB_ID))
                 .profileImage((String) attributes.get(PROFILE_IMAGE))
                 .build();
+    }
+
+    private static void validate(Map<String, Object> attributes) {
+        String githubId = (String) attributes.get(GITHUB_ID);
+        if (githubId == null) {
+            throw new IllegalArgumentException("잘못된 사용자입니다.");
+        }
     }
 
     public Member toEntity() {

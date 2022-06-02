@@ -3,6 +3,7 @@ package com.example.airbnb.business.core.domain.accommodation;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -23,4 +24,17 @@ public class Amenity {
     private AmenityCategory amenityCategory;
 
     protected Amenity(){};
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Amenity amenity = (Amenity) o;
+        return amenityId.equals(amenity.amenityId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amenityId);
+    }
 }
