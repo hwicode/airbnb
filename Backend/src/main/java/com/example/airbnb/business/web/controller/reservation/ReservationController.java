@@ -6,6 +6,7 @@ import com.example.airbnb.business.web.service.reservation.ReservationReadServic
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -26,9 +27,11 @@ public class ReservationController {
        return reservationReadService.findReservations(githubId);
     }
 
+    // 리팩토링
     @PostMapping("")
-    public List<AccommodationReservationResponse> reserveAccommodation(@RequestParam("accommodationId") Long accommodationId, @RequestBody AccommodationReservationRequest request) {
-        return reservationService.reservation(accommodationId, request);
+    public AccommodationReservationResponse reserveAccommodation(HttpServletRequest servletRequest,  @RequestParam("accommodationId") Long accommodationId, @RequestBody AccommodationReservationRequest request) {
+        String githubId = (String) servletRequest.getHeader("token");
+        return new AccommodationReservationResponse(reservationService.reservation(githubId, accommodationId, request));
     }
 
 }
