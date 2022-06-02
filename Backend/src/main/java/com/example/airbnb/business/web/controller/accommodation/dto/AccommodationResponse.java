@@ -37,7 +37,7 @@ public class AccommodationResponse {
     public AccommodationResponse() {
     }
 
-    public void add(List<Image> images, List<AmenitySubCategory> amenitySubCategories, List<Comment> comments, List<AccommodationOptionLine> accommodationOptionLines) {
+    public void add(List<Image> images, List<AmenityCategory> amenitySubCategories, List<Comment> comments, List<AccommodationOptionLine> accommodationOptionLines) {
         addImages(images);
         addCategories(amenitySubCategories);
         addComments(comments);
@@ -51,21 +51,21 @@ public class AccommodationResponse {
                     .collect(Collectors.toList());
     }
 
-    public void addCategories(List<AmenitySubCategory> subCategories) {
+    public void addCategories(List<AmenityCategory> subCategories) {
         if (subCategories.size() > 0)
             this.amenityCategories = createAmenityCategories(subCategories);
     }
 
-    private List<AmenityCategoryResponse> createAmenityCategories(List<AmenitySubCategory> subCategories) {
-        Map<AmenityCategory, List<AmenitySubCategory>> categories = subCategories.stream()
-                .collect(groupingBy(AmenitySubCategory::getAmenityCategory));
+    private List<AmenityCategoryResponse> createAmenityCategories(List<AmenityCategory> subCategories) {
+//        Map<Amenity, List<AmenityCategory>> categories = subCategories.stream()
+//                .collect(groupingBy(AmenityCategory::getAmenity));
 
         List<AmenityCategoryResponse> amenityCategoryResponses = new ArrayList<>();
 
-        for (AmenityCategory key : categories.keySet()) {
-            AmenityCategoryResponse response = new AmenityCategoryResponse(key, categories.get(key));
-            amenityCategoryResponses.add(response);
-        }
+//        for (Amenity key : categories.keySet()) {
+//            AmenityCategoryResponse response = new AmenityCategoryResponse(key, categories.get(key));
+//            amenityCategoryResponses.add(response);
+//        }
         return amenityCategoryResponses;
     }
 

@@ -7,7 +7,6 @@ import com.example.airbnb.business.core.repository.accommodation.querydsl.Amenit
 import com.example.airbnb.business.core.repository.accommodation.querydsl.CommentReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageReadRepository;
 import com.example.airbnb.business.web.controller.accommodation.SearchPriceResponse;
-import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationInCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationRelatedCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
 import com.example.airbnb.common.exception.BusinessException;
@@ -37,7 +36,7 @@ public class AccommodationReadService {
                 .orElseThrow(() -> new BusinessException(AccommodationTypeException.ACCOMMODATION_NOT_FOUND));
 
         List<Image> images = imageReadRepository.findImagesByAccommodation(id);
-        List<AmenitySubCategory> amenitySubCategories = amenityReadRepository.findAmenityCategoriesByAccommodation(id);
+        List<AmenityCategory> amenitySubCategories = amenityReadRepository.findAmenityCategoriesByAccommodation(id);
         List<Comment> comments = commentReadRepository.findCommentsByAccommodation(id);
         List<AccommodationOptionLine> accommodationOptionLines = accommodationReadRepository.findAccommodationOptionLinesByAccommodation(id);
 

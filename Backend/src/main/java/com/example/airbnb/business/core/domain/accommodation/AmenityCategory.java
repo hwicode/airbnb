@@ -3,48 +3,40 @@ package com.example.airbnb.business.core.domain.accommodation;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-@Entity
 @Getter
+@Entity
 public class AmenityCategory {
 
     @Id
     @Column(name = "amenity_category_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long categoryId;
+    private Long amenityCategoryId;
 
+    @Enumerated(EnumType.STRING)
+    private AmenityType amenityType;
     private String name;
+    private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accommodation_id")
-    private Accommodation accommodation;
+    public AmenityCategory() {
+    }
 
-    @OneToMany(mappedBy = "amenityCategory", cascade = CascadeType.PERSIST)
-    private List<AmenitySubCategory> subCategories = new ArrayList<>();
-
-    public AmenityCategory(String name) {
+    public AmenityCategory(String name, String description) {
         this.name = name;
+        this.description = description;
     }
-
-    public void registSubCategory(List<AmenitySubCategory> subCategories) {
-        this.subCategories = subCategories;
-    }
-
-    protected AmenityCategory() {}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AmenityCategory that = (AmenityCategory) o;
-        return categoryId.equals(that.categoryId);
+        return amenityCategoryId.equals(that.amenityCategoryId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(categoryId);
+        return Objects.hash(amenityCategoryId);
     }
 }

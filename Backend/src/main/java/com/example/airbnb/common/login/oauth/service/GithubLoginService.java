@@ -2,7 +2,7 @@ package com.example.airbnb.common.login.oauth.service;
 
 import com.example.airbnb.business.core.domain.member.Member;
 import com.example.airbnb.business.core.repository.member.MemberRepository;
-import com.example.airbnb.common.login.oauth.controller.dto.OauthLoginResponse;
+import com.example.airbnb.common.login.oauth.controller.dto.LoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +18,9 @@ public class GithubLoginService implements LoginService {
 
     @Override
     @Transactional
-    public OauthLoginResponse login(GithubUser code) {
+    public LoginResponse login(GithubUser code) {
 
-        return new OauthLoginResponse();
+        return new LoginResponse();
     }
 
     // 구현 미완
