@@ -50,8 +50,9 @@ public class OauthClientProperties {
         private final String userInfoUri;
         private String userNameAttribute;
         private final String userAuthrozationUri;
+        private String version;
 
-        public Provider(String tokenUri, String userInfoUri, String userNameAttribute, String userAuthrozationUri) {
+        public Provider(String tokenUri, String userInfoUri, String userNameAttribute, String userAuthrozationUri, String version) {
             this.tokenUri = tokenUri;
             this.userInfoUri = userInfoUri;
             this.userNameAttribute = userNameAttribute;

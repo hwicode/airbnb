@@ -46,7 +46,7 @@ public class AccommodationController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping()
+    @GetMapping("/search")
     public List<AccommodationSearchResponse> searchAccommodations(@RequestBody AccommodationSearchCondition searchCondition) {
         return accommodationReadService.searchAccommodations(searchCondition);
     }

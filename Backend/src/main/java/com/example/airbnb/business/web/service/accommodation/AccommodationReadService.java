@@ -64,6 +64,6 @@ public class AccommodationReadService {
 
     @Transactional(readOnly = true)
     public List<AccommodationSearchResponse> searchAccommodations(AccommodationSearchCondition searchCondition) {
-        return null;
+        return accommodationReadRepository.findAccommodationsByCondition(searchCondition);
     }
 }

@@ -7,6 +7,7 @@ import java.util.Objects;
 
 @Getter
 @Entity
+@Table(name = "amenity_category")
 public class AmenityCategory {
 
     @Id

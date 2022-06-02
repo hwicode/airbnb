@@ -13,12 +13,12 @@ public class ExceptionHandler {
 //        return ResponseEntity.status(HttpStatus.NOT_FOUND)
 //                .body(ErrorResponse.create(baseExceptionType));
 //    }
-
-    @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> unResolvedException(Exception exception) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ErrorResponse.unResolved(exception));
-    }
+//
+//    @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorResponse> unResolvedException(Exception exception) {
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                .body(ErrorResponse.unResolved(exception));
+//    }
 }
 
 

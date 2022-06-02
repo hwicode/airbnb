@@ -1,6 +1,8 @@
 package com.example.airbnb.business.core.repository.accommodation.querydsl;
 
 import com.example.airbnb.business.core.domain.accommodation.AccommodationOptionLine;
+import com.example.airbnb.business.web.controller.accommodation.AccommodationSearchCondition;
+import com.example.airbnb.business.web.controller.accommodation.AccommodationSearchResponse;
 import com.example.airbnb.business.web.controller.accommodation.SearchPriceResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationRelatedCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
@@ -69,4 +71,7 @@ public class AccommodationReadRepository {
                 .fetch();
     }
 
+    public List<AccommodationSearchResponse> findAccommodationsByCondition(AccommodationSearchCondition searchCondition) {
+        return null;
+    }
 }

@@ -3,16 +3,14 @@ package com.example.airbnb.business.core.domain.accommodation;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Getter
+@Table(name = "amenity")
 public class Amenity {
 
     @Id
-    @Column(name = "amenity_category_id")
+    @Column(name = "amenity_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long amenityId;
 
@@ -24,4 +22,5 @@ public class Amenity {
     @JoinColumn(name = "amenity_category_id")
     private AmenityCategory amenityCategory;
 
+    protected Amenity(){};
 }
