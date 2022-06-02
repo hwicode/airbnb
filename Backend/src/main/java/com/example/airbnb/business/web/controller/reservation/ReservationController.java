@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReservationController {
 
+    private final ReservationService reservationService;
     private final ReservationReadService reservationReadService;
 
     @GetMapping("/{id}")
