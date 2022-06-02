@@ -51,7 +51,7 @@ public class Accommodation {
     @Embedded
     private Location location;
 
-    private int maxNumberOfPeople;
+    private Integer maxNumberOfPeople;
 
     @OneToMany(mappedBy = "accommodation", cascade = CascadeType.PERSIST)
     private List<Image> images = new ArrayList<>();

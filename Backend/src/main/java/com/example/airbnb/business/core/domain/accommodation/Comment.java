@@ -18,7 +18,7 @@ public class Comment {
 
     private String content;
 
-    private double rating;
+    private Double rating;
 
     private LocalDateTime createAt;
     private LocalDateTime lastModifiedAt;

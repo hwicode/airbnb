@@ -17,15 +17,15 @@ public class Reservation {
 
     private BigDecimal totalPrice;
 
-    private int totalDay;
+    private Integer totalDay;
 
-    private int totalPeople;
+    private Integer totalPeople;
 
-    private int adults;
+    private Integer adults;
 
-    private int children;
+    private Integer children;
 
-    private int infants;
+    private Integer infants;
 
     @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
