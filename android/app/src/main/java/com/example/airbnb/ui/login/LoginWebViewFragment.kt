@@ -9,11 +9,12 @@ import android.webkit.*
 import androidx.fragment.app.Fragment
 import com.example.airbnb.common.Constants
 import com.example.airbnb.databinding.FragmentLoginWebViewBinding
+import org.koin.android.ext.android.inject
 
 class LoginWebViewFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginWebViewBinding
-
+    private val viewModel:LoginViewModel by inject()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,15 +48,15 @@ class LoginWebViewFragment : Fragment() {
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
             Log.d("AppTest", "onPageFinished/ url : ${url}")
-
-            val cookies = CookieManager.getInstance().getCookie(url)
-            Log.d("AppTest", "onPageFinished/ cookie : ${cookies}")
-
-            cookies?.let {
-                if (it.contains("JSESSIONID")) {
-                    Constants.JSESSIONID = it
-                    Log.d("AppTest", "login success, JSESSIONID : ${Constants.JSESSIONID}")
+            if (url?.contains("code") == true) {
+                val includeCodeUrl = url?.split("code")?.get(1)
+                includeCodeUrl?.let {
+                    Constants.CODE= (includeCodeUrl.subSequence(1, includeCodeUrl.length)).toString()
                 }
+
+                viewModel.getAccessToken()
+
+
             }
         }
     }
