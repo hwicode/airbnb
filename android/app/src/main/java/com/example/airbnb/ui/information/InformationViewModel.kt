@@ -1,5 +1,7 @@
-package com.example.airbnb.ui.calendar
+package com.example.airbnb.ui.information
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.airbnb.domain.model.CalendarDay
@@ -10,7 +12,13 @@ import kotlinx.coroutines.launch
 import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
 
-class CalendarViewModel : ViewModel() {
+class InformationViewModel:ViewModel() {
+
+    private val _skipFlag = MutableLiveData(true)
+    val skipFlag: LiveData<Boolean> = _skipFlag
+
+    private val _checkedFlag = MutableLiveData(false)
+    val checkedFlag: LiveData<Boolean> = _checkedFlag
 
     private val _calendarDataMap: MutableMap<LocalDateTime, List<CalendarDay>> = mutableMapOf()
     val calendarDatMap: Map<LocalDateTime, List<CalendarDay>> = _calendarDataMap
@@ -20,6 +28,10 @@ class CalendarViewModel : ViewModel() {
 
     private val _checkOutStatedFlow = MutableStateFlow<LocalDate?>(null)
     val checkOutStatedFlow: StateFlow<LocalDate?> = _checkOutStatedFlow
+
+    init {
+        makeCalendarData()
+    }
 
     fun saveDate(dateTime: LocalDate) {
         saveFirstSelectedDay(dateTime)
@@ -47,7 +59,7 @@ class CalendarViewModel : ViewModel() {
         }
     }
     private fun makeCalendarData(){
-         val monthList = Array(12) { index -> LocalDateTime.now().plusMonths(index) }
+        val monthList = Array(12) { index -> LocalDateTime.now().plusMonths(index) }
         monthList.forEach {
             this._calendarDataMap[it] = CalendarUtil.getDayList(it)
         }
@@ -56,9 +68,27 @@ class CalendarViewModel : ViewModel() {
     fun eraseSelectedDate(){
         this._checkInStatedFlow.value = null
         this._checkOutStatedFlow.value= null
+        initFlag()
     }
 
-    init {
-        makeCalendarData()
+    fun switchSkipFlag(){
+        viewModelScope.launch {
+            _skipFlag.value?.let {
+                _skipFlag.value= !it
+            }
+        }
     }
+    fun switchCheckedFlag(){
+        viewModelScope.launch {
+            _checkedFlag.value?.let {
+                _checkedFlag.value= !it
+            }
+        }
+    }
+
+    fun initFlag(){
+        _skipFlag.value= true
+        _checkedFlag.value= false
+    }
+
 }

@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="isStart"
+            type="Boolean" />
 
         <variable
             name="day"
@@ -25,27 +28,20 @@
             type="Integer" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_calendar_day"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        bindDateString="@{today}"
-        checkIn="@{checkIn}"
-        checkOut="@{checkOut}">
-
         <TextView
             android:id="@+id/tv_calendar_day"
             style="@style/Subtitle2"
-            android:text="@{day}"
+            bindDateString="@{today}"
+            checkIn="@{checkIn}"
+            checkOut="@{checkOut}"
+            isStart = "@{isStart}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingHorizontal="12dp"
             android:paddingVertical="14dp"
+            android:text="@{day}"
             android:textColor="@{selectableColor}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

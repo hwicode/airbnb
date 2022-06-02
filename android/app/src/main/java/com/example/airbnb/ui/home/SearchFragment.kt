@@ -33,7 +33,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = NearTravelDestinationAdapter()
-        val searchAdapter = SearchResultAdapter{
+        val searchAdapter = SearchResultAdapter {
             moveToInformationInputPage()
         }
         navigator = Navigation.findNavController(view)
@@ -90,6 +90,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun moveToInformationInputPage() {
-        navigator.navigate(R.id.action_searchFragment_to_informationInputFragment)
+        navigator.navigate(R.id.action_searchFragment_to_informationActivity)
     }
 }

@@ -2,7 +2,6 @@ package com.example.airbnb.ui.common
 
 import android.graphics.Color
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.example.airbnb.R
 import com.example.airbnb.common.Constants
@@ -23,8 +22,14 @@ fun displayCheckOutDate(view: TextView, dateTime: LocalDate?) {
     }
 }
 
-@BindingAdapter("bindDateString", "checkIn", "checkOut")
-fun displayCheckOutDate(view: ConstraintLayout, currentDateTime: LocalDate?, checkIn: LocalDate?, checkOut: LocalDate?) {
+@BindingAdapter("bindDateString", "checkIn", "checkOut", "isStart")
+fun displayCheckOutDate(
+    view: TextView,
+    currentDateTime: LocalDate?,
+    checkIn: LocalDate?,
+    checkOut: LocalDate?,
+    isStart: Boolean
+) {
     currentDateTime?.let {
         if (checkIn != null && checkOut != null) {
             if ((it < checkOut) && (it > checkIn)) {
@@ -38,10 +43,15 @@ fun displayCheckOutDate(view: ConstraintLayout, currentDateTime: LocalDate?, che
             if (it.isEqual(checkIn)) {
                 view.setBackgroundResource(R.drawable.layout_circle_grey_background)
             } else {
+
                 view.setBackgroundColor(Color.WHITE)
             }
         } else {
-            view.setBackgroundColor(Color.WHITE)
+            if (isStart) {
+                view.setBackgroundResource(R.drawable.layout_circle_stroke)
+            } else {
+                view.setBackgroundColor(Color.WHITE)
+            }
         }
     } ?: view.setBackgroundColor(Color.WHITE)
 }
