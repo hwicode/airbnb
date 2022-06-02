@@ -1,19 +1,15 @@
 package com.example.airbnb.business.web.controller.reservation;
 
-import com.example.airbnb.business.web.controller.accommodation.AccommodationRegistRequest;
-import com.example.airbnb.business.web.controller.accommodation.AccommodationRegistResponse;
 import com.example.airbnb.business.web.controller.reservation.dto.DetailedReservationResponse;
-import com.example.airbnb.business.web.controller.reservation.dto.ReservationListResponse;
 import com.example.airbnb.business.web.controller.reservation.dto.ReservationResponse;
 import com.example.airbnb.business.web.service.reservation.ReservationReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/reservations")
+@RequestMapping("/api/reservations")
 @RequiredArgsConstructor
 public class ReservationController {
 
@@ -30,9 +26,9 @@ public class ReservationController {
        return reservationReadService.findReservations(githubId);
     }
 
-    @PostMapping
-    public List<AccommodationReservationResponse> createReservation(@RequestBody AccommodationReservationRequest request) {
-        return null;
+    @PostMapping("")
+    public List<AccommodationReservationResponse> reserveAccommodation(@RequestParam("accommodationId") Long accommodationId, @RequestBody AccommodationReservationRequest request) {
+        return reservationService.reservation(accommodationId, request);
     }
 
 }
