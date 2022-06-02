@@ -1,16 +1,16 @@
 package com.example.airbnb.business.web.controller.reservation;
 
+import com.example.airbnb.business.web.controller.accommodation.AccommodationRegistRequest;
+import com.example.airbnb.business.web.controller.accommodation.AccommodationRegistResponse;
 import com.example.airbnb.business.web.controller.reservation.dto.DetailedReservationResponse;
 import com.example.airbnb.business.web.controller.reservation.dto.ReservationListResponse;
 import com.example.airbnb.business.web.controller.reservation.dto.ReservationResponse;
 import com.example.airbnb.business.web.service.reservation.ReservationReadService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reservations")
@@ -27,6 +27,11 @@ public class ReservationController {
     @GetMapping("/users/{githubId}")
     public List<ReservationResponse> searchReservations(@PathVariable String githubId) {
        return reservationReadService.findReservations(githubId);
+    }
+
+    @PostMapping
+    public List<AccommodationReservationResponse> createReservation(@RequestBody AccommodationReservationRequest request) {
+        return null;
     }
 
 }
