@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.airbnb.R
 import com.example.airbnb.databinding.ItemCalendarDayBinding
 import com.example.airbnb.domain.model.CalendarDay
 import org.joda.time.LocalDate
@@ -26,16 +25,12 @@ class DayAdapter(private val itemClick: (selectedDate: LocalDate) -> Unit) :
 
             if (day.day.isNotEmpty()) {
                 calendarDateToLocalDate = LocalDate(day.year, day.month, day.day.toInt())
-
                 if (day.isSelectable) {
-                    if (day.isStartDay&&checkIn==null) {
-                        binding.tvCalendarDay.setBackgroundResource(R.drawable.layout_circle_stroke)
-                    }
                     binding.selectableColor = Color.BLACK
                 } else {
                     binding.selectableColor = Color.GRAY
                 }
-
+                binding.isStart = day.isStartDay
                 binding.today = calendarDateToLocalDate
                 binding.checkIn = checkIn
                 binding.checkOut = checkOut

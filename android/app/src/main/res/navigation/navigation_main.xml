@@ -30,17 +30,18 @@
         android:id="@+id/searchFragment"
         android:name="com.example.airbnb.ui.home.SearchFragment"
         android:label="SearchFragment" >
+
         <action
-            android:id="@+id/action_searchFragment_to_informationInputFragment"
-            app:destination="@id/informationInputFragment" />
+            android:id="@+id/action_searchFragment_to_informationActivity"
+            app:destination="@id/informationActivity" />
     </fragment>
-    <fragment
-        android:id="@+id/informationInputFragment"
-        android:name="com.example.airbnb.ui.information.InformationInputFragment"
-        android:label="InformationInputFragment" />
     <fragment
         android:id="@+id/loginWebViewFragment"
         android:name="com.example.airbnb.ui.login.LoginWebViewFragment"
         android:label="fragment_login_web_view"
         tools:layout="@layout/fragment_login_web_view" />
+    <activity
+        android:id="@+id/informationActivity"
+        android:name="com.example.airbnb.ui.information.InformationActivity"
+        android:label="InformationActivity" />
 </navigation>

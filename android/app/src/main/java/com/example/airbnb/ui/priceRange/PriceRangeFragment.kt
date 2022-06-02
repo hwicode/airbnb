@@ -38,7 +38,6 @@ class PriceRangeFragment : Fragment() {
 
     private fun initPriceRange() {
         binding.tvInformationRangeStart.text = "₩${PRICE_MIN_VALUE} - "
-
         binding.tvInformationRangeEnd.text = "₩${formatter.format(PRICE_MAX_VALUE * OMAN_WON)}+"
     }
 
