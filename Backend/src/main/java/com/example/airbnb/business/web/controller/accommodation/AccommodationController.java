@@ -21,16 +21,19 @@ public class AccommodationController {
     private final AccommodationService accommodationService;
     private final AccommodationReadService accommodationReadService;
 
+    //
     @GetMapping("{id}")
     public AccommodationResponse searchAccommodationDetail(@PathVariable("id") Long id) {
         return accommodationReadService.findByAccommodationId(id);
     }
 
+    //
     @GetMapping("/tag")
     public List<SearchPriceResponse> getPriceRange(@RequestParam("tagName") String tagName) {
         return accommodationReadService.findAccommodationPriceRangeBy(tagName);
     }
 
+    //
     @GetMapping("/cities")
     public List<AccommodationRelatedCityResponse> findByAccommodationsByCityName(@RequestParam("cityName") String cityName) {
         return accommodationReadService.findByAccommodationsByCityName(cityName);

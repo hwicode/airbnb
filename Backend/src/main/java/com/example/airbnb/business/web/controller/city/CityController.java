@@ -3,7 +3,6 @@ package com.example.airbnb.business.web.controller.city;
 import com.example.airbnb.business.web.controller.city.dto.NearByCity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,9 +16,9 @@ public class CityController {
 
     private final CityService cityService;
 
-    @GetMapping("/{cityName}")
-    public List<NearByCity> searchAccommodations(@PathVariable String cityName) {
-        return cityService.findNearByCitiesBy(cityName)
+    @GetMapping
+    public List<NearByCity> getCities() {
+        return cityService.getCities()
                 .stream()
                 .map(NearByCity::new)
                 .collect(Collectors.toList());

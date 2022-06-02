@@ -24,12 +24,13 @@ public class ReservationController {
 
     @GetMapping("/users/{githubId}")
     public List<ReservationResponse> searchReservations(@PathVariable String githubId) {
-       return reservationReadService.findReservations(githubId);
+        return reservationReadService.findReservations(githubId);
     }
 
     // 리팩토링
     @PostMapping("")
-    public AccommodationReservationResponse reserveAccommodation(HttpServletRequest servletRequest,  @RequestParam("accommodationId") Long accommodationId, @RequestBody AccommodationReservationRequest request) {
+    public AccommodationReservationResponse reserveAccommodation(HttpServletRequest servletRequest, @RequestParam("accommodationId") Long accommodationId,
+                                                                 @RequestBody AccommodationReservationRequest request) {
         String githubId = (String) servletRequest.getHeader("token");
         return new AccommodationReservationResponse(reservationService.reservation(githubId, accommodationId, request));
     }

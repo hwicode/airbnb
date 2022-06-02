@@ -15,7 +15,7 @@ public class CityService {
     private final CityRepository cityRepository;
 
     @Transactional(readOnly = true)
-    public List<City> findNearByCitiesBy(String cityName) {
-        return cityRepository.findCitiesByName(cityName);
+    public List<City> getCities() {
+        return cityRepository.findAll();
     }
 }
