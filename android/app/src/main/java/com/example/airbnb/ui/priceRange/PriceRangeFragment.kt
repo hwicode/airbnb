@@ -47,25 +47,24 @@ class PriceRangeFragment : Fragment() {
                 launch { setMaxPriceText() }
             }
         }
-        binding.rbPriceRangeWithChart.setSelectedEntries(viewModel.lowestPriceStatedFlow.value, viewModel.highestPriceStatedFlow.value)
-        println(viewModel.lowestPriceStatedFlow.value)
-        println(viewModel.highestPriceStatedFlow.value)
         listenPinPointChange()
     }
 
     private fun listenPinPointChange() {
-        binding.rbPriceRangeWithChart.onRightPinChanged = { _, rightPinValue ->
+        binding.rbPriceRangeWithChart.onRightPinChanged = { index, rightPinValue ->
             rightPinValue?.toFloat()?.toInt()?.let {
                 viewModel.saveHighestPrice(it)
             }
             viewModel.setSkipFlagFalse()
+            viewModel.setMaxPriceIndex(index)
         }
 
-        binding.rbPriceRangeWithChart.onLeftPinChanged = { _, leftPinValue ->
+        binding.rbPriceRangeWithChart.onLeftPinChanged = { index, leftPinValue ->
             leftPinValue?.toFloat()?.toInt()?.let {
                 viewModel.saveLowestPrice(it)
             }
             viewModel.setSkipFlagFalse()
+            viewModel.setMinPriceIndex(index)
         }
     }
 
@@ -73,12 +72,13 @@ class PriceRangeFragment : Fragment() {
         viewModel.chartStatedFlow.collect {
             binding.rbPriceRangeWithChart.setEntries(it)
             viewModel.setSkipFlagTrue()
+            binding.rbPriceRangeWithChart.setSelectedEntries(viewModel.minIndex, viewModel.lastMaxIndex)
         }
     }
 
     private suspend fun setMinPriceText() {
         viewModel.lowestPriceStatedFlow.collect {
-            val price = if (it <= 0) formatter.format(PRICE_MIN_VALUE)
+            val price = if (it <= PRICE_MIN_VALUE) formatter.format(PRICE_MIN_VALUE)
             else (formatter.format(it.times(OMAN_WON)))
             binding.tvInformationRangeStart.text = "₩$price - "
             binding.etLowestPrice.setText("$price")
@@ -87,11 +87,16 @@ class PriceRangeFragment : Fragment() {
 
     private suspend fun setMaxPriceText() {
         viewModel.highestPriceStatedFlow.collect {
-            val price = if (it >= 20) formatter.format(PRICE_MAX_VALUE * OMAN_WON) + "+"
+            val price = if (it >= PRICE_MAX_VALUE) formatter.format(PRICE_MAX_VALUE * OMAN_WON) + "+"
             else (formatter.format(it.times(OMAN_WON)))
             binding.tvInformationRangeEnd.text = "₩$price"
             binding.etHighestPrice.setText("$price")
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.setLastMaxPriceIndex()
     }
 
 }

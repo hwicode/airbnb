@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.airbnb.common.Constants
+import com.example.airbnb.common.Constants.PRICE_MAX_VALUE
+import com.example.airbnb.common.Constants.PRICE_MIN_VALUE
 import com.example.airbnb.domain.model.CalendarDay
 import com.example.airbnb.ui.common.CalendarUtil
 import com.stfalcon.pricerangebar.model.BarEntry
@@ -38,11 +39,17 @@ class InformationViewModel : ViewModel() {
     private val _lowestPriceStatedFlow = MutableStateFlow<Int>(0)
     val lowestPriceStatedFlow: StateFlow<Int> = _lowestPriceStatedFlow
 
-    private val _highestPriceStatedFlow = MutableStateFlow<Int>(0)
+    private val _highestPriceStatedFlow = MutableStateFlow<Int>(highestPrice)
     val highestPriceStatedFlow: StateFlow<Int> = _highestPriceStatedFlow
 
     private val _chartStatedFlow = MutableStateFlow<ArrayList<BarEntry>>(arrayListOf())
     val chartStatedFlow: StateFlow<ArrayList<BarEntry>> = _chartStatedFlow
+
+    private var _minIndex = 0
+    val minIndex get() = _minIndex
+    private var _maxIndex = 20
+    private var _lastMaxIndex = 0
+    val lastMaxIndex get() = _lastMaxIndex
 
     init {
         makeCalendarData()
@@ -158,8 +165,8 @@ class InformationViewModel : ViewModel() {
 
     fun saveLowestPrice(price: Int) {
         viewModelScope.launch {
-            if (price <= 0) {
-                _lowestPriceStatedFlow.emit(0)
+            if (price <= PRICE_MIN_VALUE) {
+                _lowestPriceStatedFlow.emit(PRICE_MIN_VALUE)
             } else {
                 _lowestPriceStatedFlow.emit(price)
             }
@@ -168,8 +175,8 @@ class InformationViewModel : ViewModel() {
 
     fun saveHighestPrice(price: Int) {
         viewModelScope.launch {
-            if (price >= 20) {
-                _highestPriceStatedFlow.emit(20)
+            if (price >= PRICE_MAX_VALUE) {
+                _highestPriceStatedFlow.emit(PRICE_MAX_VALUE)
             } else {
                 _highestPriceStatedFlow.emit(price)
             }
@@ -184,12 +191,16 @@ class InformationViewModel : ViewModel() {
         _skipFlag.value = true
     }
 
-    fun initChartRange() {
-        val min = _lowestPriceStatedFlow.value
-        val max = _highestPriceStatedFlow.value
-        _lowestPriceStatedFlow.value = 0
-        _lowestPriceStatedFlow.value = min
-        _highestPriceStatedFlow.value = 0
-        _highestPriceStatedFlow.value = max
+    fun setMinPriceIndex(index: Int) {
+        _minIndex = index
     }
+
+    fun setMaxPriceIndex(index: Int) {
+        _maxIndex = index
+    }
+
+    fun setLastMaxPriceIndex() {
+        _lastMaxIndex = _maxIndex
+    }
+
 }

@@ -77,8 +77,8 @@ class InformationActivity : AppCompatActivity() {
                     }
                     R.id.priceRangeFragment -> {
                          if (checkedFlag) {
-                             viewModel.initFlag()
                              navController.navigate(R.id.action_priceRangeFragment_to_guestRangeFragment)
+                             viewModel.initFlag()
                          }
                     }
                     else -> {}
