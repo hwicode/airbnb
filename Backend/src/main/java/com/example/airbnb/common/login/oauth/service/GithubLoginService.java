@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
+import java.util.Optional;
 
 import static com.example.airbnb.business.core.domain.member.Member.createMember;
 
@@ -28,22 +29,22 @@ public class GithubLoginService implements LoginService {
     @Override
     @Transactional
     public void save(GithubUser githubUser) {
-        Member findMember = memberRepository.findByGithubId(githubUser.getGithubId())
-                .orElseGet(() -> createMember(githubUser.getProfileImage(), githubUser.getGithubId()));
-        if (findMember.exists()) {
-            findMember.updateProfile(githubUser.getGithubId(), githubUser.getProfileImage());
-            logger.info("회원 업데이트:{}", findMember.getGithubId());
+        Optional<Member> findMember = memberRepository.findByGithubId(githubUser.getGithubId());
+        if (findMember.isPresent()) {
+            Member member = findMember.get();
+            member.updateProfile(githubUser.getProfileImage());
+            logger.info("회원 업데이트:{}", member.getMemberId());
             return;
         }
-        memberRepository.save(findMember);
-        logger.info("회원 저장:{}", findMember.getGithubId());
+        memberRepository.save(createMember(githubUser.getGithubId(), githubUser.getProfileImage()));
+        logger.info("회원 저장:{}", githubUser.getGithubId());
     }
 
     @Override
     public Token createToken(GithubUser githubUser) {
         String accessToken = jwtTokenProvider.createToken(githubUser.getGithubId(), 1000 * 60 * 5);
         String refreshToken = jwtTokenProvider.createToken(githubUser.getGithubId(), 1000 * 60 * 12 * 24 * 7);
-        saveToken(githubUser.getGithubId(), refreshToken);
+//        saveToken(githubUser.getGithubId(), refreshToken);
         logger.info("토큰 발급 accessToken:{}, refreshToken:{}", accessToken, refreshToken);
         return new Token(accessToken, refreshToken);
     }
@@ -55,3 +56,4 @@ public class GithubLoginService implements LoginService {
         logger.info("토큰 저장:{}", value);
     }
 }
+

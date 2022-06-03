@@ -20,29 +20,29 @@ import static com.example.airbnb.common.login.token.github.GithubToken.GITHUB;
 import static org.springframework.http.HttpHeaders.LOCATION;
 import static org.springframework.http.HttpHeaders.SET_COOKIE;
 import static org.springframework.http.HttpStatus.MOVED_PERMANENTLY;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/oauth/github")
+@RequestMapping("/api/oauth")
 public class GithubOauthController implements OauthController {
 
     private final LoginService loginService;
     private final InMemoryClientRegisterrRepository inMemoryClientRegisterRepository;
     private final WebTokenProvider webTokenProvider;
 
+    // 안드로이드 측요청: String
     @Override
     @GetMapping("/callback")
-    public ResponseEntity<LoginResponse> login(@RequestParam String code) {
+    public ResponseEntity<String> login(@RequestParam String code) {
         ClientRegistration clientRegistration = inMemoryClientRegisterRepository.findByRegistration(GITHUB);
         WebToken webToken = webTokenProvider.createToken(code, clientRegistration);
+        System.out.println(webToken.getAccessToken());
         GithubUser githubUser = GithubUser.from(webTokenProvider.getAttributes(webToken.getAccessToken(), clientRegistration));
-
         loginService.save(githubUser);
         Token token = loginService.createToken(githubUser);
-
-        return ResponseEntity.status(MOVED_PERMANENTLY)
+        return ResponseEntity.status(OK)
                 .header(SET_COOKIE, createCookie(token.getRefreshToken()).toString())
-                .header(LOCATION, "/")
-                .body(new LoginResponse(token.getAccessToken()));
+                .body(token.getAccessToken());
     }
 }
