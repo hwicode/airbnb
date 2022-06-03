@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.airbnb.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_loginWebViewFragment"
+            app:destination="@id/loginWebViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.airbnb.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.airbnb.ui.home.SearchFragment"
+        android:label="SearchFragment" >
+
+        <action
+            android:id="@+id/action_searchFragment_to_informationActivity"
+            app:destination="@id/informationActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginWebViewFragment"
+        android:name="com.example.airbnb.ui.login.LoginWebViewFragment"
+        android:label="fragment_login_web_view"
+        tools:layout="@layout/fragment_login_web_view" />
+    <activity
+        android:id="@+id/informationActivity"
+        android:name="com.example.airbnb.ui.information.InformationActivity"
+        android:label="InformationActivity" />
+</navigation>
