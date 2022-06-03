@@ -1,8 +1,7 @@
 package com.example.airbnb.business.web.service.accommodation;
 
 import com.example.airbnb.business.core.domain.accommodation.QTag;
-import com.example.airbnb.business.web.controller.accommodation.SearchPriceResponse;
-import static com.example.airbnb.common.utils.TimeUtils.convert;
+import com.example.airbnb.business.web.controller.accommodation.dto.SearchPriceResponse;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +14,7 @@ import java.util.List;
 import static com.example.airbnb.business.core.domain.accommodation.QAccommodation.accommodation;
 import static com.example.airbnb.business.core.domain.accommodation.QAccommodationTag.accommodationTag;
 import static com.example.airbnb.business.core.domain.reservation.QReservation.reservation;
+import static com.example.airbnb.common.utils.TimeUtils.convert;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,10 +26,6 @@ public class TagReadRepository {
     public List<SearchPriceResponse> findAccommodationPriceRangeByTagAndPeriod(String tag, LocalDate checkIn, LocalDate checkOut) {
         QTag qTag = new QTag("tag");
 
-        /** 태그로 걸러진 숙소들 ->
-         *  { 숙소 - 테이블 풀스캔, 태그 - 인덱스 }
-         *  이렇게 검색을 만들기로 정했지만 애매
-         * */
         List<Long> accommodationIds = queryFactory.select(accommodationTag.accommodation.accommodationId)
                 .from(accommodationTag)
                 .join(accommodationTag.tag, qTag)
@@ -45,8 +41,8 @@ public class TagReadRepository {
                 .from(reservation)
                 .join(reservation.accommodation, accommodation)
                 .on(accommodation.accommodationId.in(accommodationIds))
-                .where(reservation.time.checkinTime.after(convert(checkOut)))
-//                        .or(reservation.time.checkoutTime.before(converter(checkIn, 9, 0, 1))))
+                .where(reservation.time.checkinTime.after(convert(checkOut))
+                        .or(reservation.time.checkoutTime.before(checkIn.atTime(9, 0, 1))))
                 .fetch();
 
         if (availableAccommodationsId.isEmpty()) {

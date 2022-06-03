@@ -1,8 +1,8 @@
 package com.example.airbnb.business.web.controller.accommodation;
 
-import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationRelatedCityResponse;
-import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
+import com.example.airbnb.business.web.controller.accommodation.dto.*;
 import com.example.airbnb.business.web.service.accommodation.AccommodationReadService;
+import com.example.airbnb.business.web.service.accommodation.AccommodationService;
 import com.example.airbnb.common.geometry.objects.Position;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 

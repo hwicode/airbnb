@@ -1,9 +1,9 @@
 package com.example.airbnb.business.core.repository.accommodation.querydsl;
 
 import com.example.airbnb.business.core.domain.accommodation.AccommodationOptionLine;
-import com.example.airbnb.business.web.controller.accommodation.AccommodationSearchCondition;
-import com.example.airbnb.business.web.controller.accommodation.AccommodationSearchResponse;
-import com.example.airbnb.business.web.controller.accommodation.SearchPriceResponse;
+import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationSearchCondition;
+import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationSearchResponse;
+import com.example.airbnb.business.web.controller.accommodation.dto.SearchPriceResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationRelatedCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
 import com.example.airbnb.common.geometry.objects.Position;
@@ -58,8 +58,7 @@ public class AccommodationReadRepository {
     }
 
     public List<AccommodationRelatedCityResponse> findByAccommodationsByCityId(Long cityId) {
-        return queryFactory.select(
-                        Projections.fields(AccommodationRelatedCityResponse.class,
+        return queryFactory.select(Projections.fields(AccommodationRelatedCityResponse.class,
                                 accommodation.accommodationId, accommodation.name.as("roomName"),
                                 accommodation.address.homeAddress.as("address"), accommodation.accommodationType,
                                 accommodation.averageRating, accommodation.price.as("oneDayPerPrice"),

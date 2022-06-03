@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.example.airbnb.common.login.token.github.GithubToken.GITHUB;
-import static org.springframework.http.HttpHeaders.LOCATION;
-import static org.springframework.http.HttpHeaders.SET_COOKIE;
-import static org.springframework.http.HttpStatus.MOVED_PERMANENTLY;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpHeaders.*;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,11 +35,12 @@ public class GithubOauthController implements OauthController {
     public ResponseEntity<String> login(@RequestParam String code) {
         ClientRegistration clientRegistration = inMemoryClientRegisterRepository.findByRegistration(GITHUB);
         WebToken webToken = webTokenProvider.createToken(code, clientRegistration);
-        System.out.println(webToken.getAccessToken());
+
         GithubUser githubUser = GithubUser.from(webTokenProvider.getAttributes(webToken.getAccessToken(), clientRegistration));
         loginService.save(githubUser);
         Token token = loginService.createToken(githubUser);
         return ResponseEntity.status(OK)
+                .header(AUTHORIZATION, AUTHORIZATION)
                 .header(SET_COOKIE, createCookie(token.getRefreshToken()).toString())
                 .body(token.getAccessToken());
     }
