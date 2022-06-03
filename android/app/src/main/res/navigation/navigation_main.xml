@@ -39,7 +39,11 @@
         android:id="@+id/loginWebViewFragment"
         android:name="com.example.airbnb.ui.login.LoginWebViewFragment"
         android:label="fragment_login_web_view"
-        tools:layout="@layout/fragment_login_web_view" />
+        tools:layout="@layout/fragment_login_web_view" >
+        <action
+            android:id="@+id/action_loginWebViewFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <activity
         android:id="@+id/informationActivity"
         android:name="com.example.airbnb.ui.information.InformationActivity"
