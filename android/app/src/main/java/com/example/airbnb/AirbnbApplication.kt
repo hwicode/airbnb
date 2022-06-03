@@ -1,11 +1,10 @@
 package com.example.airbnb
 
 import android.app.Application
-import com.codesquad.starbucks.di.NetWorkModule
-import com.codesquad.starbucks.di.appModule
+import com.example.airbnb.di.NetWorkModule
+import com.example.airbnb.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import org.koin.dsl.module
 
 
 class AirbnbApplication:Application() {
@@ -16,6 +15,5 @@ class AirbnbApplication:Application() {
             androidContext(this@AirbnbApplication)
             modules(appModule, NetWorkModule)
         }
-
     }
 }
