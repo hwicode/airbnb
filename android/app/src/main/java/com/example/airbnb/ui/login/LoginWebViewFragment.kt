@@ -7,13 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.example.airbnb.R
 import com.example.airbnb.common.Constants
 import com.example.airbnb.databinding.FragmentLoginWebViewBinding
+import okhttp3.internal.wait
 import org.koin.android.ext.android.inject
 
 class LoginWebViewFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginWebViewBinding
+    private lateinit var navigator: NavController
     private val viewModel:LoginViewModel by inject()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +29,7 @@ class LoginWebViewFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        navigator = Navigation.findNavController(view)
         setWebView()
         super.onViewCreated(view, savedInstanceState)
     }
@@ -55,8 +61,10 @@ class LoginWebViewFragment : Fragment() {
                 }
 
                 viewModel.getAccessToken()
-
-
+                if(!(Constants.JWT.isNullOrEmpty())){
+                    println(Constants.JWT)
+                    navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
+                }
             }
         }
     }

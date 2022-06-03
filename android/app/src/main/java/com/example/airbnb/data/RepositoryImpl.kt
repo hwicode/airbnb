@@ -8,7 +8,7 @@ import org.joda.time.LocalDateTime
 
 class RepositoryImpl(private val loginDataSource: LoginDataSource) : Repository {
 
-    override suspend fun getAccessToken():List<String>{
+    override suspend fun getAccessToken():String{
         return loginDataSource.getAccessToken()
     }
 }

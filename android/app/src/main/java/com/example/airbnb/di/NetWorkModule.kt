@@ -1,4 +1,4 @@
-package com.codesquad.starbucks.di
+package com.example.airbnb.di
 
 import com.example.airbnb.common.Constants
 import com.example.airbnb.data.RepositoryImpl
@@ -6,6 +6,7 @@ import com.example.airbnb.data.remote.LoginApi
 import com.example.airbnb.data.remote.LoginDataSource
 import com.example.airbnb.data.remote.LoginRemoteDataSource
 import com.example.airbnb.domain.Repository
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
@@ -26,7 +27,8 @@ val NetWorkModule = module {
     single<Retrofit>(named("LoginRetrofit")) {
         Retrofit.Builder()
             .baseUrl(Constants.WEBVIEW_LOGIN_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+
             .client(get())
             .build()
     }
