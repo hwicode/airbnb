@@ -64,7 +64,7 @@ class LoginWebViewFragment : Fragment() {
                 if(!(Constants.JWT.isNullOrEmpty())){
                     println(Constants.JWT)
                     navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
-                }g
+                }
             }
         }
     }
