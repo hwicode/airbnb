@@ -1,6 +1,7 @@
 package com.example.airbnb.business.core.repository.accommodation.querydsl;
 
 import com.example.airbnb.business.core.domain.accommodation.AccommodationOptionLine;
+import com.example.airbnb.business.core.domain.accommodation.Location;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationSearchCondition;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationSearchResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.SearchPriceResponse;
@@ -70,7 +71,20 @@ public class AccommodationReadRepository {
                 .fetch();
     }
 
-    public List<AccommodationSearchResponse> findAccommodationsByCondition(AccommodationSearchCondition searchCondition) {
-        return null;
+    public List<AccommodationSearchResponse> findAccommodationsByCondition(AccommodationSearchCondition searchCondition
+            , List<Long> accommodationIds) {
+
+        int guestNumber = searchCondition.getAdults() + searchCondition.getChildren();
+
+        return queryFactory.select(Projections.fields(AccommodationSearchResponse.class,
+                        accommodation.accommodationId, accommodation.mainImageUrl.as("imageUrl"),
+                        accommodation.averageRating, accommodation.commentCount,
+                        accommodation.name.as("roomName"), accommodation.price.as("oneDayPerPrice")))
+                .from(accommodation)
+                .where(accommodation.accommodationId.in(accommodationIds))
+                .where(accommodation.price.between(searchCondition.getMinPrice(), searchCondition.getMaxPrice()))
+                .where(accommodation.maxNumberOfPeople.goe(guestNumber))
+                .fetch();
     }
+
 }
