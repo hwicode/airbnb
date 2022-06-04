@@ -1,4 +1,4 @@
-package com.example.airbnb.business.web.controller.city;
+package com.example.airbnb.business.web.service.service;
 
 import com.example.airbnb.business.core.domain.accommodation.City;
 import com.example.airbnb.business.core.repository.accommodation.CityRepository;

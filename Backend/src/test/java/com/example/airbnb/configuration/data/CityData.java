@@ -20,7 +20,7 @@ public class CityData {
                 .orElseThrow(()->new BusinessException(CityTypeException.CITY_NOT_FOUND));
     }
 
-    CityData() {
+    public CityData() {
         this.cities = createCities();
     }
 
