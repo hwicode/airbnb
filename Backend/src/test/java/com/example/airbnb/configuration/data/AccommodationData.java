@@ -27,6 +27,7 @@ public class AccommodationData {
         this.accommodation = createAccommodation();
         this.tag = createTag();
         this.accommodationTag = createAccommodationTag();
+
         accommodation.registImages(images);
         accommodationOptionLine.setAccommodation(accommodation);
     }

@@ -12,7 +12,7 @@ public class ReservationData {
 
     private Reservation reservation;
 
-    private ReservationData() {
+    public ReservationData() {
         this.reservation = createReservation();
     }
 
