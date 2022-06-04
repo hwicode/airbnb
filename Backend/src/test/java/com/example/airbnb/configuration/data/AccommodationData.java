@@ -29,7 +29,7 @@ public class AccommodationData {
         this.accommodationTag = createAccommodationTag();
 
         accommodation.registImages(images);
-        accommodationOptionLine.setAccommodation(accommodation);
+        accommodationOptionLine.registAccommodation(accommodation);
     }
 
     private Accommodation createAccommodation() {

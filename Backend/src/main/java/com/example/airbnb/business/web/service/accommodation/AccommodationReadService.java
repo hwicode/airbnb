@@ -9,17 +9,16 @@ import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageR
 import com.example.airbnb.business.web.controller.accommodation.dto.*;
 import com.example.airbnb.common.exception.BusinessException;
 import com.example.airbnb.common.exception.accommodation.AccommodationTypeException;
-import com.example.airbnb.common.exception.accommodation.CityTypeException;
 import com.example.airbnb.common.geometry.objects.Position;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -66,6 +65,18 @@ public class AccommodationReadService {
 
     @Transactional(readOnly = true)
     public List<AccommodationSearchResponse> searchAccommodations(AccommodationSearchCondition searchCondition) {
-        return accommodationReadRepository.findAccommodationsByCondition(searchCondition);
+
+        List<SearchPriceResponse> searchPriceResponses = tagReadRepository
+                .findAccommodationPriceRangeByTagAndPeriod(searchCondition.getTagName(), searchCondition.getCheckIn(), searchCondition.getCheckOut());
+
+        for (SearchPriceResponse searchPriceResponse: searchPriceResponses) {
+            System.out.println(searchPriceResponse.getPrice());
+        }
+        List<Long> accommodationIds = searchPriceResponses.stream()
+                .map(SearchPriceResponse::getAccommodationId)
+                .collect(Collectors.toList());
+
+
+        return accommodationReadRepository.findAccommodationsByCondition(searchCondition, accommodationIds);
     }
 }

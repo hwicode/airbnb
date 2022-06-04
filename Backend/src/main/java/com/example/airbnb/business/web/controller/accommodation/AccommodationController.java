@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,7 +51,16 @@ public class AccommodationController {
     }
 
     @GetMapping("/search")
-    public List<AccommodationSearchResponse> searchAccommodations(@RequestBody AccommodationSearchCondition searchCondition) {
+    public List<AccommodationSearchResponse> searchAccommodations(@RequestParam String tagName,
+                                                                  @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam LocalDate checkIn
+                                                                  , @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam LocalDate checkOut
+                                                                  , @RequestParam BigDecimal minPrice, @RequestParam BigDecimal maxPrice
+                                                                  , @RequestParam int adults, @RequestParam int children
+                                                                  , @RequestParam int infants , @RequestParam Double latitude
+                                                                  , @RequestParam Double longitude) {
+        AccommodationSearchCondition searchCondition = new AccommodationSearchCondition(tagName, checkIn, checkOut, minPrice, maxPrice,
+                adults, children, infants, latitude, longitude);
+
         return accommodationReadService.searchAccommodations(searchCondition);
     }
 

@@ -46,13 +46,13 @@ class AccommodationReadServiceTest {
 
     @BeforeEach
     void setUp() {
-        AccommodationData data = new AccommodationData();
-        this.city = entityManager.persist(data.getCity());
-        this.entityManager.persist(data.getAccommodationOptionLine());
-        this.member = entityManager.persist(data.getMember());
-        this.accommodation = entityManager.persist(data.getAccommodation());
-        this.tag = entityManager.persist(data.getTag());
-        this.accommodationTag = entityManager.persist(data.getAccommodationTag());
+        AccommodationData accommodationData = new AccommodationData();
+        this.city = entityManager.persist(accommodationData.getCity());
+        this.entityManager.persist(accommodationData.getAccommodationOptionLine());
+        this.member = entityManager.persist(accommodationData.getMember());
+        this.accommodation = entityManager.persist(accommodationData.getAccommodation());
+        this.tag = entityManager.persist(accommodationData.getTag());
+        this.accommodationTag = entityManager.persist(accommodationData.getAccommodationTag());
     }
 
     @Test

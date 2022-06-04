@@ -2,11 +2,9 @@ package com.example.airbnb.business.core.domain.accommodation;
 
 
 import com.example.airbnb.business.core.domain.member.Member;
-import com.example.airbnb.business.core.domain.reservation.Reservation;
-import com.example.airbnb.business.core.domain.reservation.Time;
+import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationSearchResponse;
 import lombok.Builder;
 import lombok.Getter;
-import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -89,6 +87,10 @@ public class Accommodation {
                 image.registAccommodation(this);
             }
         }
+    }
+
+    public AccommodationSearchResponse toSearchResponse() {
+        return new AccommodationSearchResponse(this.accommodationId, this.mainImageUrl, this.averageRating, this.commentCount, this.name, this.price);
     }
 
     @Override
