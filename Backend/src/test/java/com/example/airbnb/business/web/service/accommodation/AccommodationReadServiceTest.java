@@ -4,6 +4,7 @@ import com.example.airbnb.business.core.domain.accommodation.Accommodation;
 import com.example.airbnb.business.core.domain.accommodation.AccommodationOptionLine;
 import com.example.airbnb.business.core.domain.accommodation.City;
 import com.example.airbnb.business.core.domain.member.Member;
+import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationRelatedCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
 import com.example.airbnb.common.exception.BusinessException;
 import com.example.airbnb.configuration.TestConfig;
@@ -18,6 +19,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.List;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
@@ -43,15 +46,10 @@ class AccommodationReadServiceTest {
     @BeforeEach
     void setUp() {
         AccommodationData data = new AccommodationData();
-        this.accommodation = data.getAccommodation();
-        this.accommodationOptionLine = data.getAccommodationOptionLine();
-        this.member = data.getMember();
-        this.city = data.getCity();
-
-        entityManager.persist(accommodationOptionLine);
-        entityManager.persist(member);
-        entityManager.persist(city);
-        entityManager.persist(accommodation);
+        this.city = entityManager.persist(data.getCity());
+        this.entityManager.persist(data.getAccommodationOptionLine());
+        this.member = entityManager.persist(data.getMember());
+        this.accommodation = entityManager.persist(data.getAccommodation());
     }
 
     @Test
@@ -71,5 +69,27 @@ class AccommodationReadServiceTest {
         // when, then
         Assertions.assertThrows(BusinessException.class,
                 () -> accommodationReadService.findByAccommodationId(1000L));
+    }
+
+    @Test
+    @DisplayName("숙소를 도시 이름으로 조회했을 때 해당 도시에 포함된 숙소들이 반환된다.")
+    void findByAccommodationsByCityName() {
+        // when
+        List<AccommodationRelatedCityResponse> response =
+                accommodationReadService.findByAccommodationsByCityName("서울");
+
+        // then
+        then(response.size()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("숙소를 도시 이름으로 조회했을 때 해당 도시에 포함된 숙소들이 존재하지 않는다면 빈 리스트가 반환된다.")
+    void findByAccommodationsByCityName_EmptyList() {
+        // when
+        List<AccommodationRelatedCityResponse> response =
+                accommodationReadService.findByAccommodationsByCityName("시카고");
+
+        // then
+        then(response.size()).isEqualTo(0);
     }
 }
