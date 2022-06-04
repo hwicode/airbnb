@@ -1,8 +1,6 @@
 package com.example.airbnb.business.web.service.accommodation;
 
-import com.example.airbnb.business.core.domain.accommodation.Accommodation;
-import com.example.airbnb.business.core.domain.accommodation.AccommodationOptionLine;
-import com.example.airbnb.business.core.domain.accommodation.City;
+import com.example.airbnb.business.core.domain.accommodation.*;
 import com.example.airbnb.business.core.domain.member.Member;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationRelatedCityResponse;
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
@@ -40,8 +38,11 @@ class AccommodationReadServiceTest {
 
     private Accommodation accommodation;
     private AccommodationOptionLine accommodationOptionLine;
+    private AccommodationTag accommodationTag;
     private Member member;
     private City city;
+    private Tag tag;
+    private List<Image> images;
 
     @BeforeEach
     void setUp() {
@@ -50,6 +51,8 @@ class AccommodationReadServiceTest {
         this.entityManager.persist(data.getAccommodationOptionLine());
         this.member = entityManager.persist(data.getMember());
         this.accommodation = entityManager.persist(data.getAccommodation());
+        this.tag = entityManager.persist(data.getTag());
+        this.accommodationTag = entityManager.persist(data.getAccommodationTag());
     }
 
     @Test
