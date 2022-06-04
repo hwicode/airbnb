@@ -14,11 +14,11 @@ public class Location {
 
     private Point point;
 
-    public Location(Double latitude, Double longitude) {
-        this.point = toPoint(latitude, longitude);
+    public Location(Double longitude, Double latitude) {
+        this.point = toPoint(longitude, latitude);
     }
 
-    public Point toPoint(Double latitude, Double longitude) {
+    public Point toPoint(Double longitude, Double latitude) {
         String pointWKT = String.format("POINT(%s %s)", longitude, latitude);
         try {
             return (Point) new WKTReader().read(pointWKT);
