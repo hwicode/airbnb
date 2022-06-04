@@ -6,11 +6,7 @@ import com.example.airbnb.business.core.repository.accommodation.querydsl.Accomm
 import com.example.airbnb.business.core.repository.accommodation.querydsl.AmenityReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.CommentReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageReadRepository;
-import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationSearchCondition;
-import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationSearchResponse;
-import com.example.airbnb.business.web.controller.accommodation.dto.SearchPriceResponse;
-import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationRelatedCityResponse;
-import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationResponse;
+import com.example.airbnb.business.web.controller.accommodation.dto.*;
 import com.example.airbnb.common.exception.BusinessException;
 import com.example.airbnb.common.exception.accommodation.AccommodationTypeException;
 import com.example.airbnb.common.exception.accommodation.CityTypeException;
@@ -19,8 +15,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -49,9 +48,11 @@ public class AccommodationReadService {
 
     @Transactional(readOnly = true)
     public List<AccommodationRelatedCityResponse> findByAccommodationsByCityName(String cityName) {
-        City city = cityRepository.findCityByName(cityName)
-                .orElseThrow(() -> new BusinessException(CityTypeException.CITY_NOT_FOUND));
-        return accommodationReadRepository.findByAccommodationsByCityId(city.getCityId());
+        Optional<City> findCity = cityRepository.findCityByName(cityName);
+        if(findCity.isPresent()){
+            return accommodationReadRepository.findByAccommodationsByCityId(findCity.get().getCityId());
+        }
+        return Collections.emptyList();
     }
 
     @Transactional(readOnly = true)
