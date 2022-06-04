@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -65,6 +66,18 @@ public class AccommodationReadService {
 
     @Transactional(readOnly = true)
     public List<AccommodationSearchResponse> searchAccommodations(AccommodationSearchCondition searchCondition) {
-        return accommodationReadRepository.findAccommodationsByCondition(searchCondition);
+
+        List<SearchPriceResponse> searchPriceResponses = tagReadRepository
+                .findAccommodationPriceRangeByTagAndPeriod(searchCondition.getTagName(), searchCondition.getCheckIn(), searchCondition.getCheckOut());
+
+        for (SearchPriceResponse searchPriceResponse: searchPriceResponses) {
+            System.out.println(searchPriceResponse.getPrice());
+        }
+        List<Long> accommodationIds = searchPriceResponses.stream()
+                .map(SearchPriceResponse::getAccommodationId)
+                .collect(Collectors.toList());
+
+
+        return accommodationReadRepository.findAccommodationsByCondition(searchCondition, accommodationIds);
     }
 }
