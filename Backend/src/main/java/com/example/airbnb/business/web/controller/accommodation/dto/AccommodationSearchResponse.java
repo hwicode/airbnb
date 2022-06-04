@@ -10,7 +10,15 @@ public class AccommodationSearchResponse {
       private String imageUrl;
       private Double averageRating;
       private Integer commentsNumber;
-      private String name;
+      private String roomName;
       private BigDecimal oneDayPerPrice;
 
+      public AccommodationSearchResponse(Long accommodationId, String imageUrl, Double averageRating, Integer commentsNumber, String roomName, BigDecimal oneDayPerPrice) {
+            this.accommodationId = accommodationId;
+            this.imageUrl = imageUrl;
+            this.averageRating = averageRating;
+            this.commentsNumber = commentsNumber;
+            this.roomName = roomName;
+            this.oneDayPerPrice = oneDayPerPrice;
+      }
 }
