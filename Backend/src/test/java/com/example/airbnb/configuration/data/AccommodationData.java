@@ -13,16 +13,20 @@ import java.util.List;
 public class AccommodationData {
     private Accommodation accommodation;
     private AccommodationOptionLine accommodationOptionLine;
+    private AccommodationTag accommodationTag;
     private Member member;
     private City city;
+    private Tag tag;
     private List<Image> images;
 
     public AccommodationData() {
-        this.accommodation = createAccommodation();
         this.accommodationOptionLine = createAccommodationOptionLine();
         this.images = createImages();
         this.member = createMember();
         this.city = createCity();
+        this.accommodation = createAccommodation();
+        this.tag = createTag();
+        this.accommodationTag = createAccommodationTag();
         accommodation.registImages(images);
         accommodationOptionLine.setAccommodation(accommodation);
     }
@@ -48,7 +52,7 @@ public class AccommodationData {
     }
 
     private City createCity() {
-        return new City("대한민국", "서울", "https://blog.kakaocdn.net/dn/o1KIw/btqu9mflPY6/rGk1mM3iugV1c6jj9Z3E80/img.jpg");
+        return new City("대한민국", "제주도", "https://blog.kakaocdn.net/dn/o1KIw/btqu9mflPY6/rGk1mM3iugV1c6jj9Z3E80/img.jpg");
     }
 
     private List<Image> createImages() {
@@ -65,5 +69,13 @@ public class AccommodationData {
     private Member createMember() {
         String profileImage = "https://images.daznservices.com/di/library/Goal_Tanzania/bc/9e/neymar-messi-suarez_113bvr56cm6yt14nf5l21s66de.jpg?t=-1209587743&w=800&h=600";
         return new Member(profileImage, "Jun", "devjun10", Gender.MAN);
+    }
+
+    private Tag createTag(){
+        return new Tag("제주도");
+    }
+
+    private AccommodationTag createAccommodationTag(){
+        return new AccommodationTag(tag, accommodation);
     }
 }
