@@ -1,5 +1,6 @@
 package com.example.airbnb.business.web.controller.accommodation.dto;
 
+import com.example.airbnb.business.core.domain.accommodation.Accommodation;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -13,12 +14,12 @@ public class AccommodationSearchResponse {
       private String roomName;
       private BigDecimal oneDayPerPrice;
 
-      public AccommodationSearchResponse(Long accommodationId, String imageUrl, Double averageRating, Integer commentsNumber, String roomName, BigDecimal oneDayPerPrice) {
-            this.accommodationId = accommodationId;
-            this.imageUrl = imageUrl;
-            this.averageRating = averageRating;
-            this.commentsNumber = commentsNumber;
-            this.roomName = roomName;
-            this.oneDayPerPrice = oneDayPerPrice;
+      public AccommodationSearchResponse(Accommodation accommodation) {
+            this.accommodationId = accommodation.getAccommodationId();
+            this.imageUrl = accommodation.getMainImageUrl();
+            this.averageRating = accommodation.getAverageRating();
+            this.commentsNumber = accommodation.getCommentCount();
+            this.roomName = accommodation.getName();
+            this.oneDayPerPrice = accommodation.getPrice();
       }
 }
