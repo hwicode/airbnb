@@ -17,7 +17,15 @@ public class WishResponse {
     private String image;
     private int commentCount;
 
-    public WishResponse() {
+    public WishResponse() {}
 
+    public WishResponse(Long memberId, Long accommodationId, double averageRating, String roomName, BigDecimal oneDayPerPrice, String image, int commentCount) {
+        this.memberId = memberId;
+        this.accommodationId = accommodationId;
+        this.averageRating = averageRating;
+        this.roomName = roomName;
+        this.oneDayPerPrice = oneDayPerPrice;
+        this.image = image;
+        this.commentCount = commentCount;
     }
 }
