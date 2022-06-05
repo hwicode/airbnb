@@ -2,11 +2,14 @@ package com.example.airbnb.business.core.domain.reservation;
 
 import com.example.airbnb.business.core.domain.accommodation.Accommodation;
 import com.example.airbnb.business.core.domain.member.Member;
+import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Getter
 @Entity
 public class Reservation {
 
@@ -17,15 +20,15 @@ public class Reservation {
 
     private BigDecimal totalPrice;
 
-    private int totalDay;
+    private Integer totalDay;
 
-    private int totalPeople;
+    private Integer totalPeople;
 
-    private int adults;
+    private Integer adults;
 
-    private int children;
+    private Integer children;
 
-    private int infants;
+    private Integer infants;
 
     @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
@@ -41,6 +44,19 @@ public class Reservation {
     @Embedded
     private Time time;
 
+    @Builder
+    public Reservation(BigDecimal totalPrice, Integer totalDay, Integer totalPeople, Integer adults, Integer children, Integer infants, Time time) {
+        this.totalPrice = totalPrice;
+        this.totalDay = totalDay;
+        this.totalPeople = totalPeople;
+        this.adults = adults;
+        this.children = children;
+        this.infants = infants;
+        this.time = time;
+    }
+
+    protected Reservation (){};
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,5 +68,10 @@ public class Reservation {
     @Override
     public int hashCode() {
         return Objects.hash(reservationId);
+    }
+
+    public void addInformation(Member member, Accommodation accommodation) {
+        this.member = member;
+        this.accommodation = accommodation;
     }
 }

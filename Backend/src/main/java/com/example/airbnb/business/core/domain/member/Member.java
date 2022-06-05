@@ -28,10 +28,10 @@ public class Member {
     private Gender gender;
 
     @Builder
-    public Member(String profileImage, String name, String githubId) {
-        this.profileImage = profileImage;
-        this.name = name;
+    public Member(String githubId, String name, String profileImage) {
         this.githubId = githubId;
+        this.name = name;
+        this.profileImage = profileImage;
         this.role = createNormalRole();
     }
 
@@ -43,7 +43,11 @@ public class Member {
         this.role = createHostRole();
     }
 
-    protected Member() {};
+    public static Member createMember(String githubId, String profileImage) {
+        return new Member(githubId, null, profileImage);
+    }
+
+    protected Member() {}
 
     private Role createNormalRole() {
         return Role.NORMAL;
@@ -53,7 +57,7 @@ public class Member {
         return Role.HOST;
     }
 
-    public boolean isNewUser(){
+    public boolean exists() {
         return this.memberId == null;
     }
 
@@ -68,6 +72,10 @@ public class Member {
     @Override
     public int hashCode() {
         return Objects.hash(memberId);
+    }
+
+    public void updateProfile(String profileImage) {
+        this.profileImage = profileImage;
     }
 }
 

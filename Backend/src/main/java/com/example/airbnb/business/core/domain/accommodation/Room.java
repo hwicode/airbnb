@@ -9,11 +9,11 @@ import java.util.Objects;
 @Embeddable
 public class Room {
 
-    private int bedRooms;
-    private int beds;
-    private int bathRooms;
+    private Integer bedRooms;
+    private Integer beds;
+    private Integer bathRooms;
 
-    public Room(int beds, int bathRooms, int bedRooms) {
+    public Room(Integer beds, Integer bathRooms, Integer bedRooms) {
         this.beds = beds;
         this.bathRooms = bathRooms;
         this.bedRooms = bedRooms;

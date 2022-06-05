@@ -10,3 +10,4 @@
 local.properties
 
 src/main/resources/application-dev.yml
+src/test/resources/application-test.yml

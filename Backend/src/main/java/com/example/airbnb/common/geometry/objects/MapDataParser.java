@@ -16,15 +16,13 @@ public class MapDataParser {
     private static final String GEOMETRY = "geometry";
     private static final String LOCATION = "location";
 
-    public Map<String, Object> parse(JSONObject geometryData) {
+    public Position parse(JSONObject geometryData) {
         Map<String, Object> geometryDataMap = new HashMap<>();
 
         Double latitude = getAttribute(geometryData, LATITUDE);
         Double longitude = getAttribute(geometryData, LONGITUDE);
 
-        geometryDataMap.put(LATITUDE, Double.toString(latitude));
-        geometryDataMap.put(LONGITUDE, Double.toString(longitude));
-        return geometryDataMap;
+        return new Position(latitude, longitude);
     }
 
     private Double getAttribute(JSONObject jsonObject, String latitude) {

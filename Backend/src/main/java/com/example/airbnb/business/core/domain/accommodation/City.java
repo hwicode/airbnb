@@ -1,9 +1,14 @@
 package com.example.airbnb.business.core.domain.accommodation;
 
+import lombok.Getter;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Getter
 public class City {
 
     @Id
@@ -16,6 +21,9 @@ public class City {
     private String name;
 
     private String image;
+
+    private Double latitude;
+    private Double longitude;
 
     public City(String nation, String name, String image) {
         this.nation = nation;

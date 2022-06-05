@@ -2,8 +2,8 @@ package com.example.airbnb.business.core.domain.accommodation;
 
 
 import com.example.airbnb.business.core.domain.member.Member;
-import com.example.airbnb.business.core.domain.reservation.Reservation;
-import com.example.airbnb.business.core.domain.reservation.Time;
+import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationSearchResponse;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -27,7 +27,11 @@ public class Accommodation {
 
     private BigDecimal price;
 
-    private double averageRating;
+    private String mainImageUrl;
+
+    private Double averageRating;
+
+    private Integer commentCount;
 
     @Embedded
     private Room room;
@@ -42,13 +46,10 @@ public class Accommodation {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "accommodation", cascade = CascadeType.PERSIST)
-    private List<Reservation> reservations = new ArrayList<>();
-
     @Embedded
     private Location location;
 
-    private int maxNumberOfPeople;
+    private Integer maxNumberOfPeople;
 
     @OneToMany(mappedBy = "accommodation", cascade = CascadeType.PERSIST)
     private List<Image> images = new ArrayList<>();
@@ -57,19 +58,21 @@ public class Accommodation {
     @JoinColumn(name = "city_id")
     private City city;
 
-    public Accommodation(String name, String description, BigDecimal price,
+    @Builder
+    public Accommodation(String name, String description, String mainImageUrl, BigDecimal price,
                          double averageRating, Room room, Member member, AccommodationType accommodationType,
-                         Address address, List<Reservation> reservations, Location location,
+                         Address address, Location location,
                          int maxNumberOfPeople, City city) {
         this.name = name;
         this.description = description;
+        this.mainImageUrl = mainImageUrl;
+        this.commentCount = 0;
         this.price = price;
         this.averageRating = averageRating;
         this.room = room;
         this.member = member;
         this.accommodationType = accommodationType;
         this.address = address;
-        this.reservations = reservations;
         this.location = location;
         this.maxNumberOfPeople = maxNumberOfPeople;
         this.city = city;
@@ -84,6 +87,10 @@ public class Accommodation {
                 image.registAccommodation(this);
             }
         }
+    }
+
+    public AccommodationSearchResponse toSearchResponse() {
+        return new AccommodationSearchResponse(this.accommodationId, this.mainImageUrl, this.averageRating, this.commentCount, this.name, this.price);
     }
 
     @Override

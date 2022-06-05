@@ -1,8 +1,13 @@
 package com.example.airbnb.common.login.oauth.service;
 
-import com.example.airbnb.common.login.oauth.controller.dto.OauthLoginResponse;
+
+import com.example.airbnb.common.login.oauth.controller.dto.Token;
 
 public interface LoginService {
 
-    OauthLoginResponse login(String code);
+    void save(GithubUser code);
+
+    Token createToken(GithubUser githubUser);
+
+    void saveToken(String key, String value);
 }
