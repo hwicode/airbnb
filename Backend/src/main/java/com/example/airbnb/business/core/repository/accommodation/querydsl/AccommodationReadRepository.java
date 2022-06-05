@@ -35,7 +35,7 @@ public class AccommodationReadRepository {
                                 accommodation.description, accommodation.price.as("oneDayPerPrice"),
                                 accommodation.address.homeAddress.as("address"), accommodation.accommodationType,
                                 accommodation.averageRating, accommodation.maxNumberOfPeople, accommodation.room.bedRooms,
-                                accommodation.room.beds, accommodation.room.bathRooms))
+                                accommodation.room.beds, accommodation.room.bathRooms, accommodation.mainImageUrl))
                 .from(accommodation)
                 .leftJoin(accommodation.member, member)
                 .where(accommodation.accommodationId.eq(id))
