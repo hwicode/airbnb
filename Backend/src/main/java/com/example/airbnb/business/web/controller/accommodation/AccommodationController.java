@@ -1,5 +1,6 @@
 package com.example.airbnb.business.web.controller.accommodation;
 
+import com.example.airbnb.business.core.domain.accommodation.Accommodation;
 import com.example.airbnb.business.web.controller.accommodation.dto.*;
 import com.example.airbnb.business.web.service.accommodation.AccommodationReadService;
 import com.example.airbnb.business.web.service.accommodation.AccommodationService;
@@ -44,10 +45,9 @@ public class AccommodationController {
     }
 
     @PostMapping
-    public List<AccommodationRegistResponse> registAccommodation(@RequestBody AccommodationRegistRequest request) {
-        return accommodationService.registAccommodation(request).stream()
-                .map(AccommodationRegistResponse::new)
-                .collect(Collectors.toList());
+    public AccommodationRegisterResponse registerAccommodation(@RequestBody AccommodationRegisterRequest request) {
+        Accommodation accommodation = accommodationService.registerAccommodation(request);
+        return new AccommodationRegisterResponse(accommodation);
     }
 
     @GetMapping("/search")
