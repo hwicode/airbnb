@@ -24,6 +24,7 @@ public class AccommodationResponse {
     private String address;
     private AccommodationType accommodationType;
     private Double averageRating;
+    private String mainImageUrl;
     private List<String> images;
     private List<CommentResponse> comments;
     private List<AmenityCategoryResponse> amenityCategories;
