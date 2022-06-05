@@ -13,7 +13,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.airbnb.R
 import com.example.airbnb.databinding.FragmentCalendarBinding
 import com.example.airbnb.ui.information.InformationViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.joda.time.LocalDate
 
@@ -52,7 +51,7 @@ class CalendarFragment : Fragment() {
             monthAdapter.setCheckInAndCheckOut(it, viewModel.checkOutStatedFlow.value)
             monthAdapter.notifyDataSetChanged()
             if (it != null) {
-                viewModel.switchSkipFlag()
+                viewModel.setSkipFlagFalse()
             }
         }
     }
@@ -63,7 +62,7 @@ class CalendarFragment : Fragment() {
             monthAdapter.setCheckInAndCheckOut(viewModel.checkInStatedFlow.value, it)
             monthAdapter.notifyDataSetChanged()
             if (it != null) {
-                viewModel.switchCheckedFlag()
+                viewModel.setCheckFlagTrue()
             }
         }
     }

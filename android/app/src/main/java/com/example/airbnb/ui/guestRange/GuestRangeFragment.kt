@@ -4,33 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.fragment.app.activityViewModels
 import com.example.airbnb.R
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import com.example.airbnb.ui.information.InformationViewModel
 
 class GuestRangeFragment : Fragment() {
-    private lateinit var skipBtn: Button
-    private lateinit var nextBtn: ImageButton
-    private lateinit var navigator: NavController
+
+    private val viewModel: InformationViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,58 +33,75 @@ class GuestRangeFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
-                    GuestRangeView()
+                    GuestRangeView(viewModel)
                 }
             }
         }
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        skipBtn = view.rootView.findViewById(R.id.btn_information_skip)
-        nextBtn = view.rootView.findViewById(R.id.iBtn_information_next)
-        navigator= Navigation.findNavController(view)
-
-        nextBtn.setOnClickListener {
-            navigator.navigate(R.id.action_guestRangeFragment_to_calendarFragment)
-        }
-        skipBtn.setOnClickListener {
-            navigator.navigate(R.id.action_guestRangeFragment_to_calendarFragment)
-        }
-    }
-
 }
 
 @Composable
-fun GuestRangeView() {
+fun GuestRangeView(viewModel: InformationViewModel) {
     Surface(
         modifier = Modifier
             .fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        Column() {
-            var adultCount by rememberSaveable { mutableStateOf(0) }
-            var childCount by rememberSaveable { mutableStateOf(0) }
-            var toddlerCount by rememberSaveable { mutableStateOf(0) }
-            GuestInputHeader(input = "인원 입력", guest = "게스트 ", child = "유아 ", guestCount= (adultCount + childCount), toddlerCount = toddlerCount)
+        Column {
+            var adultCount = viewModel.adultCountStateFlow.collectAsState().value
+            var childCount = viewModel.childCountStateFlow.collectAsState().value
+            var toddlerCount = viewModel.toddlerCountStateFlow.collectAsState().value
+            GuestInputHeader(
+                input = "인원 입력",
+                guest = "게스트 ",
+                child = "유아 ",
+                guestCount = (adultCount + childCount),
+                toddlerCount = toddlerCount
+            )
 
-            Column(modifier = Modifier
-                .wrapContentHeight()
-                .padding(start = 16.dp, end = 16.dp)) {
+            Column(
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .padding(start = 16.dp, end = 16.dp)
+            ) {
                 GuessAdultSelectorLayout(adultCount) {
-                    adultCount = it
+                    if (it > 0) {
+                        viewModel.setSkipFlagFalse()
+                        viewModel.setCheckFlagTrue()
+                    } else {
+                        viewModel.setCheckFlagFalse()
+                    }
+                    viewModel.saveAdultCount(it)
                 }
-                Divider(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp), color = Color(0xFFE0E0E0 ))
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp), color = Color(0xFFE0E0E0)
+                )
                 GuessChildSelectorLayout(childCount) {
-                    childCount = it
+                    if (it > 0) {
+                        viewModel.setSkipFlagFalse()
+                        //성인이 0명인 상태에서 증가버튼이 눌렸을때
+                        if (adultCount == 0 && childCount < it) {
+                            viewModel.increaseAdultCountByChildOrToddler(1)
+                        }
+                    }
+                    viewModel.saveChildCount(it)
                 }
-                Divider(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp), color = Color(0xFFE0E0E0 ))
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp), color = Color(0xFFE0E0E0)
+                )
                 GuessToddlerSelectorLayout(toddlerCount) {
-                    toddlerCount = it
+                    if (it > 0) {
+                        viewModel.setSkipFlagFalse()
+                        //성인이 0명인 상태에서 증가버튼이 눌렸을때
+                        if (adultCount == 0 && toddlerCount < it) {
+                            viewModel.increaseAdultCountByChildOrToddler(1)
+                        }
+                    }
+                    viewModel.saveToddlerCount(it)
                 }
             }
         }
@@ -104,13 +114,15 @@ fun GuestInputHeader(input: String, guest: String, child: String, guestCount: In
     Column(
         modifier = Modifier
             .fillMaxWidth()
-//            .height(58.dp)
             .wrapContentHeight(Alignment.Top)
             .background(Color(0xFFF5F5F7))
             .padding(start = 76.dp, bottom = 22.dp)
     ) {
         Text(text = input, style = MaterialTheme.typography.overline)
-        Text(text = "${guest} ${guestCount}, ${child} ${toddlerCount}", style = MaterialTheme.typography.h6)
+        Text(
+            text = "${guest} ${guestCount}, ${child} ${toddlerCount}",
+            style = MaterialTheme.typography.h6
+        )
     }
 }
 
@@ -121,11 +133,9 @@ fun GuestSelector(type: String, ageRange: String, countNumber: Int, count: (coun
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(bottom = 16.dp)
-        ,
+            .padding(bottom = 16.dp),
     ) {
         Column(modifier = Modifier.fillMaxWidth(0.5F)) {
-
             Spacer(modifier = Modifier.height(12.dp))
             Text(text = type, style = MaterialTheme.typography.subtitle1)
             Text(
@@ -158,7 +168,7 @@ fun GuestSelector(type: String, ageRange: String, countNumber: Int, count: (coun
                 modifier = Modifier.wrapContentSize(Alignment.Center),
                 style = MaterialTheme.typography.h6,
             )
-            IconButton(onClick = {
+            IconButton(enabled = countNumber < 8, onClick = {
                 countingNumber += 1
                 count(countingNumber)
             })
@@ -174,40 +184,6 @@ fun GuestSelector(type: String, ageRange: String, countNumber: Int, count: (coun
     }
 }
 
-/*@Composable
-fun GuessSelectorLayout(countNumber: Int, count: (isPlus: Boolean) -> Unit){
-    Column(modifier = Modifier
-        .wrapContentHeight()
-        .padding(start = 16.dp, end = 16.dp)) {
-        GuestSelector(type = "성인", ageRange = "만13세이상", countNumber, count)
-        Divider(modifier = Modifier
-            .fillMaxWidth()
-            .height(1.dp), color = Color(0xFFE0E0E0 ))
-        GuestSelector(type = "어린이", ageRange = "만2~13세", countNumber, count)
-        Divider(modifier = Modifier
-            .fillMaxWidth()
-            .height(1.dp), color = Color(0xFFE0E0E0 ))
-        GuestSelector(type = "유아", ageRange = "만2세 미만", countNumber, count)
-    }
-}*/
-
-@Composable
-fun GuessSelectorLayout(adultCount: Int, childCount: Int, toddlerCount: Int, count: (countNumber: Int) -> Unit) {
-    Column(modifier = Modifier
-        .wrapContentHeight()
-        .padding(start = 16.dp, end = 16.dp)) {
-        GuessAdultSelectorLayout(adultCount, count)
-        Divider(modifier = Modifier
-            .fillMaxWidth()
-            .height(1.dp), color = Color(0xFFE0E0E0 ))
-        GuessChildSelectorLayout(childCount, count)
-        Divider(modifier = Modifier
-            .fillMaxWidth()
-            .height(1.dp), color = Color(0xFFE0E0E0 ))
-        GuessToddlerSelectorLayout(toddlerCount, count)
-    }
-}
-
 @Composable
 fun GuessAdultSelectorLayout(countNumber: Int, count: (countNumber: Int) -> Unit) {
     GuestSelector(type = "성인", ageRange = "만13세이상", countNumber, count)
@@ -215,19 +191,11 @@ fun GuessAdultSelectorLayout(countNumber: Int, count: (countNumber: Int) -> Unit
 
 @Composable
 fun GuessChildSelectorLayout(countNumber: Int, count: (countNumber: Int) -> Unit) {
-    GuestSelector(type = "성인", ageRange = "만13세이상", countNumber, count)
+    GuestSelector(type = "어린이", ageRange = "만2~13세", countNumber, count)
 }
 
 @Composable
 fun GuessToddlerSelectorLayout(countNumber: Int, count: (countNumber: Int) -> Unit) {
-    GuestSelector(type = "성인", ageRange = "만13세이상", countNumber, count)
-}
-
-@Composable
-@Preview(showBackground = true)
-fun GuestInputHeaderPreview() {
-    MaterialTheme {
-        GuestRangeView()
-    }
+    GuestSelector(type = "유아", ageRange = "만2세미만", countNumber, count)
 }
 
