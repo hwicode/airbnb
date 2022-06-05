@@ -45,6 +45,15 @@ class InformationViewModel : ViewModel() {
     private val _chartStatedFlow = MutableStateFlow<ArrayList<BarEntry>>(arrayListOf())
     val chartStatedFlow: StateFlow<ArrayList<BarEntry>> = _chartStatedFlow
 
+    private val _adultCountStateFlow = MutableStateFlow(0)
+    val adultCountStateFlow = _adultCountStateFlow
+
+    private val _childCountStateFLow = MutableStateFlow(0)
+    val childCountStateFlow = _childCountStateFLow
+
+    private val _toddlerCountStateFlow = MutableStateFlow(0)
+    val toddlerCountStateFlow = _toddlerCountStateFlow
+
     private var _minIndex = 0
     val minIndex get() = _minIndex
     private var _maxIndex = 20
@@ -187,6 +196,13 @@ class InformationViewModel : ViewModel() {
         _skipFlag.value = false
     }
 
+    fun setCheckFlagTrue() {
+        _checkedFlag.value = true
+    }
+
+    fun setCheckFlagFalse(){
+        _checkedFlag.value = false
+    }
     fun setSkipFlagTrue() {
         _skipFlag.value = true
     }
@@ -203,4 +219,35 @@ class InformationViewModel : ViewModel() {
         _lastMaxIndex = _maxIndex
     }
 
+    fun saveAdultCount(count: Int) {
+        viewModelScope.launch {
+            _adultCountStateFlow.emit(count)
+        }
+    }
+
+    fun saveChildCount(count: Int) {
+        viewModelScope.launch {
+            _childCountStateFLow.emit(count)
+        }
+    }
+
+    fun saveToddlerCount(count: Int) {
+        viewModelScope.launch {
+            _toddlerCountStateFlow.emit(count)
+        }
+    }
+
+    fun increaseAdultCountByChildOrToddler(count: Int) {
+        viewModelScope.launch {
+            _adultCountStateFlow.emit(count)
+            setCheckFlagTrue()
+        }
+    }
+
+    fun initCount() {
+        this.adultCountStateFlow.value = 0
+        this.childCountStateFlow.value = 0
+        this.toddlerCountStateFlow.value = 0
+        initFlag()
+    }
 }

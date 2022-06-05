@@ -9,7 +9,7 @@
         android:id="@+id/calendarFragment"
         android:name="com.example.airbnb.ui.calendar.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" >
+        tools:layout="@layout/fragment_calendar">
         <action
             android:id="@+id/action_calendarFragment_to_priceRangeFragment"
             app:destination="@id/priceRangeFragment" />
@@ -26,8 +26,5 @@
         android:id="@+id/guestRangeFragment"
         android:name="com.example.airbnb.ui.guestRange.GuestRangeFragment"
         android:label="GuestRangeFragment" >
-        <action
-            android:id="@+id/action_guestRangeFragment_to_calendarFragment"
-            app:destination="@id/calendarFragment" />
     </fragment>
 </navigation>
