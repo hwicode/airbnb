@@ -16,8 +16,10 @@ class InformationActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var binding: ActivityInformationBinding
     private val viewModel: InformationViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_information)
         setContentView(binding.root)
         supportFragmentManager.findFragmentById(R.id.fragment_container)?.findNavController()
@@ -40,15 +42,32 @@ class InformationActivity : AppCompatActivity() {
                     R.id.calendarFragment -> {
                         if (skipFlag) {
                             viewModel.initFlag()
+                            viewModel.initChart()
                             navController.navigate(R.id.action_calendarFragment_to_priceRangeFragment)
+
                         } else {
                             viewModel.switchSkipFlag()
                             viewModel.eraseSelectedDate()
+                            viewModel.initFlag()
                         }
                     }
                     R.id.priceRangeFragment -> {
-                        //if(skipFlag)  initChart
-                        // else  naviagate guestRange
+                        if (skipFlag) {
+                            viewModel.initFlag()
+                            navController.navigate(R.id.action_priceRangeFragment_to_guestRangeFragment)
+
+                        } else {
+                            viewModel.switchSkipFlag()
+                            viewModel.erasePriceRange()
+                        }
+                    }
+                    R.id.guestRangeFragment -> {
+                        if (skipFlag) {
+                            viewModel.initFlag()
+                        } else {
+                            viewModel.switchSkipFlag()
+                            viewModel.initCount()
+                        }
                     }
                 }
             }
@@ -61,15 +80,27 @@ class InformationActivity : AppCompatActivity() {
                     R.id.calendarFragment -> {
                         if (checkedFlag) {
                             viewModel.initFlag()
+                            viewModel.initChart()
                             navController.navigate(R.id.action_calendarFragment_to_priceRangeFragment)
                         }
                     }
                     R.id.priceRangeFragment -> {
-                        // if(skipFlag)  initChart
-                        // else  naviagate guestRange
+                        if (checkedFlag) {
+                            navController.navigate(R.id.action_priceRangeFragment_to_guestRangeFragment)
+                            viewModel.initFlag()
+                        }
+                    }
+                    R.id.guestRangeFragment -> {
+                        if (checkedFlag) {
+                            viewModel.initFlag()
+                        }
                     }
                 }
             }
+        }
+
+        binding.iBtnInformationBack.setOnClickListener {
+            navController.navigateUp()
         }
     }
 

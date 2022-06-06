@@ -5,21 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.airbnb.common.Constants.OMAN_WON
 import com.example.airbnb.common.Constants.PRICE_MAX_VALUE
 import com.example.airbnb.common.Constants.PRICE_MIN_VALUE
-import com.example.airbnb.common.Constants.SEEKBAR_VACANT_GAP
-import com.example.airbnb.common.Constants.SEEKBAR_VACANT_VALUE
-import com.example.airbnb.common.Constants.SEEKBAR_VALUE_GAP
 import com.example.airbnb.databinding.FragmentPriceRangeBinding
-import com.stfalcon.pricerangebar.model.BarEntry
+import com.example.airbnb.ui.information.InformationViewModel
+import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
 
 class PriceRangeFragment : Fragment() {
 
     lateinit var binding: FragmentPriceRangeBinding
+    private val viewModel: InformationViewModel by activityViewModels()
     private val formatter = DecimalFormat("#,###")
+    private lateinit var navigator: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,62 +37,66 @@ class PriceRangeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initPriceRange()
-        initChart()
+        navigator = Navigation.findNavController(view)
+        viewModel.switchCheckedFlag()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch { setChart() }
+                launch { setMinPriceText() }
+                launch { setMaxPriceText() }
+            }
+        }
         listenPinPointChange()
     }
 
-    private fun initPriceRange() {
-        binding.tvInformationRangeStart.text = "₩${PRICE_MIN_VALUE} - "
-        binding.tvInformationRangeEnd.text = "₩${formatter.format(PRICE_MAX_VALUE * OMAN_WON)}+"
-    }
-
-
     private fun listenPinPointChange() {
-        binding.rbPriceRangeWithChart.onRightPinChanged = { _, rightPinValue ->
-            val rangeTextMax = rightPinValue?.toFloat()?.toInt()?.let {
-                if (it >= 20) formatter.format(PRICE_MAX_VALUE * OMAN_WON) + "+"
-                else (formatter.format(rightPinValue.toFloat().toInt().times(OMAN_WON)))
+        binding.rbPriceRangeWithChart.onRightPinChanged = { index, rightPinValue ->
+            rightPinValue?.toFloat()?.toInt()?.let {
+                viewModel.saveHighestPrice(it)
             }
-            binding.tvInformationRangeEnd.text = "₩$rangeTextMax"
-            binding.etHighestPrice.setText("$rangeTextMax")
+            viewModel.setSkipFlagFalse()
+            viewModel.setMaxPriceIndex(index)
         }
 
-        binding.rbPriceRangeWithChart.onLeftPinChanged = { _, leftPinValue ->
-            val rangeTextMin = leftPinValue?.toFloat()?.toInt()?.let {
-                if (it <= 0) formatter.format(0)
-                else (formatter.format(leftPinValue.toFloat().toInt().times(OMAN_WON)))
+        binding.rbPriceRangeWithChart.onLeftPinChanged = { index, leftPinValue ->
+            leftPinValue?.toFloat()?.toInt()?.let {
+                viewModel.saveLowestPrice(it)
             }
-            binding.tvInformationRangeStart.text = "₩$rangeTextMin - "
-            binding.etLowestPrice.setText("$rangeTextMin")
+            viewModel.setSkipFlagFalse()
+            viewModel.setMinPriceIndex(index)
         }
     }
 
-    private fun initChart() {
-        val priceMap = getPriceTestData()
-        val seekBarEntries = ArrayList<BarEntry>()
-
-        // 선 그래프를 막대 그래프로 변경하는 로직
-        for (i in PRICE_MIN_VALUE..PRICE_MAX_VALUE) {
-            priceMap[i]?.let {
-                seekBarEntries.add(BarEntry(i.toFloat(), it.toFloat()))
-                seekBarEntries.add(BarEntry(i + SEEKBAR_VALUE_GAP, it.toFloat()))
-                seekBarEntries.add(BarEntry(i + SEEKBAR_VALUE_GAP, SEEKBAR_VACANT_VALUE))
-                seekBarEntries.add(BarEntry(i + SEEKBAR_VALUE_GAP + SEEKBAR_VACANT_GAP, SEEKBAR_VACANT_VALUE))
-            }
+    private suspend fun setChart() {
+        viewModel.chartStatedFlow.collect {
+            binding.rbPriceRangeWithChart.setEntries(it)
+            viewModel.setSkipFlagTrue()
+            binding.rbPriceRangeWithChart.setSelectedEntries(viewModel.minIndex, viewModel.lastMaxIndex)
         }
-        binding.rbPriceRangeWithChart.setEntries(seekBarEntries)
     }
 
-    // 추후 viewModel 을 통해 데이터 가져오기 (key: 가격, value: 숙소)
-    // 5만원 단위로 숙소를 나눔
-    private fun getPriceTestData(): Map<Int, Int> {
-        val priceMap = mutableMapOf<Int, Int>()
-        val dataSet = List(100) { (1..100).random() }
-        dataSet.forEach {
-            val key = if (it / 5 >= 20) 20 else it / 5
-            priceMap[key] = priceMap[key]?.plus(1) ?: 1
+    private suspend fun setMinPriceText() {
+        viewModel.lowestPriceStatedFlow.collect {
+            val price = if (it <= PRICE_MIN_VALUE) formatter.format(PRICE_MIN_VALUE)
+            else (formatter.format(it.times(OMAN_WON)))
+            binding.tvInformationRangeStart.text = "₩$price - "
+            binding.etLowestPrice.setText("$price")
         }
-        return priceMap
     }
+
+    private suspend fun setMaxPriceText() {
+        viewModel.highestPriceStatedFlow.collect {
+            val price = if (it >= PRICE_MAX_VALUE) formatter.format(PRICE_MAX_VALUE * OMAN_WON) + "+"
+            else (formatter.format(it.times(OMAN_WON)))
+            binding.tvInformationRangeEnd.text = "₩$price"
+            binding.etHighestPrice.setText("$price")
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.setLastMaxPriceIndex()
+    }
+
 }
