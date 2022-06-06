@@ -33,7 +33,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = NearTravelDestinationAdapter()
-        val searchAdapter = SearchResultAdapter {
+        val searchAdapter = SearchAdapter {
             moveToInformationInputPage()
         }
         navigator = Navigation.findNavController(view)
@@ -43,7 +43,7 @@ class SearchFragment : Fragment() {
         addSearchListener(searchAdapter)
     }
 
-    private fun addSearchListener(searchAdapter: SearchResultAdapter) {
+    private fun addSearchListener(searchAdapter: SearchAdapter) {
         binding.etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 

@@ -20,5 +20,5 @@
     <string name="price_range_lowest">최저 요금</string>
     <string name="price_range_highest">최고 요금</string>
     <string name="title_activity_person_ragne">PersonRagneActivity</string>
-
+    <string name="label_search_result_super_host">슈퍼호스트</string>
 </resources>

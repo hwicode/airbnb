@@ -20,6 +20,7 @@ class LoginViewModel(private val repository: Repository) :ViewModel(){
         viewModelScope.launch(coroutineExceptionHandler){
             println(repository.getAccessToken())
             AccessToken.JWT= repository.getAccessToken()
+
         }
     }
 }
