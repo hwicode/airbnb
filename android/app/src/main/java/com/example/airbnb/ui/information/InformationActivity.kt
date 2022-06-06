@@ -65,6 +65,7 @@ class InformationActivity : AppCompatActivity() {
                         if (skipFlag) {
                             viewModel.initFlag()
                             navController.navigate(R.id.action_guestRangeFragment_to_searchResultActivity)
+
                         } else {
                             viewModel.switchSkipFlag()
                             viewModel.initCount()
@@ -97,8 +98,7 @@ class InformationActivity : AppCompatActivity() {
                             viewModel.initFlag()
                         }
                     }
-                    else -> {
-                    }
+          
                 }
             }
         }
