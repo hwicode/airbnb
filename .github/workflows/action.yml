@@ -60,6 +60,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sudo docker pull $REPO:latest
-            sudo docker stop airbnb && sudo docker rm airbnb
-            sudo docker run -d --name airbnb -p 8080:8080 $REPO:latest
+#            sudo docker pull $REPO:latest
+#            sudo docker stop airbnb && sudo docker rm airbnb
+#            sudo docker run -d --name airbnb -p 8080:8080 $REPO:latest
+             pwd
