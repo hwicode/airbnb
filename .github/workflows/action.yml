@@ -63,4 +63,4 @@ jobs:
 #            sudo docker pull $REPO:latest
 #            sudo docker stop airbnb && sudo docker rm airbnb
 #            sudo docker run -d --name airbnb -p 8080:8080 $REPO:latest
-             pwd
+            
