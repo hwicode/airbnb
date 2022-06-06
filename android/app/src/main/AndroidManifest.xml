@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Airbnb"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.accommodationDetail.AccommodationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.searchResult.SearchResultActivity"
             android:exported="false" />
         <activity

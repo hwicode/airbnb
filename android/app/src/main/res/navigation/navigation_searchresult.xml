@@ -9,5 +9,13 @@
         android:id="@+id/searchResultFragment"
         android:name="com.example.airbnb.ui.searchResult.SearchResultFragment"
         android:label="fragment_search_result"
-        tools:layout="@layout/fragment_search_result" />
+        tools:layout="@layout/fragment_search_result" >
+        <action
+            android:id="@+id/action_searchResultFragment_to_accommodationActivity"
+            app:destination="@id/accommodationActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/accommodationActivity"
+        android:name="com.example.airbnb.ui.accommodationDetail.AccommodationActivity"
+        android:label="AccommodationActivity" />
 </navigation>
