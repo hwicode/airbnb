@@ -54,12 +54,11 @@ jobs:
 
     steps:
       - name: Depoly in AWS ec2
-        uses: appleboy/ssh-action@v0.1.3
+        uses: fifsky/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
+          user: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: GITHUB_SHA
           script: |
             sudo docker pull $REPO:latest
             sudo docker stop airbnb && sudo docker rm airbnb
