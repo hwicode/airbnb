@@ -43,6 +43,6 @@ jobs:
       - name: Docker Hub Sign-in
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Building Docker Image
-        run: docker build -t $REPO:latest .
+        run: docker build -t $REPO:latest ./action
       - name: Publish Docker Image
         run: docker push $REPO:latest
