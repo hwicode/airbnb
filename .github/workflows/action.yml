@@ -49,7 +49,7 @@ jobs:
         run: docker push $REPO:latest
 
   depoly:
-    needs: build
+    needs: docker
     runs-on: ubuntu-latest
 
     steps:
