@@ -27,8 +27,7 @@ jobs:
           name: build-artifact
           path: action/build/*
           retention-days: 1
-      - name: show path
-        run: pwd
+
   docker:
     name: Deploy Docker Image
     runs-on: ubuntu-latest
