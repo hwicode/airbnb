@@ -7,6 +7,7 @@ COPY src src
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
 
+
 FROM adoptopenjdk/openjdk11
 COPY --from=builder build/libs/*.jar app.jar
 
