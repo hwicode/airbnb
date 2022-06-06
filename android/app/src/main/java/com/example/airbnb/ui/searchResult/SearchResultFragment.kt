@@ -38,8 +38,7 @@ class SearchResultFragment : Fragment() {
 
     private fun openDetail(){
         //navigate to detail
-        println("move to Detail")
-
+        navigator.navigate(R.id.action_searchResultFragment_to_accommodationActivity)
     }
 
     private fun openCondition(){
