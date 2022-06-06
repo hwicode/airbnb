@@ -60,7 +60,8 @@ jobs:
           user: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           command: |
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/test:latest
-            sudo docker run -d -p 80:8080 --name airbnb ${{ secrets.DOCKER_USERNAME }}/test:latest
-            
-            
+            sudo docker pull $REPO:latest
+            sudo docker ps -a -q --filter "name=airbnb-container" | grep -q . && docker stop airbnb-container && docker rm airbnb-container | true
+            sudo docker run -d --name airbnb-container -p 8080:8080 $REPO:latest
+            sudo docker rmi $REPO:latest
+
