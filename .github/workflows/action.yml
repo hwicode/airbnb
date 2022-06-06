@@ -53,8 +53,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: secret key permission
-        run: chmod 400 ${{ secrets.EC2_SSH_KEY }}
       - name: Depoly in AWS ec2
         uses: appleboy/ssh-action@master
         with:
