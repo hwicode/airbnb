@@ -7,16 +7,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.airbnb.databinding.ItemSearchResultDestinationBinding
 import com.example.airbnb.domain.model.SearchResultDestination
-import org.joda.time.LocalDate
 
-class SearchResultAdapter(private val itemClick: () -> Unit)  : ListAdapter<SearchResultDestination, SearchResultAdapter.ViewHolder>(SearchResultDiffUtil) {
+class SearchAdapter(private val itemClick: () -> Unit)  : ListAdapter<SearchResultDestination, SearchAdapter.ViewHolder>(SearchResultDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ViewHolder(ItemSearchResultDestinationBinding.inflate(inflater, parent, false))
     }
 
-    override fun onBindViewHolder(holder: SearchResultAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SearchAdapter.ViewHolder, position: Int) {
         holder.bind(getItem(position),itemClick)
     }
 

@@ -64,6 +64,7 @@ class InformationActivity : AppCompatActivity() {
                     R.id.guestRangeFragment -> {
                         if (skipFlag) {
                             viewModel.initFlag()
+                            navController.navigate(R.id.action_guestRangeFragment_to_searchResultActivity)
                         } else {
                             viewModel.switchSkipFlag()
                             viewModel.initCount()
@@ -92,6 +93,7 @@ class InformationActivity : AppCompatActivity() {
                     }
                     R.id.guestRangeFragment -> {
                         if (checkedFlag) {
+                            navController.navigate(R.id.action_guestRangeFragment_to_searchResultActivity)
                             viewModel.initFlag()
                         }
                     }
