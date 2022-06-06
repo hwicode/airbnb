@@ -48,6 +48,7 @@ class InformationActivity : AppCompatActivity() {
                         } else {
                             viewModel.switchSkipFlag()
                             viewModel.eraseSelectedDate()
+                            viewModel.initFlag()
                         }
                     }
                     R.id.priceRangeFragment -> {
@@ -58,6 +59,14 @@ class InformationActivity : AppCompatActivity() {
                         } else {
                             viewModel.switchSkipFlag()
                             viewModel.erasePriceRange()
+                        }
+                    }
+                    R.id.guestRangeFragment -> {
+                        if (skipFlag) {
+                            viewModel.initFlag()
+                        } else {
+                            viewModel.switchSkipFlag()
+                            viewModel.initCount()
                         }
                     }
                 }
@@ -76,14 +85,24 @@ class InformationActivity : AppCompatActivity() {
                         }
                     }
                     R.id.priceRangeFragment -> {
-                         if (checkedFlag) {
-                             navController.navigate(R.id.action_priceRangeFragment_to_guestRangeFragment)
-                             viewModel.initFlag()
-                         }
+                        if (checkedFlag) {
+                            navController.navigate(R.id.action_priceRangeFragment_to_guestRangeFragment)
+                            viewModel.initFlag()
+                        }
                     }
-                    else -> {}
+                    R.id.guestRangeFragment -> {
+                        if (checkedFlag) {
+                            viewModel.initFlag()
+                        }
+                    }
+                    else -> {
+                    }
                 }
             }
+        }
+
+        binding.iBtnInformationBack.setOnClickListener {
+            navController.navigateUp()
         }
     }
 
