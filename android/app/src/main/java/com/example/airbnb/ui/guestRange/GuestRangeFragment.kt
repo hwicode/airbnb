@@ -127,7 +127,7 @@ fun GuestInputHeader(input: String, guest: String, child: String, guestCount: In
 }
 
 @Composable
-fun GuestSelector(type: String, ageRange: String, countNumber: Int, count: (countNumber: Int) -> Unit) {
+fun GuestSelector(type: String, ageRange: String, countNumber: Int,onCountChanged: (countNumber: Int) -> Unit) {
     var countingNumber = countNumber
     Row(
         modifier = Modifier
@@ -155,7 +155,7 @@ fun GuestSelector(type: String, ageRange: String, countNumber: Int, count: (coun
         ) {
             IconButton(enabled = countingNumber != 0, onClick = {
                 countingNumber -= 1
-                count(countingNumber)
+                onCountChanged(countingNumber)
             }) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_remove_circle_outline_black_24dp),
@@ -170,7 +170,7 @@ fun GuestSelector(type: String, ageRange: String, countNumber: Int, count: (coun
             )
             IconButton(enabled = countNumber < 8, onClick = {
                 countingNumber += 1
-                count(countingNumber)
+                onCountChanged(countingNumber)
             })
             {
                 Icon(
@@ -185,17 +185,17 @@ fun GuestSelector(type: String, ageRange: String, countNumber: Int, count: (coun
 }
 
 @Composable
-fun GuessAdultSelectorLayout(countNumber: Int, count: (countNumber: Int) -> Unit) {
-    GuestSelector(type = "성인", ageRange = "만13세이상", countNumber, count)
+fun GuessAdultSelectorLayout(countNumber: Int, onCountChanged: (countNumber: Int) -> Unit) {
+    GuestSelector(type = "성인", ageRange = "만13세이상", countNumber, onCountChanged)
 }
 
 @Composable
-fun GuessChildSelectorLayout(countNumber: Int, count: (countNumber: Int) -> Unit) {
-    GuestSelector(type = "어린이", ageRange = "만2~13세", countNumber, count)
+fun GuessChildSelectorLayout(countNumber: Int, onCountChanged: (countNumber: Int) -> Unit) {
+    GuestSelector(type = "어린이", ageRange = "만2~13세", countNumber, onCountChanged)
 }
 
 @Composable
-fun GuessToddlerSelectorLayout(countNumber: Int, count: (countNumber: Int) -> Unit) {
-    GuestSelector(type = "유아", ageRange = "만2세미만", countNumber, count)
+fun GuessToddlerSelectorLayout(countNumber: Int,  onCountChanged: (countNumber: Int) -> Unit) {
+    GuestSelector(type = "유아", ageRange = "만2세미만", countNumber, onCountChanged)
 }
 

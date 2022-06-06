@@ -95,8 +95,6 @@ class InformationActivity : AppCompatActivity() {
                             viewModel.initFlag()
                         }
                     }
-                    else -> {
-                    }
                 }
             }
         }
