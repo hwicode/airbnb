@@ -43,6 +43,6 @@ class SearchResultFragment : Fragment() {
 
     private fun openCondition(){
         //navigate to condition detail
-        println("move to Condition")
+        navigator.navigate(R.id.action_searchResultFragment_to_mapSearchActivity)
     }
 }
