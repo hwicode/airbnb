@@ -1,5 +1,6 @@
 package com.example.airbnb.ui.login
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.airbnb.R
+import com.example.airbnb.common.AccessToken
 import com.example.airbnb.common.Constants
 import com.example.airbnb.databinding.FragmentLoginWebViewBinding
 import org.koin.android.ext.android.inject
@@ -56,58 +58,31 @@ class LoginWebViewFragment : Fragment() {
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-
-            val code = requireActivity().getSharedPreferences(
-                "access_code",
-                AppCompatActivity.MODE_PRIVATE
-            ).getString("code", "")
+            val code = requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE).getString("code", "")
             if (!code.isNullOrBlank()) {
-                Constants.CODE = code
-               viewModel.getAccessToken()
-                requireActivity().getSharedPreferences(
-                    "access_code",
-                    AppCompatActivity.MODE_PRIVATE
-                )
+                AccessToken.CODE = code
+                viewModel.getAccessToken()
+                requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
                     .edit().apply {
-                        putString("token", Constants.JWT)
+                        putString("token", AccessToken.JWT)
                         apply()
                     }
                 navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
             } else if (url?.contains("code") == true) {
-                val includeCodeUrl = url?.split("code")?.get(1)
-                includeCodeUrl?.let {
-                    Constants.CODE =
-                        (includeCodeUrl.subSequence(1, includeCodeUrl.length)).toString()
-                    requireActivity().getSharedPreferences(
-                        "access_code",
-                        AppCompatActivity.MODE_PRIVATE
-                    )
-                        .edit().apply {
-                            putString("code", Constants.CODE)
-                            apply()
-                        }
-                }
-                viewModel.getAccessToken()
-                requireActivity().getSharedPreferences(
-                    "access_code",
-                    AppCompatActivity.MODE_PRIVATE
-                )
+                requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
                     .edit().apply {
-                        putString("token", Constants.JWT)
+                        putString("code", Uri.parse(url).getQueryParameters("code").toString())
                         apply()
                     }
-
-                val token = requireActivity().getSharedPreferences(
-                    "access_code",
-                    AppCompatActivity.MODE_PRIVATE
-                ).getString("token", "")
-
+                viewModel.getAccessToken()
+                requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
+                    .edit().apply {
+                        putString("token", AccessToken.JWT)
+                        apply()
+                    }
                 navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
             }
-            else {
-            }
         }
-
 
 
     }
