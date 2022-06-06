@@ -61,6 +61,5 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           command: |
             sudo docker pull ${{ secrets.DOCKER_USERNAME }/airbnb:latest
-            sudo docker run -d --name airbnb-container -p 8080:8080 ${{ secrets.DOCKER_USERNAME }/airbnb:latest
+            sudo docker run -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }/airbnb:latest
             sudo docker rmi ${{ secrets.DOCKER_USERNAME }/airbnb:latest
-
