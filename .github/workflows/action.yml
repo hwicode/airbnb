@@ -59,7 +59,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs : GITHUB_SHA
+          envs: GITHUB_SHA
           script: |
             sudo docker pull $REPO:latest
             sudo docker stop airbnb && sudo docker rm airbnb
