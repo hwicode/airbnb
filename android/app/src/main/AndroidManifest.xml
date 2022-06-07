@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Airbnb"
         android:usesCleartextTraffic="true">
+
+        <receiver
+            android:name=".ui.accommodationDetail.ReservationBroadCast"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity
             android:name=".ui.accommodationDetail.AccommodationActivity"
             android:exported="false" />
