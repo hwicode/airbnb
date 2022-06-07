@@ -63,5 +63,5 @@ jobs:
             sudo docker ps -a -q --filter "name=airbnb-container" | grep -q . && docker stop airbnb-container && docker rm airbnb-container | true
             sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/airbnb:latest
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/airbnb:latest
-            sudo docker run -d -p 8080:8080 --name airbnb-container ${{ secrets.DOCKER_USERNAME }}/airbnb:latest
+            sudo docker run -d -p 80:8080 --name airbnb-container ${{ secrets.DOCKER_USERNAME }}/airbnb:latest
 
