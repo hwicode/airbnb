@@ -14,13 +14,11 @@ public class Address {
     private static final String ADDRESS_DELIMETER = " ";
     private String gu;
     private String street;
-    private String zipCode;
     private String homeAddress;
 
-    public Address(String gu, String street, String zipCode) {
+    public Address(String gu, String street) {
         this.gu = gu;
         this.street = street;
-        this.zipCode = zipCode;
         this.homeAddress = createHomeAddress(gu, street);
     }
 

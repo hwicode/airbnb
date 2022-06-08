@@ -7,7 +7,6 @@ import java.util.Objects;
 
 @Entity
 @Getter
-@Table(name = "amenity")
 public class Amenity {
 
     @Id
