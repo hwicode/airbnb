@@ -2,11 +2,13 @@ package com.example.airbnb.business.core.domain.member;
 
 import com.example.airbnb.business.core.domain.accommodation.Accommodation;
 import com.example.airbnb.business.web.controller.member.dto.WishResponse;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Getter
 public class Wish {
 
     @Id
@@ -28,12 +30,6 @@ public class Wish {
     }
 
     public Wish() {
-    }
-
-    public WishResponse toResponse() {
-        return new WishResponse(this.member.getMemberId(), this.accommodation.getAccommodationId(),
-                this.accommodation.getAverageRating(), this.accommodation.getName(), this.accommodation.getPrice(),
-                this.accommodation.getMainImageUrl(), this.accommodation.getCommentCount());
     }
 
     @Override

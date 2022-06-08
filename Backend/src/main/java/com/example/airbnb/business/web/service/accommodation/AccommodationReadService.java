@@ -9,14 +9,23 @@ import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageR
 import com.example.airbnb.business.web.controller.accommodation.dto.*;
 import com.example.airbnb.common.exception.BusinessException;
 import com.example.airbnb.common.exception.accommodation.AccommodationTypeException;
+<<<<<<< HEAD
+import com.example.airbnb.common.geometry.objects.Position;
+=======
 import com.example.airbnb.common.exception.accommodation.CityTypeException;
+>>>>>>> d1d75a8d0478aa74aa4b98cb1390e523149053e2
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Set;
+=======
+import java.util.Optional;
+>>>>>>> a4deedb98f8862a0fc10a2c19e001af7390a70c2
 import java.util.stream.Collectors;
 
 @Service
@@ -46,9 +55,11 @@ public class AccommodationReadService {
 
     @Transactional(readOnly = true)
     public List<AccommodationRelatedCityResponse> findByAccommodationsByCityName(String cityName) {
-        City city = cityRepository.findCityByName(cityName)
-                .orElseThrow(() -> new BusinessException(CityTypeException.CITY_NOT_FOUND));
-        return accommodationReadRepository.findByAccommodationsByCityId(city.getCityId());
+        Optional<City> findCity = cityRepository.findCityByName(cityName);
+        if(findCity.isPresent()){
+            return accommodationReadRepository.findByAccommodationsByCityId(findCity.get().getCityId());
+        }
+        return Collections.emptyList();
     }
 
     @Transactional(readOnly = true)
