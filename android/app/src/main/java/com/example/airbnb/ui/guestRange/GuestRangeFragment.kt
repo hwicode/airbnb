@@ -184,6 +184,7 @@ fun GuestSelector(type: String, ageRange: String, countNumber: Int,onCountChange
     }
 }
 
+
 @Composable
 fun GuessAdultSelectorLayout(countNumber: Int, onCountChanged: (countNumber: Int) -> Unit) {
     GuestSelector(type = "성인", ageRange = "만13세이상", countNumber, onCountChanged)
@@ -197,5 +198,6 @@ fun GuessChildSelectorLayout(countNumber: Int, onCountChanged: (countNumber: Int
 @Composable
 fun GuessToddlerSelectorLayout(countNumber: Int,  onCountChanged: (countNumber: Int) -> Unit) {
     GuestSelector(type = "유아", ageRange = "만2세미만", countNumber, onCountChanged)
+
 }
 

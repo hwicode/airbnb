@@ -26,5 +26,12 @@
         android:id="@+id/guestRangeFragment"
         android:name="com.example.airbnb.ui.guestRange.GuestRangeFragment"
         android:label="GuestRangeFragment" >
+        <action
+            android:id="@+id/action_guestRangeFragment_to_searchResultActivity"
+            app:destination="@id/searchResultActivity" />
     </fragment>
+    <activity
+        android:id="@+id/searchResultActivity"
+        android:name="com.example.airbnb.ui.searchResult.SearchResultActivity"
+        android:label="SearchResultActivity" />
 </navigation>

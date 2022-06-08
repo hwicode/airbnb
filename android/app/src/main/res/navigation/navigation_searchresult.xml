@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_searchresult"
+    app:startDestination="@id/searchResultFragment">
+
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.example.airbnb.ui.searchResult.SearchResultFragment"
+        android:label="fragment_search_result"
+        tools:layout="@layout/fragment_search_result" >
+        <action
+            android:id="@+id/action_searchResultFragment_to_accommodationActivity"
+            app:destination="@id/accommodationActivity" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_mapSearchActivity"
+            app:destination="@id/mapSearchActivity" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_searchConditionFragment"
+            app:destination="@id/searchConditionFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/accommodationActivity"
+        android:name="com.example.airbnb.ui.accommodationDetail.AccommodationActivity"
+        android:label="AccommodationActivity" />
+    <activity
+        android:id="@+id/mapSearchActivity"
+        android:name="com.example.airbnb.ui.mapSearch.MapSearchActivity"
+        android:label="activity_map_search"
+        tools:layout="@layout/activity_map_search" />
+    <fragment
+        android:id="@+id/searchConditionFragment"
+        android:name="com.example.airbnb.ui.searchResult.SearchConditionFragment"
+        android:label="fragment_search_condition"
+        tools:layout="@layout/fragment_search_condition" />
+</navigation>

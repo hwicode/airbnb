@@ -2,18 +2,20 @@ package com.example.airbnb.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.airbnb.data.city.CityInfoWithTime
 import com.example.airbnb.databinding.ItemNearTravelDestinationBinding
-import com.example.airbnb.domain.model.NearDestination
 
-class NearTravelDestinationAdapter : RecyclerView.Adapter<NearTravelDestinationAdapter.ViewHolder>() {
-    private val nearDestinations = mutableListOf<NearDestination>()
+class NearTravelDestinationAdapter :
+    ListAdapter<CityInfoWithTime, NearTravelDestinationAdapter.ViewHolder>(CityDiffCallback) {
 
     class ViewHolder(private val binding: ItemNearTravelDestinationBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(destination: NearDestination) {
-            binding.destination = destination
-            binding.executePendingBindings()
+
+        fun bind(cityInfo: CityInfoWithTime) {
+            binding.cityInfo = cityInfo
         }
     }
 
@@ -26,16 +28,23 @@ class NearTravelDestinationAdapter : RecyclerView.Adapter<NearTravelDestinationA
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(nearDestinations[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return nearDestinations.size
-    }
+    companion object CityDiffCallback : DiffUtil.ItemCallback<CityInfoWithTime>() {
+        override fun areItemsTheSame(
+            oldItem: CityInfoWithTime,
+            newItem: CityInfoWithTime
+        ): Boolean {
+            return oldItem.hashCode() == newItem.hashCode()
+        }
 
-    fun submitNearDestinations(destinations: List<NearDestination>) {
-        this.nearDestinations.addAll(destinations)
-        notifyDataSetChanged()
+        override fun areContentsTheSame(
+            oldItem: CityInfoWithTime,
+            newItem: CityInfoWithTime
+        ): Boolean {
+            return oldItem == newItem
+        }
     }
 }
 
