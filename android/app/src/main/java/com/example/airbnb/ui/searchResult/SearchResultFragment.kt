@@ -34,8 +34,11 @@ class SearchResultFragment : Fragment() {
         val adapter= SearchResultAdapter({openDetail()}){
             openCondition()
         }
-        viewModel.makeDummySearchResultList()
+
         viewModel.searchResult.observe(viewLifecycleOwner){
+            viewModel.updatePage(page)
+        }
+        viewModel.pageAccommodations.observe(viewLifecycleOwner){
             adapter.submitList(it)
             adapter.notifyItemRangeChanged((page-1)*10, 10)
         }
@@ -46,14 +49,10 @@ class SearchResultFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 if(!recyclerView.canScrollVertically(1)){
                     adapter.deleteLoading()
-                    page++
-                    viewModel.makeDummySearchResultList()
+                    viewModel.updatePage(page++)
                 }
             }
         })
-
-
-
     }
 
     private fun openDetail(){

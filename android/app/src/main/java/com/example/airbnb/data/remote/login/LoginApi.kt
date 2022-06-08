@@ -1,4 +1,4 @@
-package com.example.airbnb.data.remote
+package com.example.airbnb.data.remote.login
 
 import okhttp3.ResponseBody
 import retrofit2.http.GET

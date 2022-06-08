@@ -1,5 +1,6 @@
 package com.example.airbnb.ui.mapSearch
 
+import android.content.Intent
 import android.graphics.Canvas
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.airbnb.BuildConfig
 import com.example.airbnb.R
 import com.example.airbnb.domain.model.SearchResultAccommodation
+import com.example.airbnb.ui.accommodationDetail.AccommodationActivity
 import com.example.airbnb.ui.common.TextDrawable
 import com.skt.Tmap.TMapMarkerItem
 import com.skt.Tmap.TMapPoint
@@ -58,7 +60,8 @@ class MapSearchActivity : AppCompatActivity() {
     }
 
     private fun openDetail(){
-        //navigate to detail
+        val intent = Intent(this, AccommodationActivity::class.java)
+        startActivity(intent)
     }
 }
 
