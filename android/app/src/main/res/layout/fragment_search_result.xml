@@ -78,5 +78,19 @@
             tools:listitem="@layout/item_search_result_accommodation"
             />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_map_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/label_map_btn_text"
+            android:textColor="@color/white"
+            android:paddingHorizontal="15dp"
+            android:background="@drawable/btn_radius_grey1"
+            android:drawableStart="@drawable/ic_vector_map"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

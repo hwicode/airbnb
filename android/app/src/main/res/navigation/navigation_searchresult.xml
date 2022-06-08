@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_searchResultFragment_to_mapSearchActivity"
             app:destination="@id/mapSearchActivity" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_searchConditionFragment"
+            app:destination="@id/searchConditionFragment" />
     </fragment>
     <activity
         android:id="@+id/accommodationActivity"
@@ -26,4 +29,9 @@
         android:name="com.example.airbnb.ui.mapSearch.MapSearchActivity"
         android:label="activity_map_search"
         tools:layout="@layout/activity_map_search" />
+    <fragment
+        android:id="@+id/searchConditionFragment"
+        android:name="com.example.airbnb.ui.searchResult.SearchConditionFragment"
+        android:label="fragment_search_condition"
+        tools:layout="@layout/fragment_search_condition" />
 </navigation>

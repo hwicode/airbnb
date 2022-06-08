@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -32,7 +31,15 @@ class SearchResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navigator = Navigation.findNavController(view)
         val adapter= SearchResultAdapter({openDetail()}){
-            openCondition()
+            addWish()
+        }
+
+        binding.iBtnSearchResultSearchCondition.setOnClickListener {
+            navigator.navigate(R.id.action_searchResultFragment_to_searchConditionFragment)
+        }
+
+        binding.btnMapView.setOnClickListener {
+            navigator.navigate(R.id.action_searchResultFragment_to_mapSearchActivity)
         }
 
         viewModel.searchResult.observe(viewLifecycleOwner){
@@ -60,8 +67,7 @@ class SearchResultFragment : Fragment() {
         navigator.navigate(R.id.action_searchResultFragment_to_accommodationActivity)
     }
 
-    private fun openCondition(){
-        //navigate to condition detail
-        navigator.navigate(R.id.action_searchResultFragment_to_mapSearchActivity)
+    private fun addWish(){
+        //To Do: Add Item Wish Page
     }
 }
