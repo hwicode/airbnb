@@ -2,7 +2,6 @@ package com.example.airbnb.business.core.domain.accommodation;
 
 
 import com.example.airbnb.business.core.domain.member.Member;
-import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationSearchResponse;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -23,10 +22,12 @@ public class Accommodation {
 
     private String name;
 
+    @Column(length = 2000)
     private String description;
 
     private BigDecimal price;
 
+    @Column(length = 1000)
     private String mainImageUrl;
 
     private Double averageRating;
@@ -36,7 +37,7 @@ public class Accommodation {
     @Embedded
     private Room room;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -60,9 +61,9 @@ public class Accommodation {
 
     @Builder
     public Accommodation(String name, String description, String mainImageUrl, BigDecimal price,
-                         double averageRating, Room room, Member member, AccommodationType accommodationType,
-                         Address address, Location location,
-                         int maxNumberOfPeople, City city) {
+                         Double averageRating, Room room, AccommodationType accommodationType,
+                         Address address, Location location, List<Image> images,
+                         Integer maxNumberOfPeople) {
         this.name = name;
         this.description = description;
         this.mainImageUrl = mainImageUrl;
@@ -70,27 +71,28 @@ public class Accommodation {
         this.price = price;
         this.averageRating = averageRating;
         this.room = room;
-        this.member = member;
         this.accommodationType = accommodationType;
         this.address = address;
         this.location = location;
+        this.images = images;
         this.maxNumberOfPeople = maxNumberOfPeople;
-        this.city = city;
+        registerImages(images);
     }
 
     protected Accommodation() {
     }
 
-    public void registImages(List<Image> images) {
+    private void registerImages(List<Image> images) {
         for (Image image : images) {
             if (image != null) {
-                image.registAccommodation(this);
+                image.registerAccommodation(this);
             }
         }
     }
 
-    public AccommodationSearchResponse toSearchResponse() {
-        return new AccommodationSearchResponse(this.accommodationId, this.mainImageUrl, this.averageRating, this.commentCount, this.name, this.price);
+    public void addInformation(Member member, City city) {
+        this.member = member;
+        this.city = city;
     }
 
     @Override

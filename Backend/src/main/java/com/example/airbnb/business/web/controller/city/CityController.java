@@ -1,6 +1,7 @@
 package com.example.airbnb.business.web.controller.city;
 
 import com.example.airbnb.business.web.controller.city.dto.NearByCity;
+import com.example.airbnb.business.web.service.city.CityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,5 @@
 package com.example.airbnb.business.web.controller.accommodation.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
 import java.math.BigDecimal;

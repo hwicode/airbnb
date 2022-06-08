@@ -1,5 +1,6 @@
 package com.example.airbnb.business.web.controller.member.dto;
 
+import com.example.airbnb.business.core.domain.member.Wish;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +18,15 @@ public class WishResponse {
     private String image;
     private int commentCount;
 
-    public WishResponse() {
+    public WishResponse() {}
 
+    public WishResponse(Wish wish) {
+        this.memberId = wish.getMember().getMemberId();
+        this.accommodationId = wish.getAccommodation().getAccommodationId();
+        this.averageRating = wish.getAccommodation().getAverageRating();
+        this.roomName = wish.getAccommodation().getName();
+        this.oneDayPerPrice = wish.getAccommodation().getPrice();
+        this.image = wish.getAccommodation().getMainImageUrl();
+        this.commentCount = wish.getAccommodation().getCommentCount();
     }
 }

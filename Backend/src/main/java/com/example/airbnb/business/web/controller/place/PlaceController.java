@@ -1,7 +1,5 @@
 package com.example.airbnb.business.web.controller.place;
 
-import com.example.airbnb.business.core.domain.accommodation.Accommodation;
-
 import com.example.airbnb.business.web.controller.accommodation.dto.AccommodationSearchResponse;
 import com.example.airbnb.business.web.service.place.PlaceReadService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +22,7 @@ public class PlaceController {
     public List<AccommodationSearchResponse> searchAccommodationsByPlace(@RequestParam Double latitude, @RequestParam Double longitude) {
         return placeReadService.searchAccommodationsByPlace(latitude, longitude)
                 .stream()
-                .map(Accommodation::toSearchResponse)
+                .map(AccommodationSearchResponse::new)
                 .collect(Collectors.toList());
     }
 }

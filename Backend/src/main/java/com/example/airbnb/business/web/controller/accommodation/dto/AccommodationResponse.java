@@ -24,9 +24,10 @@ public class AccommodationResponse {
     private String address;
     private AccommodationType accommodationType;
     private Double averageRating;
+    private String mainImageUrl;
     private List<String> images;
     private List<CommentResponse> comments;
-    private List<AmenityCategoryResponse> amenityCategories;
+    private Map<AmenityType, List<AmenityCategory>> amenityCategories;
     private List<AccommodationOptionLineResponse> accommodationOptionLines;
     private int commentSize;
     private int maxNumberOfPeople;
@@ -37,9 +38,9 @@ public class AccommodationResponse {
     public AccommodationResponse() {
     }
 
-    public void add(List<Image> images, List<AmenityCategory> amenitySubCategories, List<Comment> comments, List<AccommodationOptionLine> accommodationOptionLines) {
+    public void add(List<Image> images, List<Amenity> amenities, List<Comment> comments, List<AccommodationOptionLine> accommodationOptionLines) {
         addImages(images);
-        addCategories(amenitySubCategories);
+        amenities(amenities);
         addComments(comments);
         addAccommodationOptionLines(accommodationOptionLines);
     }
@@ -51,22 +52,15 @@ public class AccommodationResponse {
                     .collect(Collectors.toList());
     }
 
-    public void addCategories(List<AmenityCategory> subCategories) {
-        if (subCategories.size() > 0)
-            this.amenityCategories = createAmenityCategories(subCategories);
+    public void amenities(List<Amenity> amenities) {
+        if (amenities.size() > 0)
+            this.amenityCategories = createAmenityCategories(amenities);
     }
 
-    private List<AmenityCategoryResponse> createAmenityCategories(List<AmenityCategory> subCategories) {
-//        Map<Amenity, List<AmenityCategory>> categories = subCategories.stream()
-//                .collect(groupingBy(AmenityCategory::getAmenity));
-
-        List<AmenityCategoryResponse> amenityCategoryResponses = new ArrayList<>();
-
-//        for (Amenity key : categories.keySet()) {
-//            AmenityCategoryResponse response = new AmenityCategoryResponse(key, categories.get(key));
-//            amenityCategoryResponses.add(response);
-//        }
-        return amenityCategoryResponses;
+    private Map<AmenityType, List<AmenityCategory>> createAmenityCategories(List<Amenity> amenities) {
+        return amenities.stream()
+                .map(Amenity::getAmenityCategory)
+                .collect(groupingBy(AmenityCategory::getAmenityType));
     }
 
     public void addComments(List<Comment> comments) {

@@ -1,11 +1,14 @@
 package com.example.airbnb.business.core.domain.member;
 
 import com.example.airbnb.business.core.domain.accommodation.Accommodation;
+import com.example.airbnb.business.web.controller.member.dto.WishResponse;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Getter
 public class Wish {
 
     @Id
@@ -20,6 +23,14 @@ public class Wish {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accommodation_id")
     private Accommodation accommodation;
+
+    public Wish(Member member, Accommodation accommodation) {
+        this.member = member;
+        this.accommodation = accommodation;
+    }
+
+    public Wish() {
+    }
 
     @Override
     public boolean equals(Object o) {
