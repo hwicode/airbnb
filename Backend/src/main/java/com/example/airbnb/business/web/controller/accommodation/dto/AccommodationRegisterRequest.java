@@ -32,7 +32,7 @@ public class AccommodationRegisterRequest {
     public AccommodationRegisterRequest(){}
 
     public Accommodation toEntity() {
-        Address address = new Address(gu, street, zipCode);
+        Address address = new Address(gu, street);
         Location location = new Location(longitude, latitude);
         Room room = new Room(beds, bathRooms, bedRooms);
         List<Image> images = createImages();

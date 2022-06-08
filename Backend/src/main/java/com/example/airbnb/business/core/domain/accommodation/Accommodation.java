@@ -22,10 +22,12 @@ public class Accommodation {
 
     private String name;
 
+    @Column(length = 2000)
     private String description;
 
     private BigDecimal price;
 
+    @Column(length = 1000)
     private String mainImageUrl;
 
     private Double averageRating;
@@ -35,7 +37,7 @@ public class Accommodation {
     @Embedded
     private Room room;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -57,7 +59,6 @@ public class Accommodation {
     @JoinColumn(name = "city_id")
     private City city;
 
-    // 숙소를 등록할 때 commentCount(댓글 갯수)는 0으로 처리
     @Builder
     public Accommodation(String name, String description, String mainImageUrl, BigDecimal price,
                          Double averageRating, Room room, AccommodationType accommodationType,
