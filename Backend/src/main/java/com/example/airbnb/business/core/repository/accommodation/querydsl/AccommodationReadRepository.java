@@ -54,10 +54,6 @@ public class AccommodationReadRepository {
         return null;
     }
 
-    public Position cal(double lng, double log) {
-        return null;
-    }
-
     public List<AccommodationRelatedCityResponse> findByAccommodationsByCityId(Long cityId) {
         return queryFactory.select(Projections.fields(AccommodationRelatedCityResponse.class,
                                 accommodation.accommodationId, accommodation.name.as("roomName"),

@@ -12,6 +12,7 @@ import static com.example.airbnb.business.core.domain.accommodation.QAccommodati
 import static com.example.airbnb.business.core.domain.member.QMember.member;
 import static com.example.airbnb.business.core.domain.member.QWish.wish;
 
+
 @Repository
 @RequiredArgsConstructor
 public class WishReadRepository {
