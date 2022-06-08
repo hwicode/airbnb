@@ -14,5 +14,13 @@ data class CityDtoItem(
     val longitude: Double = 0.0,
     @SerializedName("name")
     val name: String = "",
-    var totalTime: Int = 0
 )
+
+fun CityDtoItem.toCityInfo(): CityInfo {
+    return CityInfo(
+        image,
+        latitude,
+        longitude,
+        name,
+    )
+}

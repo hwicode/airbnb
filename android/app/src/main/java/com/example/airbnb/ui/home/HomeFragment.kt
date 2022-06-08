@@ -25,12 +25,10 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.airbnb.R
 import com.example.airbnb.databinding.FragmentHomeBinding
-import com.example.airbnb.domain.model.NearDestination
-import com.example.airbnb.domain.model.RecommendDestination
+import com.example.airbnb.ui.HomeViewModel
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class HomeFragment : Fragment() {
@@ -40,7 +38,8 @@ class HomeFragment : Fragment() {
     private lateinit var locationManager: LocationManager
     private lateinit var locationListener: LocationListener
     private lateinit var nearTravelDestinationAdapter: NearTravelDestinationAdapter
-    private val viewModel: HomeViewModel by inject()
+    private lateinit var recommendAdapter: RecommendAdapter
+    private val viewModel: HomeViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,18 +52,13 @@ class HomeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         nearTravelDestinationAdapter = NearTravelDestinationAdapter()
-        val recommendAdapter = RecommendAdapter()
-        println(
-            requireActivity().getSharedPreferences(
-                "access_code",
-                AppCompatActivity.MODE_PRIVATE
-            ).getString("token", "")
-        )
+        recommendAdapter = RecommendAdapter()
         navigator = Navigation.findNavController(view)
+
         binding.rvNearTravelDestination.adapter = nearTravelDestinationAdapter
         binding.rvRecommendTravelDestination.adapter = recommendAdapter
+        recommendAdapter.submitRecommendDestinations(viewModel.dummyRecommendations)
 
         binding.clHomeSearch.setOnClickListener {
             navigator.navigate(R.id.action_homeFragment_to_searchFragment)
@@ -81,10 +75,7 @@ class HomeFragment : Fragment() {
 
     private suspend fun setCityList() {
         viewModel.cityInfoStateFlow.collect {
-            it.let {
-                nearTravelDestinationAdapter.submitNearDestinations(it)
-                Log.d("테스트", "잘되나")
-            }
+            nearTravelDestinationAdapter.submitList(it)
         }
     }
 
@@ -115,7 +106,7 @@ class HomeFragment : Fragment() {
             requestLocationUpdates()
             val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             if (location != null) {
-                viewModel.setMyLocation(location.latitude, location.longitude)
+                viewModel.setCityInfo(location.latitude, location.longitude)
             }
         } else {
             requestPermissionLauncher.launch(REQUIRED_PERMISSIONS)

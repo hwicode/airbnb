@@ -1,9 +1,9 @@
 package com.example.airbnb.domain.city
 
-import com.example.airbnb.data.city.CityDto
+import com.example.airbnb.data.city.CityInfo
 
 interface CityRepository {
 
-    suspend fun getCityInfo(): CityDto
+    suspend fun getCityInfo(): List<CityInfo>
 
 }

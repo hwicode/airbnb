@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="cityDtoItem"
-            type="com.example.airbnb.data.city.CityDtoItem" />
+            name="cityInfo"
+            type="com.example.airbnb.data.city.CityInfoWithTime" />
 
     </data>
 
@@ -27,9 +27,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                imageUrl="@{cityInfo.city.image}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/grey3" />
+                android:background="@color/grey3"
+                android:scaleType="centerCrop" />
 
         </androidx.cardview.widget.CardView>
 
@@ -40,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="8dp"
-            android:text="@{cityDtoItem.name}"
+            android:text="@{cityInfo.city.name}"
             app:layout_constraintStart_toEndOf="@id/cv_near_travel_destination"
             app:layout_constraintTop_toTopOf="@id/cv_near_travel_destination" />
 
@@ -48,7 +50,7 @@
             style="@style/Subtitle1.Grey3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Integer.toString(cityDtoItem.totalTime)}"
+            convertTime="@{cityInfo.totalTime}"
             app:layout_constraintStart_toStartOf="@id/tv_near_travel_destination_title"
             app:layout_constraintTop_toBottomOf="@id/tv_near_travel_destination_title" />
 
