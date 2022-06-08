@@ -3,10 +3,12 @@ package com.example.airbnb.ui.information
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.airbnb.R
+import com.example.airbnb.common.Constants
 import com.example.airbnb.databinding.ActivityInformationBinding
 
 class InformationActivity : AppCompatActivity() {
@@ -64,8 +66,7 @@ class InformationActivity : AppCompatActivity() {
                     R.id.guestRangeFragment -> {
                         if (skipFlag) {
                             viewModel.initFlag()
-                            navController.navigate(R.id.action_guestRangeFragment_to_searchResultActivity)
-
+                            navController.navigate(R.id.action_guestRangeFragment_to_searchResultActivity, makeBundle())
                         } else {
                             viewModel.switchSkipFlag()
                             viewModel.initCount()
@@ -94,11 +95,10 @@ class InformationActivity : AppCompatActivity() {
                     }
                     R.id.guestRangeFragment -> {
                         if (checkedFlag) {
-                            navController.navigate(R.id.action_guestRangeFragment_to_searchResultActivity)
                             viewModel.initFlag()
+                            navController.navigate(R.id.action_guestRangeFragment_to_searchResultActivity, makeBundle())
                         }
                     }
-          
                 }
             }
         }
@@ -106,6 +106,20 @@ class InformationActivity : AppCompatActivity() {
         binding.iBtnInformationBack.setOnClickListener {
             navController.navigateUp()
         }
+    }
+
+
+    private fun makeBundle():Bundle{
+        return bundleOf(
+            Constants.SEARCH_TAG_KEY to "서울",
+            Constants.PRICE_MAX_KEY to viewModel.highestPriceStatedFlow.value,
+            Constants.PRICE_MIN_KEY to viewModel.lowestPriceStatedFlow.value,
+            Constants.CHECK_IN_KEY to viewModel.checkInStatedFlow.value?.toString(),
+            Constants.CHECK_OUT_KEY to viewModel.checkOutStatedFlow.value.toString(),
+            Constants.ADULT_KEY to viewModel.adultCountStateFlow.value,
+            Constants.CHILD_KEY to viewModel.childCountStateFlow.value,
+            Constants.TODDLER_KEY to viewModel.toddlerCountStateFlow.value
+        )
     }
 
     private fun skipBtnUpdate() {
