@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.example.airbnb.business.core.domain.accommodation.QAccommodation.accommodation;
 import static com.example.airbnb.business.core.domain.accommodation.QAccommodationTag.accommodationTag;
@@ -22,23 +24,27 @@ public class TagReadRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public List<SearchPriceResponse> findAccommodationPriceRangeByTagAndPeriod(String tag, LocalDate checkIn, LocalDate checkOut) {
+    public Set<Long> getAccommodationsByTag(String tag) {
         QTag qTag = new QTag("tag");
 
-        List<Long> accommodationIds = queryFactory.select(accommodationTag.accommodation.accommodationId)
+        Set<Long> accommodationIds = new HashSet<>(queryFactory.select(accommodationTag.accommodation.accommodationId)
                 .from(accommodationTag)
                 .join(accommodationTag.tag, qTag)
                 .on(qTag.name.eq(tag))
-                .fetch();
+                .fetch());
 
         if (accommodationIds.isEmpty()) {
-            return Collections.emptyList();
+            return Collections.emptySet();
         }
+        return accommodationIds;
 
+    }
+
+    public List<SearchPriceResponse> findAccommodationPriceRangeByTagAndPeriod(Set<Long> accommodations, LocalDate checkIn, LocalDate checkOut) {
         List<Long> availableAccommodationsId = queryFactory.select(reservation.accommodation.accommodationId)
                 .from(reservation)
                 .join(reservation.accommodation, accommodation)
-                .on(accommodation.accommodationId.in(accommodationIds))
+                .on(accommodation.accommodationId.in(accommodations))
                 .where(reservation.time.checkinTime.after(convertCheckout(checkOut))
                         .or(reservation.time.checkoutTime.before(convertCheckin(checkIn))))
                 .fetch();

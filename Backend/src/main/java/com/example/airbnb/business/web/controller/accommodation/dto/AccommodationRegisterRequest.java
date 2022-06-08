@@ -13,7 +13,6 @@ public class AccommodationRegisterRequest {
     private AccommodationType accommodationType;
     private String gu;
     private String street;
-    private String zipCode;
     private Double averageRating;
     private String description;
     private Double latitude;

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,18 +53,17 @@ public class AccommodationReadService {
 
     @Transactional(readOnly = true)
     public List<SearchPriceResponse> findAccommodationPriceRangeByTagAndPeriod(String tag, LocalDate checkIn, LocalDate checkOut) {
-        return tagReadRepository.findAccommodationPriceRangeByTagAndPeriod(tag, checkIn, checkOut);
+        Set<Long> accommodations = tagReadRepository.getAccommodationsByTag(tag);
+        return tagReadRepository.findAccommodationPriceRangeByTagAndPeriod(accommodations, checkIn, checkOut);
     }
 
     @Transactional(readOnly = true)
     public List<AccommodationSearchResponse> searchAccommodations(AccommodationSearchCondition searchCondition) {
+        Set<Long> accommodations = tagReadRepository.getAccommodationsByTag(searchCondition.getTagName());
 
         List<SearchPriceResponse> searchPriceResponses = tagReadRepository
-                .findAccommodationPriceRangeByTagAndPeriod(searchCondition.getTagName(), searchCondition.getCheckIn(), searchCondition.getCheckOut());
+                .findAccommodationPriceRangeByTagAndPeriod(accommodations, searchCondition.getCheckIn(), searchCondition.getCheckOut());
 
-        for (SearchPriceResponse searchPriceResponse: searchPriceResponses) {
-            System.out.println(searchPriceResponse.getPrice());
-        }
         List<Long> accommodationIds = searchPriceResponses.stream()
                 .map(SearchPriceResponse::getAccommodationId)
                 .collect(Collectors.toList());
