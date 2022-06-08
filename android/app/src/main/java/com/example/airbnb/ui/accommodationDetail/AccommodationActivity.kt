@@ -14,5 +14,15 @@ class AccommodationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_accommodation)
         setContentView(binding.root)
+
+        binding.btnAccommodationDetailReservation.setOnClickListener {
+            showReservationDialog()
+        }
+
+    }
+
+    private fun showReservationDialog() {
+        val dialog = AccommodationReservationFragment()
+        dialog.show(supportFragmentManager, "reservation")
     }
 }
