@@ -26,7 +26,6 @@ public class AccommodationService {
 
     @Transactional
     public Accommodation registerAccommodation(AccommodationRegisterRequest request) {
-
         Member member = memberRepository.findByGithubId(request.getGithubId())
                 .orElseThrow(() -> new BusinessException(MemberTypeException.MEMBER_NOT_FOUND));
 

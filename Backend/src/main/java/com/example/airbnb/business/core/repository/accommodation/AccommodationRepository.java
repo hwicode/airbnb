@@ -12,7 +12,7 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, Lo
 
     Optional<Accommodation> findByAccommodationId(Long id);
 
-    @Query("select a from Accommodation a where FUNCTION('ST_Distance_Sphere', a.location.point, function('ST_GeomFromText', :point)) <= :searchRange")
+    @Query("SELECT a FROM Accommodation a WHERE FUNCTION('ST_Distance_Sphere', a.location.point, FUNCTION('ST_GeomFromText', :point) ) <= :searchRange")
     List<Accommodation> findAccommodationByPoint(@Param("point") String point, @Param("searchRange") String searchRange);
 
 }

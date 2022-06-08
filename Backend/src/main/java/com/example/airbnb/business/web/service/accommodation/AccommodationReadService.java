@@ -77,7 +77,6 @@ public class AccommodationReadService {
                 .map(SearchPriceResponse::getAccommodationId)
                 .collect(Collectors.toList());
 
-
         return accommodationReadRepository.findAccommodationsByCondition(searchCondition, accommodationIds);
     }
 }
