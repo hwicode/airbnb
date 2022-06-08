@@ -9,25 +9,19 @@ import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageR
 import com.example.airbnb.business.web.controller.accommodation.dto.*;
 import com.example.airbnb.common.exception.BusinessException;
 import com.example.airbnb.common.exception.accommodation.AccommodationTypeException;
-<<<<<<< HEAD
-import com.example.airbnb.common.geometry.objects.Position;
-=======
-import com.example.airbnb.common.exception.accommodation.CityTypeException;
->>>>>>> d1d75a8d0478aa74aa4b98cb1390e523149053e2
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
-<<<<<<< HEAD
-import java.util.Set;
-=======
 import java.util.Optional;
->>>>>>> a4deedb98f8862a0fc10a2c19e001af7390a70c2
+import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AccommodationReadService {
@@ -50,15 +44,19 @@ public class AccommodationReadService {
         List<AccommodationOptionLine> accommodationOptionLines = accommodationReadRepository.findAccommodationOptionLinesByAccommodation(id);
 
         accommodationResponse.add(images, amenities, comments, accommodationOptionLines);
+        log.info("숙소 상세조회: {}", accommodationResponse.getAccommodationId());
         return accommodationResponse;
     }
 
     @Transactional(readOnly = true)
     public List<AccommodationRelatedCityResponse> findByAccommodationsByCityName(String cityName) {
         Optional<City> findCity = cityRepository.findCityByName(cityName);
-        if(findCity.isPresent()){
-            return accommodationReadRepository.findByAccommodationsByCityId(findCity.get().getCityId());
+        if (findCity.isPresent()) {
+            List<AccommodationRelatedCityResponse> accommodations = accommodationReadRepository.findByAccommodationsByCityId(findCity.get().getCityId());
+            log.info("도시 이름으로 숙소 검색. 검색된 도시 {}", cityName);
+            return accommodations;
         }
+        log.info("도시 이름으로 숙소 검색. 검색된 도시 {}, 빈 숙소 반환", cityName);
         return Collections.emptyList();
     }
 
