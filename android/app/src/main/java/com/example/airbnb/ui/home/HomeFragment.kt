@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -24,6 +25,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.airbnb.R
+import com.example.airbnb.common.Constants
 import com.example.airbnb.databinding.FragmentHomeBinding
 import com.example.airbnb.ui.HomeViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -52,7 +54,9 @@ class HomeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        nearTravelDestinationAdapter = NearTravelDestinationAdapter()
+        nearTravelDestinationAdapter = NearTravelDestinationAdapter{searchTag->
+            moveToInformationInputPage(searchTag)
+        }
         recommendAdapter = RecommendAdapter()
         navigator = Navigation.findNavController(view)
 
@@ -143,6 +147,10 @@ class HomeFragment : Fragment() {
             Manifest.permission.ACCESS_COARSE_LOCATION,  // 도시 블록 단위
             Manifest.permission.ACCESS_FINE_LOCATION,  // 더 정밀한 단위
         )
+    }
+
+    private fun moveToInformationInputPage(tag:String) {
+        navigator.navigate(R.id.action_searchFragment_to_informationActivity, bundleOf(Constants.SEARCH_TAG_KEY to tag))
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.airbnb.data.city
+package com.example.airbnb.domain.model
 
 data class CityInfoWithTime(
     val city: CityInfo,

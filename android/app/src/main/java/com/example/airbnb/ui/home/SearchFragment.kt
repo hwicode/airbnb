@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -14,9 +15,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.airbnb.R
+import com.example.airbnb.common.Constants
 import com.example.airbnb.databinding.FragmentSearchBinding
-import com.example.airbnb.domain.model.NearDestination
-import com.example.airbnb.domain.model.SearchResultDestination
 import com.example.airbnb.ui.HomeViewModel
 import com.example.airbnb.ui.common.switchFromClearTextToCustomMode
 import com.example.airbnb.ui.common.switchFromCustomModeToClearText
@@ -43,10 +43,12 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        nearTravelDestinationAdapter = NearTravelDestinationAdapter()
+        nearTravelDestinationAdapter = NearTravelDestinationAdapter(){searchTag->
+            moveToInformationInputPage(searchTag)
+        }
 
-        val searchAdapter = SearchAdapter {
-            moveToInformationInputPage()
+        val searchAdapter = SearchAdapter { searchTag->
+            moveToInformationInputPage(searchTag)
         }
         navigator = Navigation.findNavController(view)
         binding.rvSearchNearTravelDestination.adapter = nearTravelDestinationAdapter
@@ -77,20 +79,13 @@ class SearchFragment : Fragment() {
                     displayNearDestination()
                 } else {
                     displaySearchResultDestination()
-                    val dummyList = makeDummySearchResultByKeyword(searchKey.toString())
+                    val dummyList = viewModel.dummySearchResultDestination(searchKey.toString())
                     searchAdapter.submitList(dummyList)
                 }
             }
         })
     }
 
-    private fun makeDummySearchResultByKeyword(keyword: String): List<SearchResultDestination> {
-        val cityList = mutableListOf<SearchResultDestination>()
-        for (i in 0..10) {
-            cityList.add(SearchResultDestination(keyword))
-        }
-        return cityList
-    }
 
     private fun displayNearDestination() {
         binding.clSearchNearTravelDestination.isVisible = true
@@ -104,7 +99,7 @@ class SearchFragment : Fragment() {
         binding.etlSearch.switchFromCustomModeToClearText(requireContext())
     }
 
-    private fun moveToInformationInputPage() {
-        navigator.navigate(R.id.action_searchFragment_to_informationActivity)
+    private fun moveToInformationInputPage(tag:String) {
+        navigator.navigate(R.id.action_searchFragment_to_informationActivity, bundleOf(Constants.SEARCH_TAG_KEY to tag))
     }
 }

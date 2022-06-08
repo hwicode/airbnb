@@ -45,6 +45,7 @@ class SearchResultFragment : Fragment() {
 
         viewModel.searchResult.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            adapter.notifyDataSetChanged()
             //viewModel.updatePage(page)
         }
         viewModel.pageAccommodations.observe(viewLifecycleOwner) {
@@ -67,12 +68,10 @@ class SearchResultFragment : Fragment() {
     private fun firstPageUpdate() {
         //모든 조건 존재
         if (viewModel.validateSearchCondition()) {
-            println("Call Here")
             viewModel.getSearchResultByAllCondition()
         }
         //아닐때
         else {
-            println("Call THere")
             viewModel.getSearchResultByTag()
         }
     }

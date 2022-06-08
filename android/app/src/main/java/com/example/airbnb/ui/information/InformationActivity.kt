@@ -15,13 +15,15 @@ class InformationActivity : AppCompatActivity() {
 
     private var skipFlag: Boolean = true
     private var checkedFlag: Boolean = false
+    private lateinit var searchTag :String
     private lateinit var navController: NavController
     private lateinit var binding: ActivityInformationBinding
     private val viewModel: InformationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        searchTag= intent.getStringExtra(Constants.SEARCH_TAG_KEY)?:"서울"
+        println(intent.getStringExtra(Constants.SEARCH_TAG_KEY))
         binding = DataBindingUtil.setContentView(this, R.layout.activity_information)
         setContentView(binding.root)
         supportFragmentManager.findFragmentById(R.id.fragment_container)?.findNavController()
@@ -111,7 +113,7 @@ class InformationActivity : AppCompatActivity() {
 
     private fun makeBundle():Bundle{
         return bundleOf(
-            Constants.SEARCH_TAG_KEY to "서울",
+            Constants.SEARCH_TAG_KEY to searchTag,
             Constants.PRICE_MAX_KEY to viewModel.highestPriceStatedFlow.value,
             Constants.PRICE_MIN_KEY to viewModel.lowestPriceStatedFlow.value,
             Constants.CHECK_IN_KEY to viewModel.checkInStatedFlow.value?.toString(),
