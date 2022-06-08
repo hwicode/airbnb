@@ -8,6 +8,6 @@ import org.koin.dsl.module
 
 val appModule = module {
     viewModel { LoginViewModel(get()) }
-    viewModel { SearchResultViewModel()}
     viewModel { HomeViewModel(get(), get()) }
+    viewModel { SearchResultViewModel(get())}
 }

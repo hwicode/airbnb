@@ -1,11 +1,16 @@
 package com.example.airbnb.di
 
 import com.example.airbnb.common.Constants
-import com.example.airbnb.data.RepositoryImpl
-import com.example.airbnb.data.remote.LoginApi
-import com.example.airbnb.data.remote.LoginDataSource
-import com.example.airbnb.data.remote.LoginRemoteDataSource
+import com.example.airbnb.data.repository.RepositoryImpl
+import com.example.airbnb.data.remote.login.LoginApi
+import com.example.airbnb.data.remote.login.LoginDataSource
+import com.example.airbnb.data.remote.login.LoginRemoteDataSource
+import com.example.airbnb.data.remote.searchResult.SearchDataSource
+import com.example.airbnb.data.remote.searchResult.SearchRemoteDataSource
+import com.example.airbnb.data.remote.searchResult.SearchResultApi
+import com.example.airbnb.data.repository.SearchRepositoryImpl
 import com.example.airbnb.domain.Repository
+import com.example.airbnb.domain.SearchRepository
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -34,10 +39,26 @@ val NetWorkModule = module {
             .build()
     }
 
+    single<Retrofit>(named("SearchResultRetrofit")) {
+        Retrofit.Builder()
+            .baseUrl(Constants.MOCK_API_URL)
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .client(get())
+            .build()
+    }
+
+
+
     single<LoginApi> {
         get<Retrofit>(named("LoginRetrofit")).create(LoginApi::class.java)
     }
     single<LoginDataSource> { LoginRemoteDataSource(get()) }
     single<Repository> { RepositoryImpl(get()) }
 
+
+    single<SearchResultApi>{
+        get<Retrofit>(named("SearchResultRetrofit")).create(SearchResultApi::class.java)
+    }
+    single<SearchDataSource>{ SearchRemoteDataSource(get())}
+    single<SearchRepository>{ SearchRepositoryImpl(get())}
 }
