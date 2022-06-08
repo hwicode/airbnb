@@ -3,17 +3,20 @@ package com.example.airbnb.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.airbnb.data.city.CityDto
+import com.example.airbnb.data.city.CityDtoItem
 import com.example.airbnb.databinding.ItemNearTravelDestinationBinding
-import com.example.airbnb.domain.model.NearDestination
 
-class NearTravelDestinationAdapter : RecyclerView.Adapter<NearTravelDestinationAdapter.ViewHolder>() {
-    private val nearDestinations = mutableListOf<NearDestination>()
+class NearTravelDestinationAdapter :
+    RecyclerView.Adapter<NearTravelDestinationAdapter.ViewHolder>() {
+
+    private var nearDestinations = mutableListOf<CityDtoItem>()
 
     class ViewHolder(private val binding: ItemNearTravelDestinationBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(destination: NearDestination) {
-            binding.destination = destination
-            binding.executePendingBindings()
+        fun bind(cityDtoItem: CityDtoItem) {
+            binding.cityDtoItem = cityDtoItem
+
         }
     }
 
@@ -33,8 +36,8 @@ class NearTravelDestinationAdapter : RecyclerView.Adapter<NearTravelDestinationA
         return nearDestinations.size
     }
 
-    fun submitNearDestinations(destinations: List<NearDestination>) {
-        this.nearDestinations.addAll(destinations)
+    fun submitNearDestinations(cityDto: List<CityDtoItem>) {
+        nearDestinations.addAll(cityDto)
         notifyDataSetChanged()
     }
 }

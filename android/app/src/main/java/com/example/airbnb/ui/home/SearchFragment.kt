@@ -39,7 +39,7 @@ class SearchFragment : Fragment() {
         navigator = Navigation.findNavController(view)
         binding.rvSearchNearTravelDestination.adapter = adapter
         binding.rvSearchResultDestination.adapter = searchAdapter
-        adapter.submitNearDestinations(makeDummyNearDestinations())
+//        adapter.submitNearDestinations(makeDummyNearDestinations())
         addSearchListener(searchAdapter)
     }
 
