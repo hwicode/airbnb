@@ -13,9 +13,17 @@
         <action
             android:id="@+id/action_searchResultFragment_to_accommodationActivity"
             app:destination="@id/accommodationActivity" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_mapSearchActivity"
+            app:destination="@id/mapSearchActivity" />
     </fragment>
     <activity
         android:id="@+id/accommodationActivity"
         android:name="com.example.airbnb.ui.accommodationDetail.AccommodationActivity"
         android:label="AccommodationActivity" />
+    <activity
+        android:id="@+id/mapSearchActivity"
+        android:name="com.example.airbnb.ui.mapSearch.MapSearchActivity"
+        android:label="activity_map_search"
+        tools:layout="@layout/activity_map_search" />
 </navigation>
