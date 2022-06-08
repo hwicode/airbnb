@@ -23,8 +23,7 @@ class SearchResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_search_result, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_result, container, false)
         return binding.root
     }
 
@@ -38,6 +37,7 @@ class SearchResultFragment : Fragment() {
         binding.iBtnSearchResultSearchCondition.setOnClickListener {
             navigator.navigate(R.id.action_searchResultFragment_to_searchConditionFragment)
         }
+        binding.condtion= viewModel.searchCondition.value
 
         binding.btnMapView.setOnClickListener {
             navigator.navigate(R.id.action_searchResultFragment_to_mapSearchActivity)

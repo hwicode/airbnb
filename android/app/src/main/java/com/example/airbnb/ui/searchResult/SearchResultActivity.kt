@@ -32,8 +32,8 @@ class SearchResultActivity : AppCompatActivity() {
             val tag=  getStringExtra(Constants.SEARCH_TAG_KEY)?:""
             val checkInDate= getStringExtra(Constants.CHECK_IN_KEY)?:""
             val checkOutDate= getStringExtra(Constants.CHECK_OUT_KEY)?:""
-            val maxPrice = getIntExtra(Constants.PRICE_MIN_KEY,0)*Constants.OMAN_WON
-            val minPrice = getIntExtra(Constants.PRICE_MAX_KEY,0)*Constants.OMAN_WON
+            val maxPrice = getIntExtra(Constants.PRICE_MAX_KEY,0)*Constants.OMAN_WON
+            val minPrice = getIntExtra(Constants.PRICE_MIN_KEY,0)*Constants.OMAN_WON
             val adultCount= getIntExtra(Constants.ADULT_KEY,0)
             val childCount= getIntExtra(Constants.CHILD_KEY,0)
             val toddlerCount=getIntExtra(Constants.TODDLER_KEY,0)
