@@ -8,19 +8,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.airbnb.R
 import com.example.airbnb.databinding.FragmentSearchBinding
 import com.example.airbnb.domain.model.NearDestination
 import com.example.airbnb.domain.model.SearchResultDestination
+import com.example.airbnb.ui.HomeViewModel
 import com.example.airbnb.ui.common.switchFromClearTextToCustomMode
 import com.example.airbnb.ui.common.switchFromCustomModeToClearText
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
     private lateinit var navigator: NavController
+    private lateinit var nearTravelDestinationAdapter: NearTravelDestinationAdapter
+
+    private val viewModel: HomeViewModel by sharedViewModel()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,15 +42,28 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = NearTravelDestinationAdapter()
+
+        nearTravelDestinationAdapter = NearTravelDestinationAdapter()
+
         val searchAdapter = SearchAdapter {
             moveToInformationInputPage()
         }
         navigator = Navigation.findNavController(view)
-        binding.rvSearchNearTravelDestination.adapter = adapter
+        binding.rvSearchNearTravelDestination.adapter = nearTravelDestinationAdapter
         binding.rvSearchResultDestination.adapter = searchAdapter
-        adapter.submitNearDestinations(makeDummyNearDestinations())
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch { setCityList() }
+            }
+        }
         addSearchListener(searchAdapter)
+    }
+
+    private suspend fun setCityList() {
+        viewModel.cityInfoStateFlow.collect {
+            nearTravelDestinationAdapter.submitList(it)
+        }
     }
 
     private fun addSearchListener(searchAdapter: SearchAdapter) {
@@ -65,14 +88,6 @@ class SearchFragment : Fragment() {
         val cityList = mutableListOf<SearchResultDestination>()
         for (i in 0..10) {
             cityList.add(SearchResultDestination(keyword))
-        }
-        return cityList
-    }
-
-    private fun makeDummyNearDestinations(): List<NearDestination> {
-        val cityList = mutableListOf<NearDestination>()
-        for (i in 0..10) {
-            cityList.add(NearDestination("imageUrl", "서울", "차로30분"))
         }
         return cityList
     }

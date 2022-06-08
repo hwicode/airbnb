@@ -22,4 +22,5 @@
     <string name="title_activity_person_ragne">PersonRagneActivity</string>
     <string name="label_search_result_super_host">슈퍼호스트</string>
     <string name="accommodation_detail_backspace">accommodation_detail_backspace</string>
+    <string name="time_to_destination">차로 %s 거리</string>
 </resources>
