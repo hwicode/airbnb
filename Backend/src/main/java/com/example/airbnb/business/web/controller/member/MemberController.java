@@ -26,6 +26,6 @@ public class MemberController {
     @PostMapping("/wishes")
     public WishResponse addWish(@RequestBody WishAddRequest wishAddRequest) {
         Wish wish = memberService.addWish(wishAddRequest);
-        return wish.toResponse();
+        return new WishResponse(wish);
     }
 }
