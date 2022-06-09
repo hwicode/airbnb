@@ -1,4 +1,4 @@
-package com.example.airbnb.data.remote
+package com.example.airbnb.data.remote.login
 
 
 interface LoginDataSource {

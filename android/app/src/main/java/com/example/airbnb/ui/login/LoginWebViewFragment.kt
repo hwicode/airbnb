@@ -69,6 +69,7 @@ class LoginWebViewFragment : Fragment() {
                     }
                 navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
             } else if (url?.contains("code") == true) {
+
                 requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
                     .edit().apply {
                         putString("code", Uri.parse(url).getQueryParameters("code").toString())
@@ -83,8 +84,6 @@ class LoginWebViewFragment : Fragment() {
                 navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
             }
         }
-
-
     }
 }
 

@@ -1,10 +1,7 @@
-package com.example.airbnb.data
+package com.example.airbnb.data.repository
 
-import com.example.airbnb.data.remote.LoginDataSource
+import com.example.airbnb.data.remote.login.LoginDataSource
 import com.example.airbnb.domain.Repository
-import com.example.airbnb.domain.model.CalendarDay
-import com.example.airbnb.ui.common.CalendarUtil
-import org.joda.time.LocalDateTime
 
 class RepositoryImpl(private val loginDataSource: LoginDataSource) : Repository {
 
