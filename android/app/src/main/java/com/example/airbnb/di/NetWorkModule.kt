@@ -38,9 +38,10 @@ val NetWorkModule = module {
             .build()
     }
 
+
     single<Retrofit>(named("SearchResultRetrofit")) {
         Retrofit.Builder()
-            .baseUrl(Constants.MOCK_API_URL)
+            .baseUrl(Constants.API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .client(get())
             .build()

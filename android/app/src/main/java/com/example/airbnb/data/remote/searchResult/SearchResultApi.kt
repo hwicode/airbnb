@@ -1,9 +1,6 @@
 package com.example.airbnb.data.remote.searchResult
 
-import com.example.airbnb.data.dto.ReservationDto
-import com.example.airbnb.data.dto.SearchAccommodationByConditionResultDto
-import com.example.airbnb.data.dto.SearchAccommodationResultDto
-import com.example.airbnb.data.dto.WishDetailDto
+import com.example.airbnb.data.dto.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
@@ -12,11 +9,11 @@ import retrofit2.http.QueryMap
 interface SearchResultApi {
 
     @GET("accommodations/cities")
-    suspend fun getAccommodationsByCity(@Query("city_name") cityName: String):SearchAccommodationResultDto
+    suspend fun getAccommodationsByCity(@Query("cityName") cityName: String, @Query("page") pageNum:Int):SearchAccommodation
 
 
     @GET("accommodations/search")
-    suspend fun getAccommodationsByAllCondition(@QueryMap condtion:Map<String,String>):SearchAccommodationByConditionResultDto
+    suspend fun getAccommodationsByAllCondition(@QueryMap condtion:Map<String,String>):SearchAccommodation
 
     @GET("members/devjun10")
     suspend fun getWishList():WishDetailDto

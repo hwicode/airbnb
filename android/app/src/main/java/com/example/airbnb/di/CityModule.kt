@@ -1,5 +1,6 @@
 package com.example.airbnb.di
 
+import com.example.airbnb.common.Constants
 import com.example.airbnb.data.remote.city.CityApi
 import com.example.airbnb.data.remote.city.CityDataSource
 import com.example.airbnb.data.remote.city.CityRemoteDataSource
@@ -14,7 +15,7 @@ val CityModule = module {
 
     single<Retrofit>(named("CityRetrofit")) {
         Retrofit.Builder()
-            .baseUrl("https://07608d85-c351-4fed-93b0-97c465642811.mock.pstmn.io/api/")
+            .baseUrl(Constants.API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()

@@ -18,7 +18,7 @@ class SearchResultFragment : Fragment() {
     private val viewModel: SearchResultViewModel by sharedViewModel()
     private lateinit var binding: FragmentSearchResultBinding
     private lateinit var navigator: NavController
-    private var page = 1
+    private var page = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,7 +46,6 @@ class SearchResultFragment : Fragment() {
         viewModel.searchResult.observe(viewLifecycleOwner) {
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
-            //viewModel.updatePage(page)
         }
         viewModel.pageAccommodations.observe(viewLifecycleOwner) {
             adapter.submitList(it)
@@ -59,7 +58,7 @@ class SearchResultFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     adapter.deleteLoading()
-                    viewModel.updatePage(page++)
+                    firstPageUpdate()
                 }
             }
         })
@@ -68,11 +67,11 @@ class SearchResultFragment : Fragment() {
     private fun firstPageUpdate() {
         //모든 조건 존재
         if (viewModel.validateSearchCondition()) {
-            viewModel.getSearchResultByAllCondition()
+            viewModel.getSearchResultByAllCondition(page++)
         }
         //아닐때
         else {
-            viewModel.getSearchResultByTag()
+            viewModel.getSearchResultByTag(page++)
         }
     }
 

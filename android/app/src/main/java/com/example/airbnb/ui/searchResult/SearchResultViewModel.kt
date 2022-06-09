@@ -21,14 +21,14 @@ class SearchResultViewModel(private val repository: SearchRepository) : ViewMode
     val searchCondition: LiveData<SearchCondition> = _searchCondition
 
 
-    fun getSearchResultByTag() {
+    fun getSearchResultByTag(pageNum: Int) {
         viewModelScope.launch {
             _searchResult.value =
-                repository.getAccomnodationsByTag(_searchCondition.value?.searchTag ?: "")
+                repository.getAccomnodationsByTag(_searchCondition.value?.searchTag ?: "", pageNum)
         }
     }
 
-    fun getSearchResultByAllCondition(){
+    fun getSearchResultByAllCondition(pageNum: Int){
         viewModelScope.launch {
             _searchCondition.value?.let {
                 _searchResult.value= repository.getAccommodationsByAllCondition(it)

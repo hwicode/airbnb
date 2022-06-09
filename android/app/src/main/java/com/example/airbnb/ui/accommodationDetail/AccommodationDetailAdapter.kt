@@ -3,12 +3,11 @@ package com.example.airbnb.ui.accommodationDetail
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.airbnb.data.dto.AccommodationImage
 import com.example.airbnb.databinding.ItemAccommodationDetailBinding
 
 class AccommodationDetailAdapter : RecyclerView.Adapter<AccommodationDetailAdapter.ViewHolder>() {
 
-    private val items = mutableListOf<AccommodationImage>()
+    private val items = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemAccommodationDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,7 +21,7 @@ class AccommodationDetailAdapter : RecyclerView.Adapter<AccommodationDetailAdapt
     class ViewHolder(private val binding: ItemAccommodationDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(accommodationImage: AccommodationImage) {
+        fun bind(accommodationImage: String) {
             binding.accommodationImage = accommodationImage
         }
     }
@@ -31,7 +30,7 @@ class AccommodationDetailAdapter : RecyclerView.Adapter<AccommodationDetailAdapt
         return items.size
     }
 
-    fun submitList(items:List<AccommodationImage>){
+    fun submitList(items:List<String>){
         this.items.addAll(items)
         notifyDataSetChanged()
     }

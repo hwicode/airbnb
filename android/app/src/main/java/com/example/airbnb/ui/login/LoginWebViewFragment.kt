@@ -56,32 +56,26 @@ class LoginWebViewFragment : Fragment() {
             Log.d("AppTest", "webView Error!!!!!")
         }
 
+
+
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-            val code = requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE).getString("code", "")
-            if (!code.isNullOrBlank()) {
-                AccessToken.CODE = code
+            val token= requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
+                .getString("token","")
+            println(token)
+            if(!token.isNullOrEmpty()){
+                //이미 저장된 토큰 정보가 있을때
+                navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
+            }
+            else if (url?.contains("code") == true) {
+                AccessToken.CODE= Uri.parse(url).getQueryParameters("code").toString()
                 viewModel.getAccessToken()
                 requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
                     .edit().apply {
                         putString("token", AccessToken.JWT)
                         apply()
                     }
-                navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
-            } else if (url?.contains("code") == true) {
-
-                requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
-                    .edit().apply {
-                        putString("code", Uri.parse(url).getQueryParameters("code").toString())
-                        apply()
-                    }
-                viewModel.getAccessToken()
-                requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
-                    .edit().apply {
-                        putString("token", AccessToken.JWT)
-                        apply()
-                    }
-                navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
+               //navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
             }
         }
     }
