@@ -16,20 +16,9 @@ class SearchRepositoryImpl(private val searchDataSource: SearchDataSource): Sear
     }
 
     override suspend fun getAccommodationsByAllCondition(searchCondition: SearchCondition): List<SearchResultAccommodation> {
-       return searchDataSource.getSearchResultByAllCondition(searchCondition.toQueryMap()).content.map {
+       return searchDataSource.getSearchResultByAllCondition(searchCondition.searchTag, searchCondition.toQueryMap()).content.map {
            it.toSearchResultAccommodation()
        }
     }
 
-    override suspend fun getWishList(): List<WishItem> {
-        return searchDataSource.getWishList().map {
-            it.toWishItem()
-        }
-    }
-
-    override suspend fun getReservationList(): List<ReservationItem> {
-        return searchDataSource.getReservationList().map {
-            it.toReservationItem()
-        }
-    }
 }

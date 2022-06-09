@@ -13,11 +13,7 @@ interface SearchResultApi {
 
 
     @GET("accommodations/search")
-    suspend fun getAccommodationsByAllCondition(@QueryMap condtion:Map<String,String>):SearchAccommodation
+    suspend fun getAccommodationsByAllCondition(@Query("tagName")tagName:String, @QueryMap queryMap:Map<String,String>):SearchAccommodation
 
-    @GET("members/devjun10")
-    suspend fun getWishList():WishDetailDto
 
-    @GET("reservations/users/devjun10")
-    suspend fun getReservationList(): ReservationDto
 }

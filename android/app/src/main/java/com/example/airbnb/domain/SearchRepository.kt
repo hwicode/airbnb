@@ -8,6 +8,5 @@ import com.example.airbnb.domain.model.WishItem
 interface SearchRepository {
     suspend fun getAccomnodationsByTag(tag:String, pageNum:Int):List<SearchResultAccommodation>
     suspend fun getAccommodationsByAllCondition(searchCondition: SearchCondition): List<SearchResultAccommodation>
-    suspend fun getWishList():List<WishItem>
-    suspend fun getReservationList():List<ReservationItem>
+
 }

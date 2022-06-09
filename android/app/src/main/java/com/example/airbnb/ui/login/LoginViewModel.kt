@@ -22,6 +22,7 @@ class LoginViewModel(private val repository: Repository, application: Applicatio
     fun getAccessToken() {
         viewModelScope.launch {
             val token = repository.getAccessToken()
+            AccessToken.JWT= token
             sharedpreferences.edit().apply{
                 putString("token", token)
                 apply()

@@ -17,7 +17,7 @@ val CityModule = module {
         Retrofit.Builder()
             .baseUrl(Constants.API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(get())
+            .client(get(named("Normal")))
             .build()
     }
 

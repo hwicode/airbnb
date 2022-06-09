@@ -16,7 +16,7 @@ val TmapModule = module {
         Retrofit.Builder()
             .baseUrl("https://apis.openapi.sk.com/tmap/")
             .addConverterFactory(GsonConverterFactory.create())
-            .client(get())
+            .client(get(named("Normal")))
             .build()
     }
 

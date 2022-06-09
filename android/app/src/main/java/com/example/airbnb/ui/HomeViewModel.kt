@@ -60,8 +60,6 @@ class HomeViewModel(
     private fun setMyLocation(latitude: Double, longitude: Double) {
         _myLatitude = latitude
         _myLongitude = longitude
-
-
     }
 
     fun setCityInfo(latitude: Double, longitude: Double) {
@@ -69,7 +67,7 @@ class HomeViewModel(
             setMyLocation(latitude, longitude)
             viewModelScope.launch {
                 val cityList = cityRepository.getCityInfo()
-//                loadCityInfo(cityList)
+                loadCityInfo(cityList)
             }
         }
     }
