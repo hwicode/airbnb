@@ -15,11 +15,19 @@ public class Time {
     private LocalDateTime checkoutTime;
 
     public Time(LocalDateTime checkinTime, LocalDateTime checkoutTime) {
+        validate(checkinTime, checkoutTime);
         this.checkinTime = checkinTime;
         this.checkoutTime = checkoutTime;
     }
 
-    protected Time() {}
+    private void validate(LocalDateTime checkinTime, LocalDateTime checkoutTime) {
+        if (checkinTime == null || checkoutTime == null) {
+            throw new IllegalArgumentException("체크인 시간과 체크아웃 시간을 입려갷주세요");
+        }
+    }
+
+    protected Time() {
+    }
 
     @Override
     public boolean equals(Object o) {

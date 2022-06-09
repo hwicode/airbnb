@@ -37,28 +37,40 @@ public class TagReadRepository {
             return Collections.emptySet();
         }
         return accommodationIds;
-
     }
 
     public List<SearchPriceResponse> findAccommodationPriceRangeByTagAndPeriod(Set<Long> accommodations, LocalDate checkIn, LocalDate checkOut) {
-        List<Long> availableAccommodationsId = queryFactory.select(reservation.accommodation.accommodationId)
+        if (accommodations.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+//        List<Long> availableAccommodationsId = queryFactory.select(reservation.accommodation.accommodationId)
+//                .from(reservation)
+//                .join(reservation.accommodation, accommodation)
+//                .on(accommodation.accommodationId.in(accommodations))
+//                .where(reservation.time.checkinTime.after(convertCheckout(checkOut))
+//                        .or(reservation.time.checkoutTime.before(convertCheckin(checkIn))))
+//                .fetch();
+
+        Set<Long> availableAccommodationsId2 = new HashSet<>(queryFactory.select(reservation.accommodation.accommodationId)
                 .from(reservation)
                 .join(reservation.accommodation, accommodation)
                 .on(accommodation.accommodationId.in(accommodations))
-                .where(reservation.time.checkinTime.after(convertCheckout(checkOut))
-                        .or(reservation.time.checkoutTime.before(convertCheckin(checkIn))))
-                .fetch();
+                .where(reservation.time.checkinTime.between(convertCheckin(checkIn), convertCheckout(checkOut)),
+                        reservation.time.checkoutTime.between(convertCheckin(checkIn), convertCheckout(checkOut)))
+                .fetch());
 
-        if (availableAccommodationsId.isEmpty()) {
+        accommodations.removeAll(availableAccommodationsId2);
+
+        if (accommodations.isEmpty()) {
             return Collections.emptyList();
         }
 
         return queryFactory.select(Projections.fields(SearchPriceResponse.class,
                         accommodation.accommodationId, accommodation.price))
                 .from(accommodation)
-                .where(accommodation.accommodationId.in(availableAccommodationsId))
-                .limit(1)
-                .offset(1)
+                .where(accommodation.accommodationId.in(accommodations))
+                .orderBy(accommodation.price.asc())
                 .fetch();
     }
 }

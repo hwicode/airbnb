@@ -66,7 +66,6 @@ public class Reservation {
     protected Reservation() {
     }
 
-    ;
 
     public void addInformation(Member member, Accommodation accommodation) {
         validate(member, accommodation);
