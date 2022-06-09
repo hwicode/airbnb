@@ -149,8 +149,19 @@ class HomeFragment : Fragment() {
         )
     }
 
+    /*private fun moveToInformationInputPage(tag:String) {
+        val currentFragment = navigator.currentDestination
+        currentFragment?.let {
+            when (it.id) {
+                R.id.searchFragment -> navigator.navigate(R.id.action_searchFragment_to_informationActivity, bundleOf(Constants.SEARCH_TAG_KEY to tag))
+                else -> navigator.navigate(R.id.action_navigation_search_to_informationActivity, bundleOf(Constants.SEARCH_TAG_KEY to tag))
+            }
+        }
+    }*/
+
     private fun moveToInformationInputPage(tag:String) {
-        navigator.navigate(R.id.action_searchFragment_to_informationActivity, bundleOf(Constants.SEARCH_TAG_KEY to tag))
+        navigator.navigate(R.id.action_navigation_search_to_informationActivity, bundleOf(Constants.SEARCH_TAG_KEY to tag))
     }
+
 
 }

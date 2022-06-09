@@ -5,7 +5,7 @@
 
         <variable
             name="accommodationImage"
-            type="com.example.airbnb.data.dto.AccommodationImage" />
+            type="String" />
 
     </data>
 
@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            imageUrl="@{accommodationImage.image}"
+            imageUrl="@{accommodationImage}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"

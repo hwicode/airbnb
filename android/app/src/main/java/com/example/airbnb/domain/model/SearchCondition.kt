@@ -14,13 +14,13 @@ data class SearchCondition(
 
 fun SearchCondition.toQueryMap(): MutableMap<String, String> {
     val queryMap : MutableMap<String, String> = mutableMapOf()
-    queryMap["tagName"]= searchTag
-    queryMap["checkInt"]= checkInDate
+    queryMap["checkIn"]= checkInDate
     queryMap["checkOut"]= checkOutDate
     queryMap["minPrice"]= minPrice.toString()
     queryMap["maxPrice"]= maxPrice.toString()
     queryMap["adults"] = adultCount.toString()
     queryMap["children"]= childCount.toString()
     queryMap["infants"] = toddlerCount.toString()
+    queryMap["page"] = "0"
     return queryMap
 }

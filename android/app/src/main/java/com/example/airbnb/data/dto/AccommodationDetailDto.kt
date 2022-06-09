@@ -8,7 +8,7 @@ data class AccommodationDetailDto(
     @SerializedName("accommodationId")
     val accommodationId: Int,
     @SerializedName("accommodationOptionLines")
-    val accommodationOptionLines: List<Any>,
+    val accommodationOptionLines: List<AccommodationOptionLine>,
     @SerializedName("accommodationType")
     val accommodationType: String,
     @SerializedName("address")
@@ -26,7 +26,7 @@ data class AccommodationDetailDto(
     @SerializedName("commentSize")
     val commentSize: Int,
     @SerializedName("comments")
-    val comments: List<Any>,
+    val comments: Any?,
     @SerializedName("description")
     val description: String,
     @SerializedName("hostId")
@@ -36,7 +36,7 @@ data class AccommodationDetailDto(
     @SerializedName("hostProfileImage")
     val hostProfileImage: String,
     @SerializedName("images")
-    val accommodationImages: List<AccommodationImage>,
+    val images: List<String>,
     @SerializedName("mainImageUrl")
     val mainImageUrl: String,
     @SerializedName("maxNumberOfPeople")
@@ -44,43 +44,44 @@ data class AccommodationDetailDto(
     @SerializedName("name")
     val name: String,
     @SerializedName("oneDayPerPrice")
-    val oneDayPerPrice: Int
+    val oneDayPerPrice: Double
 )
 
-data class AccommodationImage(
-    @SerializedName("image")
-    val image: String
+
+data class AccommodationOptionLine(
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("price")
+    val price: Double
 )
 
 data class AmenityCategories(
-    @SerializedName("BATHROOM")
-    val bATHROOM: List<String>,
-    @SerializedName("FAMILY")
-    val fAMILY: List<String>,
+    @SerializedName("HEATING_COOLING")
+    val hEATINGCOOLING: List<HEATINGCOOLING>,
     @SerializedName("KITCHEN")
-    val kITCHEN: List<String>
+    val kITCHEN: List<KITCHEN>
 )
 
+data class HEATINGCOOLING(
+    @SerializedName("amenityCategoryId")
+    val amenityCategoryId: Int,
+    @SerializedName("amenityType")
+    val amenityType: String,
+    @SerializedName("description")
+    val description: String,
+    @SerializedName("name")
+    val name: String
+)
 
-fun AccommodationDetailDto.toAccommodationDetailItem(): AccommodationDetailItem {
-    return AccommodationDetailItem(
-        accommodationId,
-        accommodationType,
-        address,
-        averageRating,
-        bathRooms,
-        bedRooms,
-        beds,
-        commentSize,
-        comments,
-        description,
-        hostId,
-        hostName,
-        hostProfileImage,
-        accommodationImages,
-        mainImageUrl,
-        maxNumberOfPeople,
-        name,
-        oneDayPerPrice
-    )
-}
+data class KITCHEN(
+    @SerializedName("amenityCategoryId")
+    val amenityCategoryId: Int,
+    @SerializedName("amenityType")
+    val amenityType: String,
+    @SerializedName("description")
+    val description: String,
+    @SerializedName("name")
+    val name: String
+)
+
+fun AccommodationDetailDto.toAccommodationDetailItem():AccommodationDetailItem = AccommodationDetailItem(accommodationId, accommodationType, address, averageRating, bathRooms, bedRooms, beds, commentSize, comments, description,hostId, hostName, hostProfileImage, images, mainImageUrl, maxNumberOfPeople, name, oneDayPerPrice.toInt() )

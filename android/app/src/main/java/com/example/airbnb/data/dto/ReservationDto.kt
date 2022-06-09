@@ -8,19 +8,19 @@ class ReservationDto : ArrayList<ReservationDtoItem>()
 
 data class ReservationDtoItem(
     @SerializedName("accommodationId")
-    val accommodationId: Int,
+    val accommodationId: Int?,
     @SerializedName("address")
-    val address: String,
+    val address: String?,
     @SerializedName("checkIn")
     val checkIn: String,
     @SerializedName("checkOut")
     val checkOut: String,
     @SerializedName("image")
-    val image: String,
+    val image: String?,
     @SerializedName("reservationId")
     val reservationId: Int,
     @SerializedName("roomName")
-    val roomName: String
+    val roomName: String?
 )
 
-fun ReservationDtoItem.toReservationItem():ReservationItem = ReservationItem(image,roomName, address, checkIn, checkOut )
+fun ReservationDtoItem.toReservationItem():ReservationItem = ReservationItem(image?:"",roomName?:"", address?:"", checkIn, checkOut )
