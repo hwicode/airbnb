@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_reservation_information"
+    app:startDestination="@id/reservationCalendarFragment">
+
+    <fragment
+        android:id="@+id/reservationCalendarFragment"
+        android:name="com.example.airbnb.ui.reservationInformation.calendar.ReservationCalendarFragment"
+        android:label="ReservationCalendarFragment" >
+        <action
+            android:id="@+id/action_reservationCalendarFragment_to_reservationGuestRangeFragment"
+            app:destination="@id/reservationGuestRangeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reservationGuestRangeFragment"
+        android:name="com.example.airbnb.ui.reservationInformation.guestRange.ReservationGuestRangeFragment"
+        android:label="ReservationGuestRangeFragment" >
+        <action
+            android:id="@+id/action_reservationGuestRangeFragment_to_accommodationActivity2"
+            app:destination="@id/accommodationActivity3" />
+    </fragment>
+    <activity
+        android:id="@+id/accommodationActivity3"
+        android:name="com.example.airbnb.ui.accommodationDetail.AccommodationActivity"
+        android:label="AccommodationActivity" />
+</navigation>
