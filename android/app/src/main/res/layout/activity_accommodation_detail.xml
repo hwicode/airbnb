@@ -4,9 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="accommodationDetail"
             type="com.example.airbnb.domain.model.AccommodationDetailItem" />
+
+        <variable
+            name="viewPagerCurrentPage"
+            type="int" />
+
+        <variable
+            name="accommodationCondition"
+            type="com.example.airbnb.domain.model.SearchCondition" />
 
     </data>
 
@@ -71,13 +80,14 @@
 
                 <TextView
                     style="@style/Caption.White"
+                    bindViewPagerCurrentPage="@{viewPagerCurrentPage}"
+                    bindViewPagerTap="@{accommodationDetail.accommodationImages}"
                     android:layout_width="72dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:background="@drawable/background_radius_grey"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="1/18"
                     app:layout_constraintBottom_toBottomOf="@id/vp_accommodation"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -89,7 +99,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
                     android:maxLines="2"
-                    android:text="Spacious and Comfortable cozy house #4"
+                    android:text="@{accommodationDetail.name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/vp_accommodation" />
@@ -97,11 +107,12 @@
                 <TextView
                     android:id="@+id/tv_accommodation_detail_review"
                     style="@style/Subtitle2.Grey"
+                    bindComments="@{accommodationDetail.commentSize}"
+                    bindRatings="@{accommodationDetail.averageRating}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:drawablePadding="5dp"
-                    android:text="4.70(후기 127개)"
                     app:drawableStartCompat="@drawable/ic_star"
                     app:layout_constraintStart_toStartOf="@id/tv_accommodation_detail_title"
                     app:layout_constraintTop_toBottomOf="@id/tv_accommodation_detail_title" />
@@ -112,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="서초구, 서울, 한국"
+                    android:text="@{accommodationDetail.address}"
                     app:layout_constraintStart_toStartOf="@id/tv_accommodation_detail_review"
                     app:layout_constraintTop_toBottomOf="@id/tv_accommodation_detail_review" />
 
@@ -133,24 +144,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="레지던스 전체"
+                    android:text="@{accommodationDetail.accommodationType}"
                     app:layout_constraintStart_toStartOf="@id/view_divider_first"
                     app:layout_constraintTop_toBottomOf="@id/view_divider_first" />
 
                 <TextView
                     android:id="@+id/tv_accommodation_detail_host"
                     style="@style/HeadLine6.Black"
+                    bindHostName="@{accommodationDetail.hostName}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="호스트 : 히데"
                     app:layout_constraintStart_toStartOf="@id/tv_accommodation_detail_room_type"
                     app:layout_constraintTop_toBottomOf="@id/tv_accommodation_detail_room_type" />
 
                 <ImageView
                     android:id="@+id/iv_accommodation_detail_host"
+                    imageUrl="@{accommodationDetail.hostProfileImage}"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="@id/view_divider_first"
                     app:layout_constraintTop_toTopOf="@id/tv_accommodation_detail_room_type"
                     tools:srcCompat="@tools:sample/avatars" />
@@ -158,10 +171,13 @@
                 <TextView
                     android:id="@+id/tv_accommodation_detail_room_count"
                     style="@style/Subtitle2.Grey"
+                    bindBathRooms="@{accommodationDetail.bathRooms}"
+                    bindBedRooms="@{accommodationDetail.bedRooms}"
+                    bindBeds="@{accommodationDetail.beds}"
+                    bindMaxPeople="@{accommodationDetail.maxNumberOfPeople}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="최대인원 3명 - 원룸 - 침대 1개 - 욕실 1개"
                     app:layout_constraintStart_toStartOf="@id/tv_accommodation_detail_host"
                     app:layout_constraintTop_toBottomOf="@id/tv_accommodation_detail_host" />
 
@@ -185,7 +201,7 @@
                     android:layout_marginEnd="16dp"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    android:text="강남역 5번 출구에서 도보로 이동가능합니다. 지하철, 버스 노선이 다양하고 맛집, 마트 등 주변 시설이 풍부합니다. 깨끗하고, 아늑한 히데가 사는 집입니다."
+                    android:text="@{accommodationDetail.description}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/view_divider_second"
                     app:layout_constraintTop_toBottomOf="@id/view_divider_second" />
@@ -210,6 +226,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_accommodation_detail_reservation"
+            isReservationLayout="true"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/grey_scale_off_white"
@@ -221,22 +238,23 @@
             <TextView
                 android:id="@+id/tv_accommodation_detail_reservation_day_price"
                 style="@style/Subtitle1.Black"
+                bindOneDayPrice="@{accommodationDetail.oneDayPerPrice}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="82,953/박"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_accommodation_detail_reservation_period"
                 style="@style/Subtitle2"
+                bindReservationCheckIn="@{accommodationCondition.checkInDate}"
+                bindReservationCheckOut="@{accommodationCondition.checkOutDate}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="19dp"
-                android:text="5월 25일 - 5월 28일"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_accommodation_detail_reservation_day_price"
                 app:layout_constraintTop_toBottomOf="@id/tv_accommodation_detail_reservation_day_price" />
@@ -248,7 +266,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/btn_radius_black"
-                android:text="예약하기"
+                android:text="@string/accommodation_detail_reservation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_accommodation_detail_reservation_day_price" />
 
@@ -256,10 +274,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_accommodation_detail_input_information"
+            isReservationLayout="false"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/grey_scale_off_white"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -286,7 +304,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="18dp"
                 android:background="@drawable/btn_radius_black"
-                android:text="예약하기"
+                android:text="@string/accommodation_detail_input_information"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_accommodation_detail_input_information_description"

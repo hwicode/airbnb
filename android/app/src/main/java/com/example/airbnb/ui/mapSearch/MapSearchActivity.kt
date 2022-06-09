@@ -53,7 +53,7 @@ class MapSearchActivity : AppCompatActivity() {
     private fun getSearchResultAccommodations():List<SearchResultAccommodation>{
         val accommodations = mutableListOf<SearchResultAccommodation>()
         for(i in 0..100){
-            accommodations.add(SearchResultAccommodation("dummy Image", true,"서울 왕십리 게스트하우스"))
+            accommodations.add(SearchResultAccommodation(1, "dummy Image", true,"서울 왕십리 게스트하우스"))
         }
         return accommodations
     }

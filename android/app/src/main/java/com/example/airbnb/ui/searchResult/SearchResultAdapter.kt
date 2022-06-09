@@ -14,7 +14,7 @@ import com.example.airbnb.domain.model.SearchResultProgressBar
 const val VIEW_TYPE_LOADING = 0
 const val VIEW_TYPE_ITEM = 1
 
-class SearchResultAdapter(private val itemClick: () -> Unit, private val conditionClick:()->Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class SearchResultAdapter(private val itemClick: (Int) -> Unit, private val conditionClick:(Int)->Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private val items= mutableListOf<SearchResult>()
 
@@ -50,14 +50,15 @@ class SearchResultAdapter(private val itemClick: () -> Unit, private val conditi
     inner class ItemViewHolder(private val binding: ItemSearchResultAccommodationBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(accommodation: SearchResultAccommodation, itemClick: () -> Unit, conditionClick: () -> Unit) {
+        fun bind(accommodation: SearchResultAccommodation, itemClick: (accommodationID: Int) -> Unit, conditionClick: (accommodationID: Int) -> Unit) {
             binding.accommodation= accommodation
             binding.tvSearchResultHostInfo.isVisible= accommodation.superHost
+
             binding.iBtnWish.setOnClickListener {
-                conditionClick.invoke()
+                conditionClick.invoke(accommodation.accommodationID)
             }
             binding.root.setOnClickListener {
-                itemClick.invoke()
+                itemClick.invoke(accommodation.accommodationID)
             }
 
         }

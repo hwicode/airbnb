@@ -7,6 +7,6 @@ import retrofit2.http.Path
 interface AccommodationDetailApi {
 
     @GET("accommodations/{id}")
-    suspend fun getAccommodationDetail(@Path("id") accommodationId: Int = 1): AccommodationDetailDto
+    suspend fun getAccommodationDetail(@Path("id") accommodationId: Int): AccommodationDetailDto
 
 }
