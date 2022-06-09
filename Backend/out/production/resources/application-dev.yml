@@ -1,0 +1,53 @@
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0MB
+      max-file-size: 20MB
+      max-request-size: 10MB
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
+        show_sql: true
+        format_sql: true
+    open-in-view: false
+    show-sql: true
+    database-platform: org.hibernate.spatial.dialect.mysql.MySQL8SpatialDialect
+  cache:
+    type: redis
+    redis:
+      time-to-live: 60000
+      cache-null-values: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+
+datasource:
+  #    url: ${MYSQL_DATABASE_URL}
+  url: jdbc:mysql://52.78.218.18:3306/airbnb
+  #    url: jdbc:mysql://localhost:3306/airbnb
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  #    username: ${MYSQL_DATABASE_USERNAME}
+  username: jun
+  #    password: ${MYSQL_DATABASE_PASSWORD}
+  password: 1234
+
+oauth:
+  client:
+    registration:
+      github:
+        client-id: 177df418e8432fdceb2b
+        client-secret: 34af3720c75c4747dad4b73e839a8b92b5efc7c2
+        redirect-uri: http://localhost:8080/api/oauth/callback
+
+    provider:
+      github:
+        token-uri: https://github.com/login/oauth/access_token
+        user-info-uri: https://api.github.com/user
+        user-authrozation-uri: https://github.com/login/oauth/authorize
+        user-name-attribute: id
+        version: application/vnd.github.v3+json

@@ -36,6 +36,7 @@ dependencies {
     implementation ("com.querydsl:querydsl-apt:${queryDslVersion}")
     implementation group: 'com.querydsl', name: 'querydsl-spatial', version: '5.0.0'
     compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310')
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
 
     implementation (group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.5')
 

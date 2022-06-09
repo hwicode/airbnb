@@ -1,13 +1,11 @@
 package com.example.airbnb.configuration;
 
-import com.example.airbnb.business.core.repository.accommodation.CityRepository;
+import com.example.airbnb.business.core.domain.accommodation.TagReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.AccommodationReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.AmenityReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.CommentReadRepository;
 import com.example.airbnb.business.core.repository.accommodation.querydsl.ImageReadRepository;
 import com.example.airbnb.business.core.repository.reservation.querydsl.ReservationReadRepository;
-import com.example.airbnb.business.web.service.accommodation.AccommodationReadService;
-import com.example.airbnb.business.web.service.accommodation.TagReadRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
