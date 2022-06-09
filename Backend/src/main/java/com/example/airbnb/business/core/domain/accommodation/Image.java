@@ -4,11 +4,15 @@ package com.example.airbnb.business.core.domain.accommodation;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Entity
 public class Image {
+
+    public static int IMAGE_URL_NUMBER = 0;
+    public static int IMAGE_FILE_NUMBER = 1;
 
     @Id
     @Column(name = "image_id")
@@ -37,9 +41,13 @@ public class Image {
     protected Image() {
     }
 
-    public void registAccommodation(Accommodation accommodation) {
+    public void registerAccommodation(Accommodation accommodation) {
         this.accommodation = accommodation;
         accommodation.getImages().add(this);
+    }
+
+    public static Image createImage(List<String> imageString) {
+        return new Image(imageString.get(IMAGE_URL_NUMBER), imageString.get(IMAGE_FILE_NUMBER));
     }
 
     @Override

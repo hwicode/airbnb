@@ -9,17 +9,25 @@ import java.util.Objects;
 @Embeddable
 public class Room {
 
-    private int bedRooms;
-    private int beds;
-    private int bathRooms;
+    private Integer bedRooms;
+    private Integer beds;
+    private Integer bathRooms;
 
-    public Room(int beds, int bathRooms, int bedRooms) {
+    public Room(Integer beds, Integer bathRooms, Integer bedRooms) {
+        validate(beds, bathRooms, bedRooms);
         this.beds = beds;
         this.bathRooms = bathRooms;
         this.bedRooms = bedRooms;
     }
 
-    protected Room() {}
+    private void validate(Integer beds, Integer bathRooms, Integer bedRooms) {
+        if (beds == null || bathRooms == null || bedRooms == null) {
+            throw new IllegalStateException("숙소 정보를 정확히 입력해주세요.");
+        }
+    }
+
+    protected Room() {
+    }
 
     @Override
     public boolean equals(Object o) {

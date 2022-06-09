@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Getter
@@ -12,15 +14,19 @@ public class Address {
 
     @Transient
     private static final String ADDRESS_DELIMETER = " ";
+
+    @NotNull @NotEmpty
     private String gu;
+
+    @NotNull @NotEmpty
     private String street;
-    private String zipCode;
+
+    @NotNull @NotEmpty
     private String homeAddress;
 
-    public Address(String gu, String street, String zipCode) {
+    public Address(String gu, String street) {
         this.gu = gu;
         this.street = street;
-        this.zipCode = zipCode;
         this.homeAddress = createHomeAddress(gu, street);
     }
 

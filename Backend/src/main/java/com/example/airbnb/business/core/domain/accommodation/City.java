@@ -1,9 +1,14 @@
 package com.example.airbnb.business.core.domain.accommodation;
 
+import lombok.Getter;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
+@Getter
 public class City {
 
     @Id
@@ -11,11 +16,21 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cityId;
 
+    @NotNull @NotEmpty
     private String nation;
 
+    @NotNull @NotEmpty
     private String name;
 
+    @NotNull @NotEmpty
+    @Column(length = 1000)
     private String image;
+
+    @NotNull
+    private Double latitude;
+
+    @NotNull
+    private Double longitude;
 
     public City(String nation, String name, String image) {
         this.nation = nation;

@@ -2,11 +2,12 @@ package com.example.airbnb.business.core.domain.accommodation;
 
 
 import com.example.airbnb.business.core.domain.member.Member;
-import com.example.airbnb.business.core.domain.reservation.Reservation;
-import com.example.airbnb.business.core.domain.reservation.Time;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,34 +22,45 @@ public class Accommodation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accommodationId;
 
+    @NotNull @NotEmpty
     private String name;
 
+    @NotNull @NotEmpty
+    @Column(length = 2000)
     private String description;
 
+    @NotNull
     private BigDecimal price;
 
-    private double averageRating;
+    @NotNull
+    @NotEmpty
+    @Column(length = 1000)
+    private String mainImageUrl;
+
+    private Double averageRating;
+
+    private Integer commentCount;
 
     @Embedded
     private Room room;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @NotNull
+    @NotEmpty
     @Enumerated(EnumType.STRING)
     private AccommodationType accommodationType;
 
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "accommodation", cascade = CascadeType.PERSIST)
-    private List<Reservation> reservations = new ArrayList<>();
-
     @Embedded
     private Location location;
 
-    private int maxNumberOfPeople;
+    @NotNull
+    private Integer maxNumberOfPeople;
 
     @OneToMany(mappedBy = "accommodation", cascade = CascadeType.PERSIST)
     private List<Image> images = new ArrayList<>();
@@ -57,32 +69,55 @@ public class Accommodation {
     @JoinColumn(name = "city_id")
     private City city;
 
-    public Accommodation(String name, String description, BigDecimal price,
-                         double averageRating, Room room, Member member, AccommodationType accommodationType,
-                         Address address, List<Reservation> reservations, Location location,
-                         int maxNumberOfPeople, City city) {
+    @Builder
+    public Accommodation(String name, String description, String mainImageUrl, BigDecimal price,
+                         Room room, AccommodationType accommodationType, Address address, Integer maxNumberOfPeople) {
         this.name = name;
         this.description = description;
+        this.mainImageUrl = mainImageUrl;
+        this.commentCount = initCommentCount();
         this.price = price;
-        this.averageRating = averageRating;
+        this.averageRating = initAverageRating();
         this.room = room;
-        this.member = member;
         this.accommodationType = accommodationType;
         this.address = address;
-        this.reservations = reservations;
-        this.location = location;
         this.maxNumberOfPeople = maxNumberOfPeople;
-        this.city = city;
+    }
+
+    private Integer initCommentCount() {
+        return 0;
+    }
+
+    private Double initAverageRating() {
+        return 0.0;
     }
 
     protected Accommodation() {
     }
 
-    public void registImages(List<Image> images) {
+    public void registerImages(List<Image> images) {
         for (Image image : images) {
             if (image != null) {
-                image.registAccommodation(this);
+                image.registerAccommodation(this);
             }
+        }
+    }
+
+    public void registImage(Image image) {
+        if (image != null) {
+            this.images.add(image);
+        }
+    }
+
+    public void addInformation(Member member, City city) {
+        validate(member, city);
+        this.member = member;
+        this.city = city;
+    }
+
+    private void validate(Member member, City city) {
+        if (member == null || city == null) {
+            throw new IllegalStateException("회원, 도시 정보를 모두 입력해주세요.");
         }
     }
 
@@ -97,5 +132,9 @@ public class Accommodation {
     @Override
     public int hashCode() {
         return Objects.hash(accommodationId);
+    }
+
+    public void update(Double latitude, Double longitude) {
+        this.location = new Location(longitude, latitude);
     }
 }
