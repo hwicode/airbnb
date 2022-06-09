@@ -19,6 +19,7 @@ import com.example.airbnb.R
 import com.example.airbnb.common.AccessToken
 import com.example.airbnb.common.Constants
 import com.example.airbnb.databinding.FragmentLoginWebViewBinding
+import kotlinx.coroutines.delay
 import org.koin.android.ext.android.inject
 
 class LoginWebViewFragment : Fragment() {
@@ -61,29 +62,22 @@ class LoginWebViewFragment : Fragment() {
             Log.d("AppTest", "webView Error!!!!!")
         }
 
-
-
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-            val token= requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
-                .getString("token","")
-            Log.d("토큰","token $token")
-            println("dfdfdfsdfsdf")
-
-            if (url?.contains("code") == true) {
-                AccessToken.CODE= Uri.parse(url).getQueryParameters("code").toString()
+            val sharedPreferences = requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
+            val token = sharedPreferences.getString("token", null)
+            if (!token.isNullOrEmpty()) {
+                navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
+            }
+            else if (url?.contains("code") == true) {
+                val code = Uri.parse(url).getQueryParameters("code").toString()
+                AccessToken.CODE = code.subSequence(1, code.length - 1) as String
                 viewModel.getAccessToken()
-                println("코드드드 ${AccessToken.CODE}")
-                requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
-                    .edit().apply {
-                        putString("token", AccessToken.JWT)
-                        apply()
-                    }
-                println("토크크큰 ${AccessToken.JWT}")
-               navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
+                navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
             }
         }
     }
+
 }
 
 

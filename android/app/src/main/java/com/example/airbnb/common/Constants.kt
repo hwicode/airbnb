@@ -5,6 +5,7 @@ object Constants {
     const val CALENDAR_IN_RANGE_COLOR = 0xFFF3F5F7.toInt()
     const val WEBVIEW_LOGIN_URL = "http://52.78.218.18:8080/home/"
     const val API_BASE_URL="http://52.78.218.18:8080/api/"
+    const val OAUTH_BASE_URL="http://52.78.218.18:8080/"
 
     const val SEARCH_TAG_KEY = "SEARCH_TAG"
     const val PRICE_MAX_KEY= "PRICE_MAX"

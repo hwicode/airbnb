@@ -26,13 +26,9 @@ val NetWorkModule = module {
     single {
         OkHttpClient.Builder()
             .addInterceptor(get<Interceptor>(named("Interceptor")))
-            .build() }
-
-    single(named("HeaderHttp")) {
-        OkHttpClient.Builder()
-            .addInterceptor(get<Interceptor>(named("HeaderInterceptor")))
             .build()
     }
+
 
     single<Interceptor>(named("Interceptor")) {
         HttpLoggingInterceptor().apply {
@@ -42,9 +38,9 @@ val NetWorkModule = module {
 
     single<Retrofit>(named("LoginRetrofit")) {
         Retrofit.Builder()
-            .baseUrl(Constants.WEBVIEW_LOGIN_URL)
+            .baseUrl(Constants.OAUTH_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .client(get(named("HeaderHttp")))
+            .client(get())
             .build()
     }
 
@@ -53,17 +49,8 @@ val NetWorkModule = module {
         Retrofit.Builder()
             .baseUrl(Constants.API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .client(get(named("HeaderHttp")))
+            .client(get())
             .build()
-    }
-
-    single(named("HeaderInterceptor")) {
-        Interceptor { chain ->
-            chain.proceed(
-                chain.request().newBuilder().apply { header("Authorization", AccessToken.JWT) }
-                    .build()
-            )
-        }
     }
 
     single<LoginApi> {
