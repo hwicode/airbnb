@@ -21,4 +21,4 @@ data class SearchAccommodationByConditionResultDtoItem(
     val roomName: String
 )
 
-fun SearchAccommodationByConditionResultDtoItem.toSearchResultAccommodation(): SearchResultAccommodation = SearchResultAccommodation(imageUrl,true, roomName,averageRating.toFloat(), commentCount, oneDayPerPrice  )
+fun SearchAccommodationByConditionResultDtoItem.toSearchResultAccommodation(): SearchResultAccommodation = SearchResultAccommodation(accommodationId, imageUrl,true, roomName,averageRating.toFloat(), commentCount, oneDayPerPrice  )

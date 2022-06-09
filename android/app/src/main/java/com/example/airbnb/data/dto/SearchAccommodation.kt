@@ -78,4 +78,4 @@ data class Content(
     val roomName: String
 )
 
-fun Content.toSearchResultAccommodation(): SearchResultAccommodation = SearchResultAccommodation(image,true, roomName,averageRating.toFloat(), commentNumber, oneDayPerPrice.toInt()  )
+fun Content.toSearchResultAccommodation(): SearchResultAccommodation = SearchResultAccommodation(accommodationId, image,true, roomName,averageRating.toFloat(), commentNumber, oneDayPerPrice.toInt()  )

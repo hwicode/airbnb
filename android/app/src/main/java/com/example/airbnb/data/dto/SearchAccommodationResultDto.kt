@@ -9,7 +9,7 @@ class SearchAccommodationResultDto : ArrayList<SearchAccommodationResultDtoItem>
 
 data class SearchAccommodationResultDtoItem(
     @SerializedName("accommodationId")
-    val accommodationId: Int?,
+    val accommodationId: Int,
     @SerializedName("accommodationType")
     val accommodationType: String?,
     @SerializedName("address")
@@ -26,4 +26,4 @@ data class SearchAccommodationResultDtoItem(
     val roomName: String
 )
 
-fun SearchAccommodationResultDtoItem.toSearchResultAccommodation():SearchResultAccommodation = SearchResultAccommodation(image,true, roomName,averageRating.toFloat(), commentNumber, oneDayPerPrice  )
+fun SearchAccommodationResultDtoItem.toSearchResultAccommodation():SearchResultAccommodation = SearchResultAccommodation(accommodationId, image,true, roomName,averageRating.toFloat(), commentNumber, oneDayPerPrice  )
