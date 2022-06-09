@@ -48,7 +48,6 @@ class SearchResultViewModel(private val repository: SearchRepository) : ViewMode
 
     fun validateSearchCondition(): Boolean {
         val savedSearchCondition = _searchCondition.value
-        println(savedSearchCondition)
         savedSearchCondition?.let {
             return (it.searchTag.isNotEmpty()) && (it.maxPrice != 0) && (it.minPrice != 0) &&it.checkInDate!=null && it.checkOutDate!=null && it.adultCount != 0
         }

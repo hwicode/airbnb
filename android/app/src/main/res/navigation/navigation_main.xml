@@ -12,13 +12,13 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/navigation_search" />
         <action
             android:id="@+id/action_loginFragment_to_loginWebViewFragment"
             app:destination="@id/loginWebViewFragment" />
     </fragment>
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/navigation_search"
         android:name="com.example.airbnb.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
@@ -42,10 +42,20 @@
         tools:layout="@layout/fragment_login_web_view" >
         <action
             android:id="@+id/action_loginWebViewFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/navigation_search" />
     </fragment>
     <activity
         android:id="@+id/informationActivity"
         android:name="com.example.airbnb.ui.information.InformationActivity"
         android:label="InformationActivity" />
+    <fragment
+        android:id="@+id/navigation_reservation"
+        android:name="com.example.airbnb.ui.reservation.ReservationFragment"
+        android:label="fragment_reservation"
+        tools:layout="@layout/fragment_reservation" />
+    <fragment
+        android:id="@+id/navigation_wish"
+        android:name="com.example.airbnb.ui.wish.WishFragment"
+        android:label="fragment_wish"
+        tools:layout="@layout/fragment_wish" />
 </navigation>

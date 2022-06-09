@@ -1,11 +1,11 @@
 package com.example.airbnb.data.repository
 
+import com.example.airbnb.data.dto.toReservationItem
 import com.example.airbnb.data.dto.toSearchResultAccommodation
+import com.example.airbnb.data.dto.toWishItem
 import com.example.airbnb.data.remote.searchResult.SearchDataSource
 import com.example.airbnb.domain.SearchRepository
-import com.example.airbnb.domain.model.SearchCondition
-import com.example.airbnb.domain.model.SearchResultAccommodation
-import com.example.airbnb.domain.model.toQueryMap
+import com.example.airbnb.domain.model.*
 
 class SearchRepositoryImpl(private val searchDataSource: SearchDataSource): SearchRepository {
 
@@ -19,5 +19,17 @@ class SearchRepositoryImpl(private val searchDataSource: SearchDataSource): Sear
        return searchDataSource.getSearchResultByAllCondition(searchCondition.toQueryMap()).map {
            it.toSearchResultAccommodation()
        }
+    }
+
+    override suspend fun getWishList(): List<WishItem> {
+        return searchDataSource.getWishList().map {
+            it.toWishItem()
+        }
+    }
+
+    override suspend fun getReservationList(): List<ReservationItem> {
+        return searchDataSource.getReservationList().map {
+            it.toReservationItem()
+        }
     }
 }

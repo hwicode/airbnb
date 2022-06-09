@@ -117,7 +117,7 @@ class InformationActivity : AppCompatActivity() {
             Constants.PRICE_MAX_KEY to viewModel.highestPriceStatedFlow.value,
             Constants.PRICE_MIN_KEY to viewModel.lowestPriceStatedFlow.value,
             Constants.CHECK_IN_KEY to viewModel.checkInStatedFlow.value?.toString(),
-            Constants.CHECK_OUT_KEY to viewModel.checkOutStatedFlow.value.toString(),
+            Constants.CHECK_OUT_KEY to viewModel.checkOutStatedFlow.value?.toString(),
             Constants.ADULT_KEY to viewModel.adultCountStateFlow.value,
             Constants.CHILD_KEY to viewModel.childCountStateFlow.value,
             Constants.TODDLER_KEY to viewModel.toddlerCountStateFlow.value

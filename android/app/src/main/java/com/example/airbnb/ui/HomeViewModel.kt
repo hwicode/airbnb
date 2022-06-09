@@ -68,8 +68,8 @@ class HomeViewModel(
         if (_myLatitude != latitude || _myLongitude != longitude) {
             setMyLocation(latitude, longitude)
             viewModelScope.launch {
-               // val cityList = cityRepository.getCityInfo()
-                //loadCityInfo(cityList)
+                val cityList = cityRepository.getCityInfo()
+                loadCityInfo(cityList)
             }
         }
     }
