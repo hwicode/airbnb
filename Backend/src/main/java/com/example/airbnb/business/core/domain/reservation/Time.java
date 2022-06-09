@@ -3,6 +3,7 @@ package com.example.airbnb.business.core.domain.reservation;
 import lombok.Getter;
 
 import javax.persistence.Embeddable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 

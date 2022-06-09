@@ -2,11 +2,15 @@ package com.example.airbnb.business.core.domain.reservation;
 
 import com.example.airbnb.business.core.domain.accommodation.Accommodation;
 import com.example.airbnb.business.core.domain.member.Member;
+import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Getter
 @Entity
 public class Reservation {
 
@@ -15,18 +19,25 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
 
+    @NotNull
     private BigDecimal totalPrice;
 
-    private int totalDay;
+    @NotNull
+    private Integer totalDay;
 
-    private int totalPeople;
+    @NotNull
+    private Integer totalPeople;
 
-    private int adults;
+    @NotNull
+    private Integer adults;
 
-    private int children;
+    @NotNull
+    private Integer children;
 
-    private int infants;
+    @NotNull
+    private Integer infants;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
 
@@ -40,6 +51,34 @@ public class Reservation {
 
     @Embedded
     private Time time;
+
+    @Builder
+    public Reservation(BigDecimal totalPrice, Integer totalDay, Integer totalPeople, Integer adults, Integer children, Integer infants, Time time) {
+        this.totalPrice = totalPrice;
+        this.totalDay = totalDay;
+        this.totalPeople = totalPeople;
+        this.adults = adults;
+        this.children = children;
+        this.infants = infants;
+        this.time = time;
+    }
+
+    protected Reservation() {
+    }
+
+    ;
+
+    public void addInformation(Member member, Accommodation accommodation) {
+        validate(member, accommodation);
+        this.member = member;
+        this.accommodation = accommodation;
+    }
+
+    private void validate(Member member, Accommodation accommodation) {
+        if (member == null || accommodation == null) {
+            throw new IllegalArgumentException("회원, 숙소 정보를 입력해주세요.");
+        }
+    }
 
     @Override
     public boolean equals(Object o) {
