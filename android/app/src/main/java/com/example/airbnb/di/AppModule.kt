@@ -1,6 +1,7 @@
 package com.example.airbnb.di
 
 import com.example.airbnb.ui.HomeViewModel
+import com.example.airbnb.ui.accommodationDetail.AccommodationDetailViewModel
 import com.example.airbnb.ui.login.LoginViewModel
 import com.example.airbnb.ui.reservation.ReservationViewModel
 import com.example.airbnb.ui.searchResult.SearchResultViewModel
@@ -14,4 +15,5 @@ val appModule = module {
     viewModel { SearchResultViewModel(get())}
     viewModel{ WishViewModel(get())}
     viewModel{ ReservationViewModel(get())}
+    viewModel{ AccommodationDetailViewModel(get())}
 }
