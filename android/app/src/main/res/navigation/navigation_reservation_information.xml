@@ -22,6 +22,6 @@
     </fragment>
     <activity
         android:id="@+id/accommodationActivity3"
-        android:name="com.example.airbnb.ui.accommodationDetail.AccommodationActivity"
+        android:name="com.example.airbnb.ui.accommodationDetail.AccommodationDetailActivity"
         android:label="AccommodationActivity" />
 </navigation>

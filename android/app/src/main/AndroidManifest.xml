@@ -23,7 +23,7 @@
             android:name=".ui.mapSearch.MapSearchActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.accommodationDetail.AccommodationActivity"
+            android:name=".ui.accommodationDetail.AccommodationDetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.searchResult.SearchResultActivity"

@@ -7,12 +7,11 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.airbnb.BuildConfig
 import com.example.airbnb.R
 import com.example.airbnb.domain.model.SearchResultAccommodation
-import com.example.airbnb.ui.accommodationDetail.AccommodationActivity
+import com.example.airbnb.ui.accommodationDetail.AccommodationDetailActivity
 import com.example.airbnb.ui.common.TextDrawable
 import com.skt.Tmap.TMapMarkerItem
 import com.skt.Tmap.TMapPoint
@@ -60,7 +59,7 @@ class MapSearchActivity : AppCompatActivity() {
     }
 
     private fun openDetail(){
-        val intent = Intent(this, AccommodationActivity::class.java)
+        val intent = Intent(this, AccommodationDetailActivity::class.java)
         startActivity(intent)
     }
 }
