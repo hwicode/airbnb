@@ -34,4 +34,14 @@
     <string name="string_search_condition_price">$52000 -$1,000,000</string>
     <string name="string_search_condition_guest_count_hint">인원수</string>
     <string name="string_search_condition_guest_count">성인2, 어린이1, 유아0</string>
+    <string name="reservation_checkin">체크인</string>
+    <string name="reservation_checkout">체크아웃</string>
+    <string name="reservation_guest">인원</string>
+    <string name="reservation_button">예약하기</string>
+    <string name="reservation_description">예약 확정 전에는 요금이 청구되지 않습니다.</string>
+    <string name="reservation_discount">4% 주 단위 요금 할인</string>
+    <string name="reservation_clean">청소비</string>
+    <string name="reservation_service">서비스</string>
+    <string name="reservation_tax">숙박세와 수수료</string>
+    <string name="reservation_total">합계</string>
 </resources>
