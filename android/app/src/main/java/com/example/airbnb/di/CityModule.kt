@@ -1,8 +1,8 @@
 package com.example.airbnb.di
 
-import com.example.airbnb.data.city.CityApi
-import com.example.airbnb.data.city.CityDataSource
-import com.example.airbnb.data.city.CityRemoteDataSource
+import com.example.airbnb.data.remote.city.CityApi
+import com.example.airbnb.data.remote.city.CityDataSource
+import com.example.airbnb.data.remote.city.CityRemoteDataSource
 import com.example.airbnb.domain.city.CityRepository
 import com.example.airbnb.domain.city.CityRepositoryImpl
 import org.koin.core.qualifier.named

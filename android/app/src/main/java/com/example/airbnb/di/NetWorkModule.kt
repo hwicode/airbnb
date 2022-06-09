@@ -34,7 +34,6 @@ val NetWorkModule = module {
         Retrofit.Builder()
             .baseUrl(Constants.WEBVIEW_LOGIN_URL)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-
             .client(get())
             .build()
     }

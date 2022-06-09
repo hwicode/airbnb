@@ -10,10 +10,12 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.airbnb.R
 import com.example.airbnb.databinding.FragmentSearchConditionBinding
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SearchConditionFragment : Fragment() {
     private lateinit var navigator: NavController
     private lateinit var binding: FragmentSearchConditionBinding
+    private val viewModel:SearchResultViewModel by sharedViewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,6 +29,13 @@ class SearchConditionFragment : Fragment() {
         navigator = Navigation.findNavController(view)
         binding.iBtnInformationBack.setOnClickListener {
             navigator.navigateUp()
+        }
+        val searchCondition= viewModel.searchCondition.value
+        searchCondition?.let {
+            binding.etSearchLocation.setText(it.searchTag)
+            binding.etSearchCheckinCheckout.setText("${it.checkInDate}-${it.checkOutDate}")
+            binding.etSearchPrice.setText("${it.minPrice}- ${it.maxPrice}")
+            binding.etSearchGuestCount.setText("성인 ${it.adultCount} 어린이 ${it.childCount} 유아 ${it.toddlerCount}")
         }
 
     }
