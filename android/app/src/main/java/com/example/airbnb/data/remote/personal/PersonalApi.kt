@@ -10,6 +10,6 @@ interface PersonalApi {
     @GET("members")
     suspend fun getWishList(@Header("Authorization") token:String): WishDetailDto
 
-    @GET("reservations/users")
+    @GET("reservations")
     suspend fun getReservationList(@Header("Authorization") token: String): ReservationDto
 }

@@ -14,7 +14,6 @@ data class SearchCondition(
 
 fun SearchCondition.toQueryMap(): MutableMap<String, String> {
     val queryMap : MutableMap<String, String> = mutableMapOf()
-    queryMap["tagName"]= searchTag
     queryMap["checkIn"]= checkInDate
     queryMap["checkOut"]= checkOutDate
     queryMap["minPrice"]= minPrice.toString()
