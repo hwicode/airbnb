@@ -10,12 +10,4 @@ class SearchRemoteDataSource(private val api:SearchResultApi):  SearchDataSource
     override suspend fun getSearchResultByAllCondition(searchCondition: Map<String,String>):SearchAccommodation {
         return api.getAccommodationsByAllCondition(searchCondition)
     }
-
-    override suspend fun getWishList(): WishDetailDto {
-        return api.getWishList()
-    }
-
-    override suspend fun getReservationList(): ReservationDto {
-        return api.getReservationList()
-    }
 }

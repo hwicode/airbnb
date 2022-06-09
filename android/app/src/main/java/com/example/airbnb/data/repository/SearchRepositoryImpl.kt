@@ -21,15 +21,4 @@ class SearchRepositoryImpl(private val searchDataSource: SearchDataSource): Sear
        }
     }
 
-    override suspend fun getWishList(): List<WishItem> {
-        return searchDataSource.getWishList().map {
-            it.toWishItem()
-        }
-    }
-
-    override suspend fun getReservationList(): List<ReservationItem> {
-        return searchDataSource.getReservationList().map {
-            it.toReservationItem()
-        }
-    }
 }

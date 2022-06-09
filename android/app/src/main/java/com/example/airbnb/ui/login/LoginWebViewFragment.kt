@@ -67,6 +67,7 @@ class LoginWebViewFragment : Fragment() {
             val sharedPreferences = requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
             val token = sharedPreferences.getString("token", null)
             if (!token.isNullOrEmpty()) {
+                AccessToken.JWT= token
                 navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
             }
             else if (url?.contains("code") == true) {
