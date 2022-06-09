@@ -1,5 +1,6 @@
 package com.example.airbnb.ui.searchResult
 
+import android.location.Geocoder
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -33,6 +34,8 @@ class SearchResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navigator = Navigation.findNavController(view)
+
+
         val adapter = SearchResultAdapter({ accommodationId ->
             openDetail(accommodationId)
         }) { accommodationId ->
@@ -46,16 +49,14 @@ class SearchResultFragment : Fragment() {
         binding.condtion = viewModel.searchCondition.value
 
         binding.btnMapView.setOnClickListener {
-            navigator.navigate(R.id.action_searchResultFragment_to_mapSearchActivity)
+            val condition = viewModel.searchCondition.value
+            val condtionBundle = bundleOf("condition" to condition)
+            navigator.navigate(R.id.action_searchResultFragment_to_mapSearchActivity, condtionBundle)
         }
 
         viewModel.searchResult.observe(viewLifecycleOwner) {
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
-        }
-        viewModel.pageAccommodations.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-            adapter.notifyItemRangeChanged((page - 1) * 10, 10)
         }
 
         binding.rvSearchResult.adapter = adapter
