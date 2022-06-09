@@ -18,9 +18,9 @@ class LoginViewModel(private val repository: Repository) :ViewModel(){
 
     fun getAccessToken(){
         viewModelScope.launch(coroutineExceptionHandler){
-            println(repository.getAccessToken())
-            AccessToken.JWT= repository.getAccessToken()
-
+            val token = repository.getAccessToken()
+            Log.d("뷰모델", "$token")
+            AccessToken.JWT= token
         }
     }
 }

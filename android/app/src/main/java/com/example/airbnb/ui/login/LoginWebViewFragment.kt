@@ -1,5 +1,6 @@
 package com.example.airbnb.ui.login
 
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -47,6 +48,10 @@ class LoginWebViewFragment : Fragment() {
 
     inner class CustomWebViewClient() : WebViewClient() {
 
+        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+            super.onPageStarted(view, url, favicon)
+        }
+
         override fun onReceivedError(
             view: WebView?,
             request: WebResourceRequest?,
@@ -62,20 +67,20 @@ class LoginWebViewFragment : Fragment() {
             super.onPageFinished(view, url)
             val token= requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
                 .getString("token","")
-            println(token)
-            if(!token.isNullOrEmpty()){
-                //이미 저장된 토큰 정보가 있을때
-                navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
-            }
-            else if (url?.contains("code") == true) {
+            Log.d("토큰","token $token")
+            println("dfdfdfsdfsdf")
+
+            if (url?.contains("code") == true) {
                 AccessToken.CODE= Uri.parse(url).getQueryParameters("code").toString()
                 viewModel.getAccessToken()
+                println("코드드드 ${AccessToken.CODE}")
                 requireActivity().getSharedPreferences("access_code", AppCompatActivity.MODE_PRIVATE)
                     .edit().apply {
                         putString("token", AccessToken.JWT)
                         apply()
                     }
-               //navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
+                println("토크크큰 ${AccessToken.JWT}")
+               navigator.navigate(R.id.action_loginWebViewFragment_to_homeFragment)
             }
         }
     }

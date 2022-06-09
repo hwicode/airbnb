@@ -8,6 +8,8 @@ interface LoginApi {
 
     @GET("api/oauth/callback/")
     suspend fun getJWT(@Query("code") code: String): ResponseBody
+
+
 }
 
 

@@ -1,13 +1,14 @@
 package com.example.airbnb.di
 
+import com.example.airbnb.common.AccessToken
 import com.example.airbnb.common.Constants
-import com.example.airbnb.data.repository.RepositoryImpl
 import com.example.airbnb.data.remote.login.LoginApi
 import com.example.airbnb.data.remote.login.LoginDataSource
 import com.example.airbnb.data.remote.login.LoginRemoteDataSource
 import com.example.airbnb.data.remote.searchResult.SearchDataSource
 import com.example.airbnb.data.remote.searchResult.SearchRemoteDataSource
 import com.example.airbnb.data.remote.searchResult.SearchResultApi
+import com.example.airbnb.data.repository.RepositoryImpl
 import com.example.airbnb.data.repository.SearchRepositoryImpl
 import com.example.airbnb.domain.Repository
 import com.example.airbnb.domain.SearchRepository
@@ -22,7 +23,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val NetWorkModule = module {
 
-    single{ OkHttpClient.Builder().addInterceptor(get<Interceptor>(named("Interceptor"))).build() }
+    single {
+        OkHttpClient.Builder()
+            .addInterceptor(get<Interceptor>(named("Interceptor")))
+            .build() }
+
+    single(named("HeaderHttp")) {
+        OkHttpClient.Builder()
+            .addInterceptor(get<Interceptor>(named("HeaderInterceptor")))
+            .build()
+    }
 
     single<Interceptor>(named("Interceptor")) {
         HttpLoggingInterceptor().apply {
@@ -34,7 +44,7 @@ val NetWorkModule = module {
         Retrofit.Builder()
             .baseUrl(Constants.WEBVIEW_LOGIN_URL)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .client(get())
+            .client(get(named("HeaderHttp")))
             .build()
     }
 
@@ -43,11 +53,18 @@ val NetWorkModule = module {
         Retrofit.Builder()
             .baseUrl(Constants.API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .client(get())
+            .client(get(named("HeaderHttp")))
             .build()
     }
 
-
+    single(named("HeaderInterceptor")) {
+        Interceptor { chain ->
+            chain.proceed(
+                chain.request().newBuilder().apply { header("Authorization", AccessToken.JWT) }
+                    .build()
+            )
+        }
+    }
 
     single<LoginApi> {
         get<Retrofit>(named("LoginRetrofit")).create(LoginApi::class.java)
@@ -56,9 +73,9 @@ val NetWorkModule = module {
     single<Repository> { RepositoryImpl(get()) }
 
 
-    single<SearchResultApi>{
+    single<SearchResultApi> {
         get<Retrofit>(named("SearchResultRetrofit")).create(SearchResultApi::class.java)
     }
-    single<SearchDataSource>{ SearchRemoteDataSource(get())}
-    single<SearchRepository>{ SearchRepositoryImpl(get())}
+    single<SearchDataSource> { SearchRemoteDataSource(get()) }
+    single<SearchRepository> { SearchRepositoryImpl(get()) }
 }
