@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_scale_off_white"
+        tools:context=".ui.searchResult.SearchResultFragment">
+
+
+        <ImageButton
+            android:id="@+id/iBtn_search_result_searchCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="47dp"
+            android:background="@drawable/ic_hamburger_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_search_result_condition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:ems="14"
+            android:maxLines="1"
+            style="@style/Subtitle2"
+            android:text="양재구 5월 23일 - 6월 10일, 52000-63000 성인2명"
+            app:layout_constraintBottom_toBottomOf="@id/iBtn_search_result_searchCondition"
+            app:layout_constraintEnd_toStartOf="@id/iBtn_searchResult_delete_searchCondition"
+            app:layout_constraintStart_toEndOf="@id/iBtn_search_result_searchCondition"
+            app:layout_constraintTop_toTopOf="@id/iBtn_search_result_searchCondition" />
+
+        <ImageButton
+            android:id="@+id/iBtn_searchResult_delete_searchCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/ic_clear"
+            android:backgroundTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/iBtn_search_result_searchCondition"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iBtn_search_result_searchCondition" />
+
+
+        <TextView
+            android:id="@+id/tv_search_result_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:padding="16dp"
+            style="@style/HeadLine5.Black"
+            android:text="300개이상의 숙소"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/rv_search_result"
+            app:layout_constraintTop_toBottomOf="@id/iBtn_search_result_searchCondition"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_search_result_count"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_search_result_accommodation"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_map_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/label_map_btn_text"
+            android:textColor="@color/white"
+            android:paddingHorizontal="15dp"
+            android:background="@drawable/btn_radius_grey1"
+            android:drawableStart="@drawable/ic_vector_map"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

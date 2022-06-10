@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="checkIn"
+            type="org.joda.time.LocalDate" />
+
+        <variable
+            name="checkOut"
+            type="org.joda.time.LocalDate" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.calendar.CalendarFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_calendar_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/grey_scale_off_white"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_information_title"
+                style="@style/Overline.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="34dp"
+                android:text="@string/tv_calendar_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_information_range_start"
+                style="@style/HeadLine6.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="22dp"
+                checkInAsString="@{checkIn}"
+                app:layout_constraintStart_toStartOf="@id/tv_information_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_information_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+            <TextView
+                android:id="@+id/tv_information_range_end"
+                style="@style/HeadLine6.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="22dp"
+                checkOutAsString="@{checkOut}"
+                app:layout_constraintStart_toEndOf="@id/tv_information_range_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_information_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_calendar_week"
+            style="@style/Subtitle2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:letterSpacing="3"
+            android:text="일월화수목금토"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_calendar_header" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_calendar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_calendar_week"
+            tools:listitem="@layout/item_calendar_month" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="isStart"
+            type="Boolean" />
+
+        <variable
+            name="day"
+            type="String" />
+
+        <variable
+            name="today"
+            type="org.joda.time.LocalDate" />
+
+        <variable
+            name="checkIn"
+            type="org.joda.time.LocalDate" />
+
+        <variable
+            name="checkOut"
+            type="org.joda.time.LocalDate" />
+
+        <variable
+            name="selectableColor"
+            type="Integer" />
+    </data>
+
+        <TextView
+            android:id="@+id/tv_calendar_day"
+            style="@style/Subtitle2"
+            bindDateString="@{today}"
+            checkIn="@{checkIn}"
+            checkOut="@{checkOut}"
+            isStart = "@{isStart}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="14dp"
+            android:text="@{day}"
+            android:textColor="@{selectableColor}"
+        />
+
+</layout>
