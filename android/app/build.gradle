@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 def Properties properties = new Properties()
@@ -13,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.airbnb"
-        minSdk 21
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -67,7 +68,6 @@ dependencies {
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
 
     //Jetpack Navigation
-    implementation "androidx.fragment:fragment-ktx:1.4.1"
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'

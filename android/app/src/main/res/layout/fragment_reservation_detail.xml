@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="condition"
+            type="com.example.airbnb.domain.model.SearchCondition" />
+
+        <variable
+            name="accommodationDetail"
+            type="com.example.airbnb.domain.model.AccommodationDetailItem" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tv_reservation_day_price"
+            style="@style/Subtitle1.Grey1"
+            bindOneDayPrice="@{accommodationDetail.oneDayPerPrice}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_reservation_information"
+            android:layout_width="0dp"
+            android:layout_height="152dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/background_radius_storke_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reservation_day_price">
+
+            <TextView
+                android:id="@+id/tv_reservation_checkin"
+                style="@style/Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/reservation_checkin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_reservation_checkin_day"
+                style="@style/Subtitle1.Black"
+                bindStringToDateFormat="@{condition.checkInDate}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_reservation_checkin"
+                app:layout_constraintTop_toBottomOf="@+id/tv_reservation_checkin" />
+
+            <View
+                android:id="@+id/view_reservation_information_divider_vertical"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@color/grey4"
+                app:layout_constraintBottom_toTopOf="@+id/view_reservation_information_divider_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_reservation_information_divider_horizontal"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/grey4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:id="@+id/tv_reservation_checkout"
+                style="@style/Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/reservation_checkout"
+                app:layout_constraintStart_toStartOf="@+id/view_reservation_information_divider_vertical"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_reservation_checkout_day"
+                style="@style/Subtitle1.Black"
+                bindStringToDateFormat="@{condition.checkOutDate}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_reservation_checkout"
+                app:layout_constraintTop_toBottomOf="@+id/tv_reservation_checkout" />
+
+            <TextView
+                android:id="@+id/tv_reservation_guest"
+                style="@style/Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/reservation_guest"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_reservation_information_divider_horizontal" />
+
+            <TextView
+                android:id="@+id/tv_reservation_guest_number"
+                style="@style/Subtitle1.Black"
+                bindAdultCount="@{condition.adultCount}"
+                bindChildCount="@{condition.childCount}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_reservation_guest"
+                app:layout_constraintTop_toBottomOf="@+id/tv_reservation_guest" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_reservation"
+            style="@style/Subtitle2.White"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/btn_radius_black"
+            android:text="@string/reservation_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_reservation_information" />
+
+        <TextView
+            android:id="@+id/tv_reservation_description"
+            style="@style/Overline.Grey2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/reservation_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_reservation" />
+
+        <TextView
+            android:id="@+id/tv_reservation_total_price"
+            style="@style/Subtitle1.Black"
+            bindCheckInDate="@{condition.checkInDate}"
+            bindCheckOutDate="@{condition.checkOutDate}"
+            bindOnlyOneDayPrice="@{accommodationDetail.oneDayPerPrice}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reservation_description" />
+
+        <TextView
+            android:id="@+id/tv_reservation_total_price_value"
+            style="@style/Subtitle1.Black"
+            bindCheckInDateValue="@{condition.checkInDate}"
+            bindCheckOutDateValue="@{condition.checkOutDate}"
+            bindOnlyOneDayPriceValue="@{accommodationDetail.oneDayPerPrice}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_reservation_total_price" />
+
+        <TextView
+            android:id="@+id/tv_reservation_discount"
+            style="@style/Subtitle1.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/reservation_discount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reservation_total_price" />
+
+        <TextView
+            android:id="@+id/tv_reservation_discount_value"
+            style="@style/Subtitle1.Green1"
+            bindCheckInDateValueDiscount="@{condition.checkInDate}"
+            bindCheckOutDateValueDiscount="@{condition.checkOutDate}"
+            bindOnlyOneDayPriceDiscount="@{accommodationDetail.oneDayPerPrice}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_reservation_discount" />
+
+        <TextView
+            android:id="@+id/tv_reservation_clean_cost"
+            style="@style/Subtitle1.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/reservation_clean"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reservation_discount" />
+
+        <TextView
+            android:id="@+id/tv_reservation_clean_cost_value"
+            style="@style/Subtitle1.Black"
+            bindCleanCostToString="@{accommodationDetail.accommodationOptionLines}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_reservation_clean_cost" />
+
+        <TextView
+            android:id="@+id/tv_reservation_service_fee"
+            style="@style/Subtitle1.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/reservation_service"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reservation_clean_cost" />
+
+        <TextView
+            android:id="@+id/tv_reservation_service_fee_value"
+            style="@style/Subtitle1.Black"
+            bindCheckInDateServiceFee="@{condition.checkInDate}"
+            bindCheckOutDateServiceFee="@{condition.checkOutDate}"
+            bindOnlyOneDayPriceServiceFee="@{accommodationDetail.oneDayPerPrice}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_reservation_service_fee" />
+
+        <TextView
+            android:id="@+id/tv_reservation_reservation_tax"
+            style="@style/Subtitle1.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/reservation_tax"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reservation_service_fee" />
+
+        <TextView
+            android:id="@+id/tv_reservation_reservation_tax_value"
+            style="@style/Subtitle1.Black"
+            bindCheckInDateTax="@{condition.checkInDate}"
+            bindCheckOutDateTax="@{condition.checkOutDate}"
+            bindOnlyOneDayPriceTax="@{accommodationDetail.oneDayPerPrice}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_reservation_reservation_tax" />
+
+        <View
+            android:id="@+id/view_reservation_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/grey5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_reservation_reservation_tax" />
+
+        <TextView
+            android:id="@+id/tv_reservation_accommodation_total_price"
+            style="@style/HeadLine6.Black.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/reservation_total"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_reservation_divider" />
+
+        <TextView
+            android:id="@+id/tv_reservation_accommodation_total_price_value"
+            style="@style/HeadLine6.Black.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_reservation_accommodation_total_price" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

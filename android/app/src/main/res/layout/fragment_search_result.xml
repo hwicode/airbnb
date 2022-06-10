@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="condtion"
+            type="com.example.airbnb.domain.model.SearchCondition" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +34,7 @@
             android:ems="14"
             android:maxLines="1"
             style="@style/Subtitle2"
-            android:text="양재구 5월 23일 - 6월 10일, 52000-63000 성인2명"
+            searchCondition="@{condtion}"
             app:layout_constraintBottom_toBottomOf="@id/iBtn_search_result_searchCondition"
             app:layout_constraintEnd_toStartOf="@id/iBtn_searchResult_delete_searchCondition"
             app:layout_constraintStart_toEndOf="@id/iBtn_search_result_searchCondition"
