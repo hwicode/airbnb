@@ -84,4 +84,25 @@ data class KITCHEN(
     val name: String
 )
 
-fun AccommodationDetailDto.toAccommodationDetailItem():AccommodationDetailItem = AccommodationDetailItem(accommodationId, accommodationType, address, averageRating, bathRooms, bedRooms, beds, commentSize, comments, description,hostId, hostName, hostProfileImage, images, mainImageUrl, maxNumberOfPeople, name, oneDayPerPrice.toInt() )
+fun AccommodationDetailDto.toAccommodationDetailItem(): AccommodationDetailItem =
+    AccommodationDetailItem(
+        accommodationId,
+        accommodationType,
+        address,
+        averageRating,
+        accommodationOptionLines,
+        bathRooms,
+        bedRooms,
+        beds,
+        commentSize,
+        comments,
+        description,
+        hostId,
+        hostName,
+        hostProfileImage,
+        images,
+        mainImageUrl,
+        maxNumberOfPeople,
+        name,
+        oneDayPerPrice.toInt()
+    )

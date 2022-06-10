@@ -44,6 +44,7 @@
     <string name="reservation_service">서비스</string>
     <string name="reservation_tax">숙박세와 수수료</string>
     <string name="reservation_total">합계</string>
+    <string name="reservation_accommodation_price">₩%s x %d 박</string>
     <string name="accommodation_detail_host">호스트 : %s</string>
     <string name="accommodation_detail_view_pager_number">%d/%d</string>
     <string name="accommodation_detail_rating_comments">%s(후기: %d개)</string>
@@ -52,4 +53,5 @@
     <string name="accommodation_detail_reservation">예약하기</string>
     <string name="accommodation_detail_input_information">정보 입력 하기</string>
     <string name="accommodation_detail_checkin_checkout">%s - %s</string>
+    <string name="accommodation_detail_input_information_description">요금을 확인하려면 날짜 또는 인원수를 입력하세요.</string>
 </resources>

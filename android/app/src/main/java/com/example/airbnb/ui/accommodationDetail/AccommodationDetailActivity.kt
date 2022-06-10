@@ -3,7 +3,6 @@ package com.example.airbnb.ui.accommodationDetail
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
@@ -15,13 +14,13 @@ import com.example.airbnb.databinding.ActivityAccommodationDetailBinding
 import com.example.airbnb.domain.model.SearchCondition
 import com.example.airbnb.ui.reservationInformation.ReservationInformation
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AccommodationDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAccommodationDetailBinding
     private lateinit var accommodationDetailAdapter: AccommodationDetailAdapter
-    private val viewModel: AccommodationDetailViewModel by inject()
+    private val viewModel: AccommodationDetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +80,7 @@ class AccommodationDetailActivity : AppCompatActivity() {
         viewModel.accommodationCondition.collect {
             it?.let {
                 binding.accommodationCondition = it
-                showLayout(it.checkOutDate)
+                showLayout(it.checkOutDate, it.adultCount)
             }
         }
     }
@@ -104,11 +103,11 @@ class AccommodationDetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun showLayout(checkOut: String) {
+    private fun showLayout(checkOut: String, adultCount: Int) {
         binding.clAccommodationDetailReservation.isVisible =
-            checkOut.isNotEmpty() && checkOut.isNotBlank()
+            (checkOut.isNotEmpty() && checkOut.isNotBlank()) && (adultCount != 0)
         binding.clAccommodationDetailInputInformation.isVisible =
-            !(checkOut.isNotEmpty() && checkOut.isNotBlank())
+            !(checkOut.isNotEmpty() && checkOut.isNotBlank() && (adultCount != 0))
     }
 
 
