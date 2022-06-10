@@ -11,8 +11,8 @@ class TmapRemoteDataSource(private val tmapApi: TmapApi) : TmapDataSource {
 
     override suspend fun getTotalTime(tmapTimeRequest: TmapTimeRequest): Flow<TmapTimeDto> {
         return flow {
-            val tmapTimeDto = tmapApi.getTotalTimeByCar(BuildConfig.TMAP_KEY, tmapTimeRequest)
+            val tmapTimeDto = tmapApi.getTotalTimeByCar(tmapTimeRequest)
             emit(tmapTimeDto)
-        }.flowOn(Dispatchers.Default)
+        }
     }
 }

@@ -103,7 +103,6 @@ class HomeFragment : Fragment() {
         )
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
         if (isAllPermissionsGranted()) {

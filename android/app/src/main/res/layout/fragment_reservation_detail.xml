@@ -185,7 +185,7 @@
 
         <TextView
             android:id="@+id/tv_reservation_discount_value"
-            style="@style/Subtitle1.Black"
+            style="@style/Subtitle1.Green1"
             bindCheckInDateValueDiscount="@{condition.checkInDate}"
             bindCheckOutDateValueDiscount="@{condition.checkOutDate}"
             bindOnlyOneDayPriceDiscount="@{accommodationDetail.oneDayPerPrice}"
@@ -206,7 +206,7 @@
 
         <TextView
             android:id="@+id/tv_reservation_clean_cost_value"
-            style="@style/Subtitle1.Green1"
+            style="@style/Subtitle1.Black"
             bindCleanCostToString="@{accommodationDetail.accommodationOptionLines}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

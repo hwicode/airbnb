@@ -9,6 +9,7 @@
     <com.skt.Tmap.TMapView
         android:id="@+id/tmap"
         android:layout_width="match_parent"
+        android:visibility="invisible"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,6 +19,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_map_card_list"
         android:layout_width="match_parent"
+        android:visibility="invisible"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,4 +30,21 @@
         tools:listitem="@layout/item_map_search_accommodation_card"
         />
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/search_result_progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:indeterminate="true" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+

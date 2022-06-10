@@ -34,26 +34,24 @@ class HomeViewModel(
     }
 
     @OptIn(FlowPreview::class)
-    private fun loadCityInfo(cityList: List<CityInfo>) {
-        viewModelScope.launch {
-            cityList.asFlow().flatMapMerge { cityItem ->
-                delay(500)
-                tmapRepository.getTotalTime(
-                    TmapTimeRequest(
-                        startY = _myLatitude,
-                        startX = _myLongitude,
-                        endY = cityItem.latitude,
-                        endX = cityItem.longitude
-                    )
+    suspend fun loadCityInfo(cityList: List<CityInfo>) {
+        cityList.asFlow().flatMapMerge { cityItem ->
+            delay(500)
+            tmapRepository.getTotalTime(
+                TmapTimeRequest(
+                    startY = _myLatitude,
+                    startX = _myLongitude,
+                    endY = cityItem.latitude,
+                    endX = cityItem.longitude
                 )
-            }.buffer().collectIndexed { index, value ->
-                _cityInfoStateFlow.setList(
-                    CityInfoWithTime(
-                        cityList[index],
-                        value
-                    )
+            )
+        }.buffer().collectIndexed { index, value ->
+            _cityInfoStateFlow.setList(
+                CityInfoWithTime(
+                    cityList[index],
+                    value
                 )
-            }
+            )
         }
     }
 

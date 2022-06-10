@@ -6,7 +6,7 @@
 
         <variable
             name="accommodation"
-            type="com.example.airbnb.domain.model.SearchResultAccommodation" />
+            type="com.example.airbnb.domain.model.SearchResult.SearchResultAccommodation" />
 
         <variable
             name="totalPay"
