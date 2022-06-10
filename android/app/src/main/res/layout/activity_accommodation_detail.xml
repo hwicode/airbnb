@@ -289,7 +289,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="요금을 확인하려면 날짜를 입력하세요."
+                android:text="@string/accommodation_detail_input_information_description"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_accommodation_detail_input_information"
                 app:layout_constraintHorizontal_chainStyle="packed"

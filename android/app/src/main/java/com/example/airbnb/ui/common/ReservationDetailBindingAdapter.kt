@@ -11,7 +11,8 @@ import java.text.DecimalFormat
 
 private val formatter = DecimalFormat("#,###")
 
-private fun convertStringToDateFormat(date: String) = LocalTime.parse(date).toString("MM월 dd일")
+private fun convertStringToDateFormat(date: String) =
+    DateTimeFormat.forPattern("yyyy-MM-dd").parseLocalDate(date).toString("MM월 dd일")
 
 @BindingAdapter("bindStringToDateFormat")
 fun bindStringToDateFormat(view: TextView, date: String?) {
@@ -21,9 +22,13 @@ fun bindStringToDateFormat(view: TextView, date: String?) {
     }
 }
 
-@BindingAdapter("bindAdultNumber", "bindChildCount")
+@BindingAdapter("bindAdultCount", "bindChildCount")
 fun bindGuestNumber(view: TextView, adultCount: Int?, childCount: Int?) {
-    view.text = "${adultCount ?: 0} + ${childCount ?: 0} 명"
+    var totalGuest = 0
+    childCount?.let {
+        totalGuest  = (adultCount ?: 0) + childCount
+    }
+    view.text = "$totalGuest 명"
 }
 
 @BindingAdapter("bindCostToString")
@@ -33,7 +38,7 @@ fun bindCostToString(view: TextView, cost: Int?) {
 
 @BindingAdapter("bindCleanCostToString")
 fun bindCleanCostToString(view: TextView, cost: List<AccommodationOptionLine>?) {
-    view.text = cost?.get(0)?.let { formatter.format(it.price) }
+    view.text = "₩${cost?.get(0)?.let { formatter.format(it.price) }}"
 }
 
 @BindingAdapter("bindOnlyOneDayPrice", "bindCheckInDate", "bindCheckOutDate")

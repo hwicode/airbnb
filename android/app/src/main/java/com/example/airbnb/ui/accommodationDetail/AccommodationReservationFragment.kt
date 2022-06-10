@@ -77,7 +77,7 @@ class AccommodationReservationFragment : DialogFragment() {
         val tax = (discount * 0.1).toInt()
         val totalPrice = fullyDayPrice - discount + cleanCost + serviceFee + tax
         val formatter = DecimalFormat("#,###")
-        binding.tvReservationTotalPriceValue.text = "₩${formatter.format(totalPrice)}"
+        binding.tvReservationAccommodationTotalPriceValue.text = "₩${formatter.format(totalPrice)}"
     }
 
     private fun getFullDayPrice(

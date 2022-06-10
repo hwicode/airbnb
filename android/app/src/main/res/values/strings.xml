@@ -53,4 +53,5 @@
     <string name="accommodation_detail_reservation">예약하기</string>
     <string name="accommodation_detail_input_information">정보 입력 하기</string>
     <string name="accommodation_detail_checkin_checkout">%s - %s</string>
+    <string name="accommodation_detail_input_information_description">요금을 확인하려면 날짜 또는 인원수를 입력하세요.</string>
 </resources>

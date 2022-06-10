@@ -117,7 +117,7 @@
             <TextView
                 android:id="@+id/tv_reservation_guest_number"
                 style="@style/Subtitle1.Black"
-                bindAdultNumber="@{condition.adultCount}"
+                bindAdultCount="@{condition.adultCount}"
                 bindChildCount="@{condition.childCount}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -206,7 +206,7 @@
 
         <TextView
             android:id="@+id/tv_reservation_clean_cost_value"
-            style="@style/Subtitle1.Black"
+            style="@style/Subtitle1.Green1"
             bindCleanCostToString="@{accommodationDetail.accommodationOptionLines}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -80,7 +80,7 @@ class AccommodationDetailActivity : AppCompatActivity() {
         viewModel.accommodationCondition.collect {
             it?.let {
                 binding.accommodationCondition = it
-                showLayout(it.checkOutDate)
+                showLayout(it.checkOutDate, it.adultCount)
             }
         }
     }
@@ -103,11 +103,11 @@ class AccommodationDetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun showLayout(checkOut: String) {
+    private fun showLayout(checkOut: String, adultCount: Int) {
         binding.clAccommodationDetailReservation.isVisible =
-            checkOut.isNotEmpty() && checkOut.isNotBlank()
+            (checkOut.isNotEmpty() && checkOut.isNotBlank()) && (adultCount != 0)
         binding.clAccommodationDetailInputInformation.isVisible =
-            !(checkOut.isNotEmpty() && checkOut.isNotBlank())
+            !(checkOut.isNotEmpty() && checkOut.isNotBlank() && (adultCount != 0))
     }
 
 
