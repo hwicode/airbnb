@@ -14,9 +14,6 @@ class SearchResultViewModel(private val repository: SearchRepository) : ViewMode
     private val _searchResult = MutableLiveData<List<SearchResult>>()
     val searchResult: LiveData<List<SearchResult>> = _searchResult
 
-    private val _pageAccommodations = MutableLiveData<List<SearchResult>>()
-    val pageAccommodations: LiveData<List<SearchResult>> = _pageAccommodations
-
     private val _searchCondition = MutableLiveData<SearchCondition>()
     val searchCondition: LiveData<SearchCondition> = _searchCondition
 
@@ -35,11 +32,6 @@ class SearchResultViewModel(private val repository: SearchRepository) : ViewMode
             }
 
         }
-    }
-
-    fun updatePage(pageNum: Int) {
-        _pageAccommodations.value =
-            _searchResult.value?.subList((pageNum - 1) * 10, (pageNum - 1) * 10 + 9)
     }
 
     fun loadSearchCondition(searchCondition: SearchCondition) {
