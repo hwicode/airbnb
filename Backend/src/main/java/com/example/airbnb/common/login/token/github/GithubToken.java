@@ -1,5 +1,6 @@
 package com.example.airbnb.common.login.token.github;
 
+import com.example.airbnb.common.login.token.WebToken;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 

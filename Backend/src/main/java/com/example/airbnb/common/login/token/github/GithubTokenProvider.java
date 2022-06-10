@@ -1,9 +1,12 @@
 package com.example.airbnb.common.login.token.github;
 
-import com.example.airbnb.common.login.oauth.common.ClientRegistration;
+import com.example.airbnb.business.core.domain.member.Member;
+import com.example.airbnb.common.configuration.oauth.ClientRegistration;
+import com.example.airbnb.common.login.token.WebTokenProvider;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -11,6 +14,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.net.URI;
 import java.util.Map;
+
+import static org.springframework.http.HttpHeaders.ACCEPT;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Component
 @RequiredArgsConstructor
@@ -25,8 +33,8 @@ public class GithubTokenProvider implements WebTokenProvider {
         return WebClient.create()
                 .post()
                 .uri(URI.create(registration.getTokenUrl()))
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .accept(MediaType.APPLICATION_JSON)
+                .contentType(APPLICATION_FORM_URLENCODED)
+                .accept(APPLICATION_JSON)
                 .bodyValue(createRequestBody(code, registration))
                 .retrieve()
                 .bodyToMono(GithubToken.class)
@@ -39,6 +47,7 @@ public class GithubTokenProvider implements WebTokenProvider {
         body.add(CLIENT_ID, registration.getClientId());
         body.add(CLIENT_SECRET, registration.getClientSecret());
         body.add(CODE, code);
+        body.add("redirect_uri", registration.getRedirectUri());
         return body;
     }
 
@@ -47,9 +56,11 @@ public class GithubTokenProvider implements WebTokenProvider {
         return WebClient.create()
                 .get()
                 .uri(clientRegistration.getUserInfoUrl())
+                .header(ACCEPT, clientRegistration.getVersion())
                 .headers(header -> header.setBearerAuth(accessToken))
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
+                .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {
+                })
                 .block();
     }
 }

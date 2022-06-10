@@ -1,4 +1,4 @@
-package com.example.airbnb.common.login.token.github;
+package com.example.airbnb.common.login.token;
 
 public interface WebToken {
 
