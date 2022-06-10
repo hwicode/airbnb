@@ -7,7 +7,8 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum AccommodationTypeException implements BaseExceptionType {
 
-    ACCOMMODATION_NOT_FOUND(404, "해당 숙소를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+    ACCOMMODATION_NOT_FOUND(404, "해당 숙소를 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
+    RESERVATION_NOT_FOUND(404, "해당 숙소를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
 
     private final int code;
     private final String message;
