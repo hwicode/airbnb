@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class TmapTimeDto(
     @SerializedName("features")
-    val features: List<Feature>,
+    val features: List<Feature>?,
 )
 
 data class Feature(
@@ -19,5 +19,7 @@ data class Properties(
 )
 
 fun TmapTimeDto.toTime(): Int {
-    return requireNotNull(features[0].properties.totalTime.div(60))
+    this.features?.let {
+        return it[0].properties.totalTime.div(60)
+    } ?: return 5
 }

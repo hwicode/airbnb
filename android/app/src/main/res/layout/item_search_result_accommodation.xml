@@ -5,7 +5,8 @@
     <data>
         <variable
             name="accommodation"
-            type="com.example.airbnb.domain.model.SearchResultAccommodation" />
+            type="com.example.airbnb.domain.model.SearchResult.SearchResultAccommodation" />
+
         <variable
             name="totalPay"
             type="Integer" />
@@ -14,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cl_search_result_accommodataion"
+        android:id="@+id/cl_reseravation_item_accommodataion"
         android:layout_marginBottom="23dp">
 
 

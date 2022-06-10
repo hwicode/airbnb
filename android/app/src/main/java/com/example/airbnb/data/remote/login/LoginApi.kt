@@ -7,7 +7,8 @@ import retrofit2.http.Query
 interface LoginApi {
 
     @GET("api/oauth/callback/")
-    suspend fun getJWT(@Query("code") code: String): ResponseBody
+    suspend fun getJWT(@Query("code") code: String): String
+
 }
 
 

@@ -1,6 +1,7 @@
-package com.example.airbnb.data.city
+package com.example.airbnb.data.dto
 
 
+import com.example.airbnb.domain.model.CityInfo
 import com.google.gson.annotations.SerializedName
 
 class CityDto : ArrayList<CityDtoItem>()

@@ -15,12 +15,12 @@ class TextDrawable(private val text: String) : Drawable() {
         this.style = Paint.Style.FILL_AND_STROKE
         this.color = Color.WHITE
         this.strokeWidth = 1f
-        this.setShadowLayer(6f, 0f, 0f, Color.BLACK);
+        this.setShadowLayer(10f, 2f, 2f, Color.BLACK);
     }
 
     override fun draw(canvas: Canvas) {
         canvas.drawRoundRect(RectF(0f, 0f, 200f, 100f), 20f, 20f, borderPaint)
-        canvas.drawText(text, 100f, 65f, paint)
+        canvas.drawText("₩${text}", 100f, 65f, paint)
     }
 
     override fun setAlpha(alpha: Int) {

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_searchresult"
-    app:startDestination="@id/searchResultFragment">
+    app:startDestination="@id/navigation_search">
 
     <fragment
-        android:id="@+id/searchResultFragment"
+        android:id="@+id/navigation_search"
         android:name="com.example.airbnb.ui.searchResult.SearchResultFragment"
         android:label="fragment_search_result"
         tools:layout="@layout/fragment_search_result" >
@@ -22,7 +22,7 @@
     </fragment>
     <activity
         android:id="@+id/accommodationActivity"
-        android:name="com.example.airbnb.ui.accommodationDetail.AccommodationActivity"
+        android:name="com.example.airbnb.ui.accommodationDetail.AccommodationDetailActivity"
         android:label="AccommodationActivity" />
     <activity
         android:id="@+id/mapSearchActivity"
@@ -34,4 +34,15 @@
         android:name="com.example.airbnb.ui.searchResult.SearchConditionFragment"
         android:label="fragment_search_condition"
         tools:layout="@layout/fragment_search_condition" />
+
+    <fragment
+        android:id="@+id/navigation_reservation"
+        android:name="com.example.airbnb.ui.reservation.ReservationFragment"
+        android:label="fragment_reservation"
+        tools:layout="@layout/fragment_reservation" />
+    <fragment
+        android:id="@+id/navigation_wish"
+        android:name="com.example.airbnb.ui.wish.WishFragment"
+        android:label="fragment_wish"
+        tools:layout="@layout/fragment_wish" />
 </navigation>

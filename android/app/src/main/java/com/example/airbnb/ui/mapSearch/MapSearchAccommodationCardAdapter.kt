@@ -7,11 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.airbnb.databinding.ItemMapSearchAccommodationCardBinding
-import com.example.airbnb.databinding.ItemSearchResultAccommodationBinding
-import com.example.airbnb.domain.model.SearchResultAccommodation
-import com.example.airbnb.ui.searchResult.SearchResultAdapter
+import com.example.airbnb.domain.model.SearchResult.SearchResultAccommodation
 
-class MapSearchAccommodationCardAdapter(private val itemClick: () -> Unit): ListAdapter<SearchResultAccommodation, MapSearchAccommodationCardAdapter.ViewHolder>(SearchResultAccommodationDiffUtil) {
+class MapSearchAccommodationCardAdapter(private val itemClick: (Int) -> Unit): ListAdapter<SearchResultAccommodation, MapSearchAccommodationCardAdapter.ViewHolder>(SearchResultAccommodationDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,11 +23,11 @@ class MapSearchAccommodationCardAdapter(private val itemClick: () -> Unit): List
     class ViewHolder(private val binding: ItemMapSearchAccommodationCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(accommodation: SearchResultAccommodation, itemClick: () -> Unit) {
+        fun bind(accommodation: SearchResultAccommodation, itemClick: (Int) -> Unit) {
             binding.accommodation= accommodation
             binding.tvSearchResultHostInfo.isVisible= accommodation.superHost
             binding.root.setOnClickListener {
-                itemClick.invoke()
+                itemClick.invoke(accommodation.accommodationID)
             }
 
         }
