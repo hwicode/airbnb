@@ -5,9 +5,11 @@ import android.graphics.Canvas
 import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
+import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.airbnb.BuildConfig
 import com.example.airbnb.R
@@ -37,12 +39,11 @@ class MapSearchActivity : AppCompatActivity() {
         geocoder= Geocoder(this)
         val savedCondition = intent.getParcelableExtra<SearchCondition>("condition")
 
-        println( geocoder.getFromLocationName("서울특별시 관악구 관악로11가길",10)[0].latitude)
-        println(geocoder.getFromLocationName("서울특별시 관악구 관악로11가길",10)[0].longitude)
         savedCondition?.let { viewModel.loadSearchCondition(it) }
         tMapView = findViewById<TMapView>(R.id.tmap)
+
         cardRecyclerView = findViewById(R.id.rv_map_card_list)
-        tMapView.setSKTMapApiKey(BuildConfig.TMAP_KEY)
+
         val adapter = MapSearchAccommodationCardAdapter() {id->
             openDetail(id)
         }
@@ -58,7 +59,6 @@ class MapSearchActivity : AppCompatActivity() {
         val center = viewModel.searchCondition.value?.searchTag
         val latitude = geocoder.getFromLocationName(center, 10)[0].latitude
         val longitude= geocoder.getFromLocationName(center, 10)[0].longitude
-        tMapView.setCenterPoint(longitude, latitude)
         viewModel.searchResult.observe(this) {
             val result = it.map { searchResult ->
                 searchResult as SearchResultAccommodation
@@ -67,7 +67,11 @@ class MapSearchActivity : AppCompatActivity() {
             result.map { accommodation->
                 getLocation(accommodation.address, accommodation.payPerNight)
             }
-
+            tMapView.setCenterPoint(longitude, latitude)
+            tMapView.setSKTMapApiKey(BuildConfig.TMAP_KEY)
+            findViewById<ProgressBar>(R.id.search_result_progressBar).isVisible=false
+            tMapView.isVisible=true
+            cardRecyclerView.isVisible=true
 
         }
     }
