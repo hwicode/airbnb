@@ -8,13 +8,11 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.RecyclerView
 import com.example.airbnb.BuildConfig
 import com.example.airbnb.R
-import com.example.airbnb.common.Constants
 import com.example.airbnb.domain.model.SearchCondition
-import com.example.airbnb.domain.model.SearchResultAccommodation
+import com.example.airbnb.domain.model.SearchResult.SearchResultAccommodation
 import com.example.airbnb.ui.accommodationDetail.AccommodationDetailActivity
 import com.example.airbnb.ui.common.TextDrawable
 import com.skt.Tmap.TMapMarkerItem

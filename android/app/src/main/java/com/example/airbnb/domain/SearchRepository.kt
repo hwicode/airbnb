@@ -1,9 +1,7 @@
 package com.example.airbnb.domain
 
-import com.example.airbnb.domain.model.ReservationItem
 import com.example.airbnb.domain.model.SearchCondition
-import com.example.airbnb.domain.model.SearchResultAccommodation
-import com.example.airbnb.domain.model.WishItem
+import com.example.airbnb.domain.model.SearchResult.SearchResultAccommodation
 
 interface SearchRepository {
     suspend fun getAccomnodationsByTag(tag:String, pageNum:Int):List<SearchResultAccommodation>

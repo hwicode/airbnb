@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.airbnb.databinding.ItemMapSearchAccommodationCardBinding
-import com.example.airbnb.databinding.ItemSearchResultAccommodationBinding
-import com.example.airbnb.domain.model.SearchResultAccommodation
-import com.example.airbnb.ui.searchResult.SearchResultAdapter
+import com.example.airbnb.domain.model.SearchResult.SearchResultAccommodation
 
 class MapSearchAccommodationCardAdapter(private val itemClick: (Int) -> Unit): ListAdapter<SearchResultAccommodation, MapSearchAccommodationCardAdapter.ViewHolder>(SearchResultAccommodationDiffUtil) {
 

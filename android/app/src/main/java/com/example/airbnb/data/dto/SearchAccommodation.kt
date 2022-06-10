@@ -1,7 +1,7 @@
 package com.example.airbnb.data.dto
 
 
-import com.example.airbnb.domain.model.SearchResultAccommodation
+import com.example.airbnb.domain.model.SearchResult.SearchResultAccommodation
 import com.google.gson.annotations.SerializedName
 
 data class SearchAccommodation(

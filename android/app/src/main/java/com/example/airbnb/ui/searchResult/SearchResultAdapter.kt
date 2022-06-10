@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.airbnb.databinding.ItemSearchResultAccommodationBinding
 import com.example.airbnb.databinding.ItemSearchResultProgressbarBinding
 import com.example.airbnb.domain.model.SearchResult
-import com.example.airbnb.domain.model.SearchResultAccommodation
-import com.example.airbnb.domain.model.SearchResultProgressBar
+import com.example.airbnb.domain.model.SearchResult.SearchResultAccommodation
+import com.example.airbnb.domain.model.SearchResult.SearchResultProgressBar
+
 
 const val VIEW_TYPE_LOADING = 0
 const val VIEW_TYPE_ITEM = 1
@@ -29,8 +30,7 @@ class SearchResultAdapter(private val itemClick: (Int) -> Unit, private val cond
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
             is LoadingViewHolder->{
-                val item= items[position] as SearchResultProgressBar
-                holder.bind(item)
+                holder.bind()
             }
             is ItemViewHolder->{
                 val item= items[position] as SearchResultAccommodation
@@ -51,7 +51,7 @@ class SearchResultAdapter(private val itemClick: (Int) -> Unit, private val cond
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(accommodation: SearchResultAccommodation, itemClick: (accommodationID: Int) -> Unit, conditionClick: (accommodationID: Int) -> Unit) {
-            binding.accommodation= accommodation
+            binding.accommodation = accommodation
             binding.tvSearchResultHostInfo.isVisible= accommodation.superHost
 
             binding.iBtnWish.setOnClickListener {
@@ -64,8 +64,8 @@ class SearchResultAdapter(private val itemClick: (Int) -> Unit, private val cond
         }
     }
     inner class LoadingViewHolder(private val binding:ItemSearchResultProgressbarBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(loadingBar: SearchResultProgressBar){
-            binding.searchResultProgressBar.isVisible= loadingBar.isLoading
+        fun bind(){
+            binding.searchResultProgressBar.isVisible = true
         }
     }
 
@@ -75,7 +75,7 @@ class SearchResultAdapter(private val itemClick: (Int) -> Unit, private val cond
 
     fun submitList(items:List<SearchResult>){
         this.items.addAll(items)
-        this.items.add(SearchResultProgressBar(true))
+        this.items.add(SearchResultProgressBar)
     }
 
     fun deleteLoading(){

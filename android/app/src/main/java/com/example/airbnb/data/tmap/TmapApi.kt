@@ -6,9 +6,8 @@ import retrofit2.http.POST
 
 interface TmapApi {
 
-    @POST("routes?version=1&format=json&callback=result")
+    @POST("routes?version=1&callback=result")
     suspend fun getTotalTimeByCar(
-        @Header("appkey") appkey: String,
         @Body tmap: TmapTimeRequest
     ): TmapTimeDto
 
