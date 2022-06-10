@@ -5,6 +5,14 @@
 
     <data>
 
+        <variable
+            name="condition"
+            type="com.example.airbnb.domain.model.SearchCondition" />
+
+        <variable
+            name="accommodationDetail"
+            type="com.example.airbnb.domain.model.AccommodationDetailItem" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,9 +23,9 @@
         <TextView
             android:id="@+id/tv_reservation_day_price"
             style="@style/Subtitle1.Grey1"
+            bindOneDayPrice="@{accommodationDetail.oneDayPerPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="70,000/박"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,10 +53,10 @@
             <TextView
                 android:id="@+id/tv_reservation_checkin_day"
                 style="@style/Subtitle1.Black"
+                bindStringToDateFormat="@{condition.checkInDate}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="5월 16일"
                 app:layout_constraintStart_toStartOf="@+id/tv_reservation_checkin"
                 app:layout_constraintTop_toBottomOf="@+id/tv_reservation_checkin" />
 
@@ -88,10 +96,10 @@
             <TextView
                 android:id="@+id/tv_reservation_checkout_day"
                 style="@style/Subtitle1.Black"
+                bindStringToDateFormat="@{condition.checkOutDate}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="6월 4일"
                 app:layout_constraintStart_toStartOf="@+id/tv_reservation_checkout"
                 app:layout_constraintTop_toBottomOf="@+id/tv_reservation_checkout" />
 
@@ -109,10 +117,11 @@
             <TextView
                 android:id="@+id/tv_reservation_guest_number"
                 style="@style/Subtitle1.Black"
+                bindAdultNumber="@{condition.adultCount}"
+                bindChildCount="@{condition.childCount}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="게스트 3명"
                 app:layout_constraintStart_toStartOf="@+id/tv_reservation_guest"
                 app:layout_constraintTop_toBottomOf="@+id/tv_reservation_guest" />
 
@@ -144,19 +153,23 @@
         <TextView
             android:id="@+id/tv_reservation_total_price"
             style="@style/Subtitle1.Black"
+            bindCheckInDate="@{condition.checkInDate}"
+            bindCheckOutDate="@{condition.checkOutDate}"
+            bindOnlyOneDayPrice="@{accommodationDetail.oneDayPerPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="71,466 x 18박"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_reservation_description" />
 
         <TextView
             android:id="@+id/tv_reservation_total_price_value"
             style="@style/Subtitle1.Black"
+            bindCheckInDateValue="@{condition.checkInDate}"
+            bindCheckOutDateValue="@{condition.checkOutDate}"
+            bindOnlyOneDayPriceValue="@{accommodationDetail.oneDayPerPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1,322,396"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_reservation_total_price" />
 
@@ -173,9 +186,11 @@
         <TextView
             android:id="@+id/tv_reservation_discount_value"
             style="@style/Subtitle1.Black"
+            bindCheckInDateValueDiscount="@{condition.checkInDate}"
+            bindCheckOutDateValueDiscount="@{condition.checkOutDate}"
+            bindOnlyOneDayPriceDiscount="@{accommodationDetail.oneDayPerPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="55,948"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_reservation_discount" />
 
@@ -192,9 +207,9 @@
         <TextView
             android:id="@+id/tv_reservation_clean_cost_value"
             style="@style/Subtitle1.Black"
+            bindCleanCostToString="@{accommodationDetail.accommodationOptionLines}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="25,996"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_reservation_clean_cost" />
 
@@ -211,9 +226,11 @@
         <TextView
             android:id="@+id/tv_reservation_service_fee_value"
             style="@style/Subtitle1.Black"
+            bindCheckInDateServiceFee="@{condition.checkInDate}"
+            bindCheckOutDateServiceFee="@{condition.checkOutDate}"
+            bindOnlyOneDayPriceServiceFee="@{accommodationDetail.oneDayPerPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="8,188"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_reservation_service_fee" />
 
@@ -230,9 +247,11 @@
         <TextView
             android:id="@+id/tv_reservation_reservation_tax_value"
             style="@style/Subtitle1.Black"
+            bindCheckInDateTax="@{condition.checkInDate}"
+            bindCheckOutDateTax="@{condition.checkOutDate}"
+            bindOnlyOneDayPriceTax="@{accommodationDetail.oneDayPerPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="819"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_reservation_reservation_tax" />
 
@@ -260,10 +279,9 @@
             style="@style/HeadLine6.Black.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1,488,195"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_reservation_accommodation_total_price" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

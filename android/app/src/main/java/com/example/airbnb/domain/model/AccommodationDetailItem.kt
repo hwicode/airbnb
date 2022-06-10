@@ -1,11 +1,14 @@
 package com.example.airbnb.domain.model
 
+import com.example.airbnb.data.dto.AccommodationOptionLine
+
 
 data class AccommodationDetailItem(
     val accommodationId: Int,
     val accommodationType: String,
     val address: String,
     val averageRating: Double,
+    val accommodationOptionLines: List<AccommodationOptionLine>,
     val bathRooms: Int,
     val bedRooms: Int,
     val beds: Int,
