@@ -8,5 +8,5 @@
 .externalNativeBuild
 .cxx
 local.properties
-
+/out
 src/main/resources/application-dev.yml
